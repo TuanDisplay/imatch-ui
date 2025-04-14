@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom';
-import Menu from '~/components/Menu';
+import Menu from '~/components/Popup';
 import { ChevronUp } from 'lucide-react';
 import Button from '~/components/Button';
+import { useModalStore } from '~/hooks/useModalStore';
 
 const links = [
   { href: '/posting', label: 'Đăng ý tưởng' },
@@ -10,6 +11,8 @@ const links = [
 ];
 
 export default function Header() {
+  const { openModal } = useModalStore();
+
   return (
     <header className="wrapper">
       <div className="flex items-center justify-between px-4 py-2">
@@ -27,7 +30,9 @@ export default function Header() {
           <Link to="/about">Về chúng tôi</Link>
         </nav>
 
-        <Button className="primary">Đăng nhập</Button>
+        <Button className="primary" onClick={openModal}>
+          Đăng nhập
+        </Button>
       </div>
     </header>
   );

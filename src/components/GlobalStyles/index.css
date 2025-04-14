@@ -2,6 +2,7 @@
 
 @theme {
   --color-primary: #ff6e00;
+  --color-secondary: rgba(0, 0, 0, 0.5);
 
   --color-skyBlue-500: #0d99ff;
   --color-skyBlue-700: #111827;
