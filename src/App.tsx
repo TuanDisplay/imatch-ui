@@ -1,12 +1,36 @@
+import { BrowserRouter, Routes, Route } from 'react-router';
+import MainLayout from './layouts';
+import { publicRoutes } from './routes';
+
 function App() {
   return (
-    <h1 className="bg-sky-700 px-4 py-2 text-white hover:bg-sky-800 sm:px-8 sm:py-3">
-      Hello world!
-      <h2 className="text-2xl font-medium text-red-100">Xin chào</h2>
-      <div className="rounded bg-blue-500 px-4 py-2 text-center font-bold text-white hover:bg-blue-600">
-        Click me
+    <BrowserRouter>
+      <div className="App">
+        <Routes>
+          {publicRoutes.map((route, index) => {
+            const Page = route.component;
+
+            let Layout = MainLayout;
+
+            if (route.layout) {
+              Layout = route.layout;
+            }
+
+            return (
+              <Route
+                key={index}
+                path={route.path}
+                element={
+                  <Layout>
+                    <Page />
+                  </Layout>
+                }
+              />
+            );
+          })}
+        </Routes>
       </div>
-    </h1>
+    </BrowserRouter>
   );
 }
 

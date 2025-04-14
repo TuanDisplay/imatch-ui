@@ -1,0 +1,67 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-primary: #ff6e00;
+
+  --color-skyBlue-500: #0d99ff;
+  --color-skyBlue-700: #111827;
+  --color-skyBlue-900: #17265c;
+
+  --color-green-500: #05892d;
+
+  --font-VNPro: 'VNPro', sans-serif;
+  --font-montserrat: 'Montserrat', sans-serif;
+  /* --font-montserrat: 'Montserrat', 'sans-serif' */
+
+  /* Default layout */
+  --default-layout-header-height: 80px;
+}
+
+body {
+  font-family: var(--font-VNPro);
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+/* Fonts emmbeded */
+@font-face {
+  font-family: VNPro;
+  src: url('/src/assets/fonts/BeVietnamPro-Thin.ttf');
+  font-weight: 100;
+}
+
+@font-face {
+  font-family: VNPro;
+  src: url('/src/assets/fonts/BeVietnamPro-Light.ttf');
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: VNPro;
+  src: url('/src/assets/fonts/BeVietnamPro-Regular.ttf');
+  font-weight: 400;
+}
+
+/* @font-face {
+  font-family: VNPro;
+  src: url('/src/assets/fonts/BeVietnamPro-Medium.ttf');
+  font-weight: 500;
+} */
+
+@font-face {
+  font-family: VNPro;
+  src: url('/src/assets/fonts/BeVietnamPro-Bold.ttf');
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: Montserrat;
+  src: url('/src/assets/fonts/Montserrat-Regular.ttf');
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: Montserrat;
+  src: url('/src/assets/fonts/Montserrat-Bold.ttf');
+  font-weight: 700;
+}
