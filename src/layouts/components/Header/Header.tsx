@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import Menu from '~/components/Popup';
+import { Menu } from '~/components/Popup';
 import { ChevronUp } from 'lucide-react';
 import Button from '~/components/Button';
 import { useModalStore } from '~/hooks/useModalStore';
@@ -30,7 +30,7 @@ export default function Header() {
           <Link to="/about">Về chúng tôi</Link>
         </nav>
 
-        <Button className="primary" onClick={openModal}>
+        <Button className="primary px-3 py-2 font-semibold" onClick={openModal}>
           Đăng nhập
         </Button>
       </div>

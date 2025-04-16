@@ -2,12 +2,12 @@ import { BrowserRouter, Routes, Route } from 'react-router';
 
 import MainLayout from '~/layouts';
 import { publicRoutes } from '~/routes';
-import Modal from '~/components/Popup';
+import AuthModal from './modals';
 
 function App() {
   return (
     <BrowserRouter>
-      <Modal />
+      <AuthModal />
       <Routes>
         {publicRoutes.map((route, index) => {
           const Page = route.component;
@@ -24,9 +24,7 @@ function App() {
               path={route.path}
               element={
                 <Layout>
-                  <>
-                    <Page />
-                  </>
+                  <Page />
                 </Layout>
               }
             />

@@ -1,3 +1,4 @@
+import { ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import clsx from 'clsx';
 import './Button.css';
@@ -5,8 +6,11 @@ import './Button.css';
 interface ButtonProps {
   to?: string;
   href?: string;
+  type?: string;
   onClick?: () => void;
   disable?: boolean;
+  leftIcon?: ReactNode;
+  rightIcon?: ReactNode;
   children: string;
   className?: string;
 }
@@ -14,16 +18,18 @@ interface ButtonProps {
 export default function Button({
   to,
   href,
+  type,
   onClick,
   disable = false,
+  leftIcon,
+  rightIcon,
   children,
   className = '',
-  ...passProps
 }: ButtonProps) {
   let Comp: any = 'button';
   const props: any = {
+    type,
     onClick,
-    ...passProps,
   };
 
   if (disable) {
@@ -42,8 +48,16 @@ export default function Button({
     Comp = 'a';
   }
   return (
-    <Comp className={clsx('px-3 py-2', className)} {...props}>
-      <span className="font-bold">{children}</span>
+    <Comp
+      className={clsx(
+        'flex cursor-pointer items-center justify-center',
+        className,
+      )}
+      {...props}
+    >
+      {leftIcon && <span className="icon">{leftIcon}</span>}
+      <span className="">{children}</span>
+      {rightIcon && <span className="icon">{rightIcon}</span>}
     </Comp>
   );
 }

@@ -4,8 +4,29 @@
   border-radius: var(--radius-lg);
 }
 
+.primary-radius-none {
+  color: var(--color-white);
+  background-color: var(--color-primary);
+  border-radius: none;
+}
+
+.primary:hover,
+.primary-radius-none:hover {
+  background-color: var(--color-orange-600);
+}
+
 .outline {
   color: var(--color-skyBlue-700);
   outline: none;
   text-decoration: underline;
+}
+
+.text {
+  color: var(--color-black);
+}
+
+.icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
