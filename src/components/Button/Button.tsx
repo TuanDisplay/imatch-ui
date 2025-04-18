@@ -50,7 +50,7 @@ export default function Button({
   return (
     <Comp
       className={clsx(
-        'flex cursor-pointer items-center justify-center',
+        'flex cursor-pointer items-center justify-center gap-2 duration-500',
         className,
       )}
       {...props}

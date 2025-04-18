@@ -6,7 +6,7 @@ export default function MainLayout({ children }: ChildNode) {
   return (
     <div className="flex flex-col">
       <Header />
-      <div className="flex-1">{children}</div>
+      <div>{children}</div>
       <Footer />
     </div>
   );

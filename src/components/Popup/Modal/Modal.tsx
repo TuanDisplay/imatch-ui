@@ -2,25 +2,25 @@ import Button from '~/components/Button';
 import ModalWrapper from './ModalWrapper';
 import { ChevronLeft } from 'lucide-react';
 import { ChildNode } from '~/common/types';
-import { useModalStore } from '~/hooks/useModalStore';
+import { useAuthModal } from '~/hooks/useModalStore';
 import { useEffect, useRef } from 'react';
 
 export default function Modal({ children }: ChildNode) {
-  const { closeModal } = useModalStore();
+  const { closeAuthModal } = useAuthModal();
 
   const modalRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
       if (modalRef.current && !modalRef.current.contains(e.target as Node)) {
-        closeModal();
+        closeAuthModal();
       }
     };
     document.addEventListener('mousedown', handleClickOutside);
     return () => {
       document.addEventListener('mousedown', handleClickOutside);
     };
-  }, [closeModal]);
+  }, [closeAuthModal]);
 
   return (
     <ModalWrapper>
@@ -31,7 +31,7 @@ export default function Modal({ children }: ChildNode) {
         <Button
           className="text text-sm font-medium"
           leftIcon={<ChevronLeft className="h-4 w-4" />}
-          onClick={closeModal}
+          onClick={closeAuthModal}
         >
           Quay lại
         </Button>

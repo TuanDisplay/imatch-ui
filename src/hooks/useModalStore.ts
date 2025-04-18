@@ -1,13 +1,25 @@
 import { create } from 'zustand';
 
-type ModalStore = {
-  isModalOpen: boolean;
-  openModal: () => void;
-  closeModal: () => void;
+type TAuthModal = {
+  isAuthOpen: boolean;
+  openAuthModal: () => void;
+  closeAuthModal: () => void;
 };
 
-export const useModalStore = create<ModalStore>((set) => ({
-  isModalOpen: false,
-  openModal: () => set({ isModalOpen: true }),
-  closeModal: () => set({ isModalOpen: false }),
+type TDropdownModal = {
+  isDropdownOpen: boolean;
+  openDropdownModal: () => void;
+  closeDropdownModal: () => void;
+};
+
+export const useAuthModal = create<TAuthModal>((set) => ({
+  isAuthOpen: false,
+  openAuthModal: () => set({ isAuthOpen: true }),
+  closeAuthModal: () => set({ isAuthOpen: false }),
+}));
+
+export const useDropdownModal = create<TDropdownModal>((set) => ({
+  isDropdownOpen: false,
+  openDropdownModal: () => set({ isDropdownOpen: true }),
+  closeDropdownModal: () => set({ isDropdownOpen: false }),
 }));

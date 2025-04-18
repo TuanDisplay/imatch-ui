@@ -1,18 +1,18 @@
 import { useEffect, useState } from 'react';
 
-import { useModalStore } from '~/hooks/useModalStore';
+import { useAuthModal } from '~/hooks/useModalStore';
 import Login from './LoginForm';
 import Register from './RegisterForm';
 
 export default function AuthModal() {
   const [isLogin, setLogin] = useState<boolean>(true);
-  const { isModalOpen } = useModalStore();
+  const { isAuthOpen } = useAuthModal();
 
   useEffect(() => {
     setLogin(true);
-  }, [isModalOpen]);
+  }, [isAuthOpen]);
 
-  if (!isModalOpen) return;
+  if (!isAuthOpen) return;
 
   return (
     <div>
