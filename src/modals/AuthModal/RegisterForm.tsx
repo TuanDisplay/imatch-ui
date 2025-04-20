@@ -87,13 +87,14 @@ export default function RegisterForm({ setState }: TSetState) {
               />
               <Button
                 type="button"
-                className="primary-radius-none px-2 font-medium"
+                className="rounded-none px-2 font-medium"
+                primary
               >
                 Gửi mã
               </Button>
             </div>
 
-            <Button type="submit" className="primary mt-3 w-full p-1 font-bold">
+            <Button type="submit" className="mt-3 w-full p-1 font-bold" primary>
               Đăng ký
             </Button>
           </div>

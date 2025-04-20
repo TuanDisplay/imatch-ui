@@ -1,30 +1,33 @@
 import { ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import clsx from 'clsx';
-import './Button.css';
 
 interface ButtonProps {
   to?: string;
   href?: string;
   type?: string;
-  onClick?: () => void;
+  primary?: boolean;
+  outline?: boolean;
   disable?: boolean;
   leftIcon?: ReactNode;
   rightIcon?: ReactNode;
   children: string;
   className?: string;
+  onClick?: () => void;
 }
 
 export default function Button({
   to,
   href,
   type,
-  onClick,
+  primary,
+  outline,
   disable = false,
   leftIcon,
   rightIcon,
   children,
   className = '',
+  onClick,
 }: ButtonProps) {
   let Comp: any = 'button';
   const props: any = {
@@ -51,12 +54,17 @@ export default function Button({
     <Comp
       className={clsx(
         'flex cursor-pointer items-center justify-center gap-2 duration-500',
+        {
+          'bg-primary rounded-lg text-white hover:bg-orange-600 hover:shadow-2xl':
+            primary,
+          'text-skyBlue-700 underline outline-0': outline,
+        },
         className,
       )}
       {...props}
     >
       {leftIcon && <span className="icon">{leftIcon}</span>}
-      <span className="">{children}</span>
+      <span>{children}</span>
       {rightIcon && <span className="icon">{rightIcon}</span>}
     </Comp>
   );

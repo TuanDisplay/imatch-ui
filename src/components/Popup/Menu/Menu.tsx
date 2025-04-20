@@ -27,17 +27,21 @@ export default function Menu({ children, links }: MenuProps) {
       {({ open }) => {
         return (
           <>
-            <MenuButton className={'flex cursor-pointer items-center gap-2'}>
+            <MenuButton
+              className={
+                'hover:text-primary flex cursor-pointer items-center gap-2 duration-500'
+              }
+            >
               {children}
               <ChevronUp
-                className={clsx('h-4 w-4 duration-500', {
+                className={clsx('h-4 w-4', {
                   'rotate-180': open,
                 })}
               />
             </MenuButton>
             <MenuItems
               anchor="bottom"
-              className="absolute z-[9999] mt-5 w-48 origin-top-right rounded-md bg-white text-nowrap shadow-lg duration-500"
+              className="absolute z-[9999] mt-5 w-48 origin-top-right rounded-md bg-white text-nowrap shadow-lg duration-300"
             >
               {links.map((link) => (
                 <MenuItem key={link.href}>
