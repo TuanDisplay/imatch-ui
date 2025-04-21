@@ -32,6 +32,8 @@ export const registerSchema = z.object({
     .refine((val) => !val.includes(' '), {
       message: 'Mật khẩu không được chứa khoảng trắng',
     }),
+
+  selected: z.string().min(1, "Vui lòng chọn danh mục"),
 });
 
 export type TRegisterSchema = z.infer<typeof registerSchema>;

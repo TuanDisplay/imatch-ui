@@ -8,9 +8,21 @@ import { useHasScrolledBeyond } from '~/hooks/useHasScrolledBeyond';
 import clsx from 'clsx';
 
 const links = [
-  { href: '/posting', label: 'Đăng ý tưởng', icon: <CircleFadingArrowUp /> },
-  { href: '/exchange', label: 'Mua ý tưởng', icon: <ShoppingCart /> },
-  { href: '/solving', label: 'Đưa giải pháp', icon: <HandCoins /> },
+  {
+    href: '/posting',
+    label: 'Đăng ý tưởng',
+    icon: <CircleFadingArrowUp className="h-5" />,
+  },
+  {
+    href: '/exchange',
+    label: 'Mua ý tưởng',
+    icon: <ShoppingCart className="h-5" />,
+  },
+  {
+    href: '/solving',
+    label: 'Đưa giải pháp',
+    icon: <HandCoins className="h-5" />,
+  },
 ];
 
 export default function Header() {

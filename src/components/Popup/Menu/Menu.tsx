@@ -41,14 +41,14 @@ export default function Menu({ children, links }: MenuProps) {
             </MenuButton>
             <MenuItems
               anchor="bottom"
-              className="absolute z-[9999] mt-5 w-48 origin-top-right rounded-md bg-white text-nowrap shadow-lg duration-300"
+              className="absolute z-[9999] mt-5 origin-top-right rounded-md bg-white text-nowrap shadow-lg duration-300"
             >
               {links.map((link) => (
                 <MenuItem key={link.href}>
                   <Button
                     href={link.href}
                     leftIcon={link.icon}
-                    className="hover:bg-primary cursor-pointer justify-start px-6 py-2.5 hover:text-white"
+                    className="hover:bg-primary cursor-pointer justify-start px-5 py-2.5 text-sm hover:text-white"
                   >
                     {link.label}
                   </Button>
