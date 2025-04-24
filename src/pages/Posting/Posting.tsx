@@ -1,10 +1,12 @@
 import { useForm } from 'react-hook-form';
-import TextInput from './FormItem/TextInput';
-import { SelectInput } from './FormItem';
-import Button from '~/components/Button';
-import { useQuill } from 'react-quilljs';
 
-import 'quill/dist/quill.snow.css';
+import Button from '~/components/Button';
+import {
+  TextField,
+  SelectField,
+  EditorField,
+  UploadImageField,
+} from './FormItem';
 
 const majorO = [
   { value: '', name: 'Chọn lĩnh vực ngành' },
@@ -19,43 +21,8 @@ const methodO = [
   { value: 'solving-problem', name: 'Đặt vấn đề' },
 ];
 
-const toolbarOptions = [
-  ['bold', 'italic', 'underline', 'strike'], // toggled buttons
-  ['blockquote', 'code-block'],
-  ['link', 'image', 'video', 'formula'],
-
-  [{ header: 1 }, { header: 2 }], // custom button values
-  [{ list: 'ordered' }, { list: 'bullet' }, { list: 'check' }],
-  [{ script: 'sub' }, { script: 'super' }], // superscript/subscript
-  [{ indent: '-1' }, { indent: '+1' }], // outdent/indent
-  [{ direction: 'rtl' }], // text direction
-
-  [{ size: ['small', false, 'large', 'huge'] }], // custom dropdown
-  [{ header: [1, 2, 3, 4, 5, 6, false] }],
-
-  [{ color: [] }, { background: [] }], // dropdown with defaults from theme
-  [{ font: [] }],
-  [{ align: [] }],
-
-  ['clean'], // remove formatting button
-];
-
 export default function Posting() {
   const { handleSubmit } = useForm({});
-  const theme = 'snow';
-  // const theme = 'bubble';
-
-  const modules = {
-    toolbar: toolbarOptions,
-  };
-
-  const placeholder =
-    'Giới thiệu về sản phẩm, từ những vấn đề nào để dẫn đến ý tưởng này...';
-
-  // const formats = ['bold', 'italic', 'underline', 'strike', 'size'];
-
-  const { quillRef: quillRef1 } = useQuill({ theme, modules, placeholder });
-  const { quillRef: quillRef2 } = useQuill({ theme, modules, placeholder });
 
   const onSubmit = () => {
     alert('Submit thanh cong');
@@ -84,65 +51,72 @@ export default function Posting() {
             Vui lòng nhập đầy đủ các thông tin dưới đây
           </h2>
           <div className="mt-10 space-y-10">
-            <TextInput
+            <TextField
               id="topic-name"
               label="Tên ý tưởng"
               placeholder="Vui lòng tóm tắt tiêu đề ngắn gọn, dễ hiểu"
               isRequire
             />
 
-            <SelectInput
+            <SelectField
               id="major"
               label="Lĩnh vực ngành"
               optionData={majorO}
               isRequire
             />
 
-            <SelectInput
+            <SelectField
               id="method"
               label="Phương thức"
               optionData={methodO}
               isRequire
             />
 
-            <div className="flex flex-col gap-3">
-              <label className="text-skyBlue-900 text-xl font-bold">
-                Nội dung chi tiết
-                <span className="text-red-500"> *</span>
-              </label>
-              <div className="h-[300px] overflow-hidden rounded-xl bg-white drop-shadow-xl">
-                <div ref={quillRef1} />
-              </div>
-            </div>
+            <EditorField
+              label="Nội dung chi tiết"
+              placeholder="Giới thiệu về sản phẩm, từ những vấn đề nào để dẫn đến ý tưởng này..."
+              isRequire
+            />
 
-            <div className="flex flex-col gap-3">
-              <label className="text-skyBlue-900 text-xl font-bold">
-                Giá trị và lợi ích
-                <span className="text-red-500"> *</span>
-              </label>
-              <div className="h-[300px] overflow-hidden rounded-xl bg-white drop-shadow-xl">
-                <div ref={quillRef2} />
-              </div>
-            </div>
+            <EditorField
+              label="Giá trị và lợi ích"
+              placeholder="Giá trị và lợi ích của sản phẩm mang lại là gì?"
+              isRequire
+            />
+
+            <UploadImageField
+              label="Bạn đã đăng ký quyền sở hữu trí tuệ cho ý tưởng này chưa?"
+              subtitle="Vui lòng cung cấp hình ảnh lên nếu như bạn đã đăng ký quyền sở
+              hữu trí tuệ cho ý tưởng này."
+              isSelectRadio={true}
+              isRequire
+            />
+
+            <UploadImageField
+              label="Hình Ảnh"
+              subtitle="Vui lòng cung cấp 2 hình ảnh liên quan đến ý tưởng."
+              isSelectRadio={false}
+              isRequire
+            />
           </div>
           <div className="mt-5">
             <h3 className="text-skyBlue-900 text-3xl font-bold">
               Thông tin liên hệ
             </h3>
             <div className="mt-10 space-y-10">
-              <TextInput
+              <TextField
                 id="full-name"
                 label="Họ và tên"
                 placeholder="Nhập họ và tên của bạn"
                 isRequire
               />
-              <TextInput
+              <TextField
                 id="email"
                 label="Email"
                 placeholder="Email của bạn"
                 isRequire
               />
-              <TextInput
+              <TextField
                 id="phone-number"
                 label="Số điện thoại"
                 placeholder="Số điện thoại của bạn"

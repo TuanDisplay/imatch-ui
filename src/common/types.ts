@@ -5,6 +5,26 @@ export interface ChildNode {
   children: ReactNode;
 }
 
+export interface IPostForm {
+  id?: string;
+  label: string;
+  placeholder?: string;
+  isRequire: boolean;
+}
+
+export interface ICardItem {
+  id?: number;
+  imageUrl: string;
+  category: string;
+  title: string;
+  desc?: string;
+  author?: string;
+  views?: number;
+  publishDate: string;
+  award?: number;
+  submission?: number;
+}
+
 export interface TSetState {
   setState: Dispatch<SetStateAction<boolean>>;
 }
@@ -33,7 +53,7 @@ export const registerSchema = z.object({
       message: 'Mật khẩu không được chứa khoảng trắng',
     }),
 
-  selected: z.string().min(1, "Vui lòng chọn danh mục"),
+  selected: z.string().min(1, 'Vui lòng chọn danh mục'),
 });
 
 export type TRegisterSchema = z.infer<typeof registerSchema>;

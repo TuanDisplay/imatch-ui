@@ -7,30 +7,19 @@ import {
   User,
 } from 'lucide-react';
 import Button from '~/components/Button';
-
-interface CardItemProps {
-  imageUrl: string;
-  category: string;
-  title: string;
-  subTitle?: string;
-  author?: string;
-  views?: number;
-  publishDate: string;
-  award?: number;
-  submission?: number;
-}
+import { ICardItem } from '~/common/types';
 
 export default function CardItem({
   imageUrl,
   category,
   title,
-  subTitle,
+  desc,
   author,
   views,
   publishDate,
   award,
   submission,
-}: CardItemProps) {
+}: ICardItem) {
   return (
     <section className="font-montserrat overflow-hidden rounded-[10px] border-[#E8E5E5] bg-white p-1">
       <div className="relative overflow-hidden rounded-xl p-[14px]">
@@ -48,9 +37,7 @@ export default function CardItem({
           <Link to="/profile/:slug">{title}</Link>
         </h2>
 
-        {subTitle && (
-          <p className="line-clamp-3 text-sm font-light">{subTitle}</p>
-        )}
+        {desc && <p className="line-clamp-3 text-sm font-light">{desc}</p>}
 
         <div className="mt-2 grid grid-cols-2 gap-y-2">
           <div className="flex items-center gap-2">

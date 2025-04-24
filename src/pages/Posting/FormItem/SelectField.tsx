@@ -1,11 +1,8 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import { registerSchema, TRegisterSchema } from '~/common/types';
+import { IPostForm, registerSchema, TRegisterSchema } from '~/common/types';
 
-interface ISelectInput {
-  id: string;
-  label: string;
-  isRequire: boolean;
+interface ISelectInput extends IPostForm {
   optionData: IOptionData[];
 }
 

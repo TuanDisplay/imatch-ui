@@ -3,7 +3,7 @@ const routes = {
   profile: ':/nickname',
   posting: '/posting',
   exchange: '/exchange',
-  solving: '/solving',
+  problem: '/problem',
   expert: '/expert',
   about: '/about',
 };

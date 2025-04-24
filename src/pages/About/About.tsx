@@ -50,7 +50,7 @@ export default function About() {
             );
           })}
           <Button
-            to="/"
+            to="/Exchange"
             className="mt-10 px-5 py-2 text-center text-xl font-bold"
             primary
           >

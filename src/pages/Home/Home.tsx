@@ -10,7 +10,8 @@ import Button from '~/components/Button';
 import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { SlideItem, CardItem } from './HomeItem';
-import { DCardIdea, DCardProblem } from './data';
+import { DCardProblem } from './data';
+import { DCardIdea } from '~/pages/Exchange/data';
 import { ChevronCircleIcon } from '~/components/Icons/';
 
 export default function Home() {
@@ -136,17 +137,17 @@ export default function Home() {
             <button className="swiper-button-next-custom absolute top-1/2 right-1 z-10 -translate-y-1/2 text-black">
               <ChevronCircleIcon type="right" />
             </button>
-            {DCardIdea.map((item, index) => {
+            {DCardIdea.map((item) => {
               return (
                 <SwiperSlide>
                   <CardItem
-                    key={index}
+                    key={item.id}
                     imageUrl={item.imageUrl}
                     category={item.category}
                     title={item.title}
-                    subTitle={item.subTitle}
-                    author={item.fullname}
-                    views={80}
+                    desc={item.desc}
+                    author={item.author}
+                    views={item.views}
                     publishDate={item.publishDate}
                   />
                 </SwiperSlide>
@@ -186,11 +187,11 @@ export default function Home() {
             <button className="swiper-button-next-custom absolute top-1/2 right-1 z-10 -translate-y-1/2 text-black">
               <ChevronCircleIcon type="right" />
             </button>
-            {DCardProblem.map((item, index) => {
+            {DCardProblem.map((item) => {
               return (
                 <SwiperSlide>
                   <CardItem
-                    key={index}
+                    key={item.id}
                     imageUrl={item.imageUrl}
                     category={item.category}
                     title={item.title}

@@ -1,16 +1,11 @@
-interface ITextInput {
-  id: string;
-  label: string;
-  placeholder: string;
-  isRequire: boolean;
-}
+import { IPostForm } from '~/common/types';
 
 export default function TextInput({
   id,
   label,
   placeholder,
   isRequire = false,
-}: ITextInput) {
+}: IPostForm) {
   return (
     <div className="flex flex-col gap-3">
       <label htmlFor={id} className="text-skyBlue-900 text-xl font-bold">
@@ -23,7 +18,6 @@ export default function TextInput({
         placeholder={placeholder}
         className="rounded-xl bg-white px-4 py-2.5 drop-shadow-xl"
       />
-      
     </div>
   );
 }

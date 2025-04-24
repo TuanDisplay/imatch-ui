@@ -1,2 +1,4 @@
-export { default as TextInput } from './TextInput';
-export { default as SelectInput } from './SelectInput';
+export { default as TextField } from './TextField';
+export { default as SelectField } from './SelectField';
+export { default as EditorField } from './EditorField';
+export { default as UploadImageField } from './UploadImageField';

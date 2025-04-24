@@ -19,7 +19,7 @@ const links = [
     icon: <ShoppingCart className="h-5" />,
   },
   {
-    href: '/solving',
+    href: '/problem',
     label: 'Đưa giải pháp',
     icon: <HandCoins className="h-5" />,
   },

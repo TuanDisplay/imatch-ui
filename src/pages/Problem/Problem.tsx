@@ -1,12 +1,12 @@
 import { useState } from 'react';
 
-import { usePagination } from '~/hooks/usePagination';
-import IdeaItem from './ExchangeItems/IdeaItem';
 import PaginationBar from '~/components/PaginationBar';
+import { usePagination } from '~/hooks/usePagination';
 import { DCardIdea, ideaCategories } from './data';
+import { ProblemItem } from './ProblemItems';
 import { WrapperContent } from '~/components/Content';
 
-export default function Exchange() {
+export default function Solving() {
   const [currentPage, setCurrentPage] = useState<number>(1);
 
   const itemsPerPage = 3;
@@ -16,17 +16,17 @@ export default function Exchange() {
     <>
       <div className="relative flex justify-center">
         <img
-          src="/banner/exchange-banner.jpg"
+          src="/banner/problem-banner.jpg"
           alt="exchange-banner"
           className="h-full w-full object-cover"
         />
         <div className="absolute top-1/2 container flex translate-y-[-50%] flex-col items-center text-center max-md:hidden">
           <h2 className="text-shadow bg-primary w-fit p-2 text-4xl font-bold text-white uppercase max-md:text-3xl">
-            Mua - Bán ý tưởng
+            Giải quyết vấn đề
           </h2>
           <div className="mx-auto my-5 w-full lg:w-[80%]">
             <div className="text-shadow line-clamp-3 text-xl text-white">
-              Ý tưởng không chỉ để chia sẻ – mà còn để định giá và trao đổi
+              Không có gì là vấn đề – chỉ có giải pháp chờ được khám phá.
             </div>
           </div>
         </div>
@@ -52,7 +52,7 @@ export default function Exchange() {
             <WrapperContent currentPage={currentPage}>
               {DItemsCurrentPage.map((item) => {
                 return (
-                  <IdeaItem
+                  <ProblemItem
                     key={item.id}
                     imageUrl={item.imageUrl}
                     category={item.category}
