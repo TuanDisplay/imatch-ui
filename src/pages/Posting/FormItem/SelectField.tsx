@@ -1,6 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import { IPostForm, registerSchema, TRegisterSchema } from '~/common/types';
+import { IPostForm, selectedSchema, TSelectedSchema } from '~/common/types';
 
 interface ISelectInput extends IPostForm {
   optionData: IOptionData[];
@@ -20,7 +20,7 @@ export default function SelectInput({
   const {
     register,
     formState: { errors },
-  } = useForm<TRegisterSchema>({ resolver: zodResolver(registerSchema) });
+  } = useForm<TSelectedSchema>({ resolver: zodResolver(selectedSchema) });
   return (
     <div className="flex flex-col gap-3">
       <label htmlFor={id} className="text-skyBlue-900 text-xl font-bold">

@@ -1,23 +1,42 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import { registerSchema, TRegisterSchema, TSetState } from '~/common/types';
+import { useNavigate } from 'react-router-dom';
+import { loginSchema, TLoginSchema, TSetState } from '~/common/types';
 import Button from '~/components/Button';
 import { Modal } from '~/components/Popup';
+import { useAuthModal } from '~/hooks/useModalStore';
 
 const classInput = 'w-full rounded-lg bg-white p-1.5 text-sm';
 
 export default function LoginForm({ setState }: TSetState) {
+  const navigate = useNavigate();
+  const { closeAuthModal } = useAuthModal();
+
+  const fakeUsers = [
+    { email: 'test@example.com', password: '123456@', token: 'qweagasddasda' },
+  ];
+
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<TRegisterSchema>({
-    resolver: zodResolver(registerSchema),
+  } = useForm<TLoginSchema>({
+    resolver: zodResolver(loginSchema),
   });
 
-  const onSubmit = (data: TRegisterSchema) => {
-    console.log('Dữ liệu hợp lệ:', data);
-    // Gọi API đăng nhập ở đây
+  const onSubmit = (data: TLoginSchema) => {
+    const user = fakeUsers.find(
+      (u) => u.email === data.email && u.password === data.password,
+    );
+
+    if (user) {
+      localStorage.setItem('user', JSON.stringify(user));
+      navigate('/');
+      closeAuthModal();
+      alert('Đăng nhập thành công!');
+    } else {
+      alert('Sai email hoặc mật khẩu');
+    }
   };
 
   return (

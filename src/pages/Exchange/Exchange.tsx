@@ -3,14 +3,14 @@ import { useState } from 'react';
 import { usePagination } from '~/hooks/usePagination';
 import IdeaItem from './ExchangeItems/IdeaItem';
 import PaginationBar from '~/components/PaginationBar';
-import { DCardIdea, ideaCategories } from './data';
+import { MajorCat, IdeaCard } from '~/common/data';
 import { WrapperContent } from '~/components/Content';
 
 export default function Exchange() {
   const [currentPage, setCurrentPage] = useState<number>(1);
 
   const itemsPerPage = 3;
-  const DItemsCurrentPage = usePagination(DCardIdea, currentPage, itemsPerPage);
+  const DItemsCurrentPage = usePagination(IdeaCard, currentPage, itemsPerPage);
 
   return (
     <>
@@ -38,7 +38,7 @@ export default function Exchange() {
               Danh Mục
             </div>
             <ul className="space-y-1">
-              {ideaCategories.map((cat, index) => (
+              {MajorCat.map((cat, index) => (
                 <li
                   key={index}
                   className="rounded-md border-b border-gray-200 px-4 py-2 text-sm font-medium text-gray-700 transition-colors last:border-b-0 hover:bg-orange-100 hover:text-orange-600"
@@ -68,7 +68,7 @@ export default function Exchange() {
             <PaginationBar
               currentPage={currentPage}
               setCurrentPage={setCurrentPage}
-              totalItems={DCardIdea.length}
+              totalItems={IdeaCard.length}
               itemsPerPage={itemsPerPage}
             />
           </div>

@@ -1,8 +1,8 @@
 import clsx from 'clsx';
 import { createPortal } from 'react-dom';
-import { ChildNode } from '~/common/types';
+import { IChildNode } from '~/common/types';
 
-export default function ModalWrapper({ children }: ChildNode) {
+export default function ModalWrapper({ children }: IChildNode) {
   return createPortal(
     <div
       className={clsx(

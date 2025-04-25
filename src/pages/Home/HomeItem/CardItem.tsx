@@ -7,7 +7,7 @@ import {
   User,
 } from 'lucide-react';
 import Button from '~/components/Button';
-import { ICardItem } from '~/common/types';
+import { ICard } from '~/common/types';
 
 export default function CardItem({
   imageUrl,
@@ -19,7 +19,7 @@ export default function CardItem({
   publishDate,
   award,
   submission,
-}: ICardItem) {
+}: ICard) {
   return (
     <section className="font-montserrat overflow-hidden rounded-[10px] border-[#E8E5E5] bg-white p-1">
       <div className="relative overflow-hidden rounded-xl p-[14px]">
@@ -34,18 +34,14 @@ export default function CardItem({
       </div>
       <div className="flex flex-auto flex-col gap-2.5 px-4 py-3 pb-4">
         <h2 className="line-clamp-2 text-xl font-bold">
-          <Link to="/profile/:slug">{title}</Link>
+          <Link to="/profile">{title}</Link>
         </h2>
 
-        {desc && <p className="line-clamp-3 text-sm font-light">{desc}</p>}
+        <p className="line-clamp-3 text-sm font-light">{desc}</p>
 
         <div className="mt-2 grid grid-cols-2 gap-y-2">
           <div className="flex items-center gap-2">
-            {author ? (
-              <User className="h-5 w-5" />
-            ) : (
-              <CircleDollarSign className="h-5 w-5" />
-            )}
+            {author ? <User size={20} /> : <CircleDollarSign size={20} />}
             {author ? (
               <div title={author} className="line-clamp-1 text-sm">
                 {author}
@@ -55,19 +51,13 @@ export default function CardItem({
             )}
           </div>
           <div className="flex items-center justify-end gap-2 pr-2">
-            {views ? (
-              <Eye className="h-5 w-5" />
-            ) : (
-              <Lightbulb className="h-5 w-5" />
-            )}
-            {views ? (
-              <div className="line-clamp-1 text-sm">{views} lượt xem</div>
-            ) : (
-              <div className="line-clamp-1 text-sm">{submission} đề xuất</div>
-            )}
+            {views ? <Eye size={20} /> : <Lightbulb size={20} />}
+            <div className="line-clamp-1 text-sm">
+              {views ? views + ' lượt xem' : submission + ' đề xuất'}
+            </div>
           </div>
           <div className="flex items-center gap-2">
-            <CalendarDays className="h-5 w-5" />
+            <CalendarDays size={20} />
             <div className="line-clamp-1 text-sm">{publishDate}</div>
           </div>
         </div>

@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import PaginationBar from '~/components/PaginationBar';
 import { usePagination } from '~/hooks/usePagination';
-import { DCardIdea, ideaCategories } from './data';
+import { MajorCat, ProblemCard } from '~/common/data';
 import { ProblemItem } from './ProblemItems';
 import { WrapperContent } from '~/components/Content';
 
@@ -10,7 +10,7 @@ export default function Solving() {
   const [currentPage, setCurrentPage] = useState<number>(1);
 
   const itemsPerPage = 3;
-  const DItemsCurrentPage = usePagination(DCardIdea, currentPage, itemsPerPage);
+  const currentItems = usePagination(ProblemCard, currentPage, itemsPerPage);
 
   return (
     <>
@@ -38,7 +38,7 @@ export default function Solving() {
               Danh Mục
             </div>
             <ul className="space-y-1">
-              {ideaCategories.map((cat, index) => (
+              {MajorCat.map((cat, index) => (
                 <li
                   key={index}
                   className="rounded-md border-b border-gray-200 px-4 py-2 text-sm font-medium text-gray-700 transition-colors last:border-b-0 hover:bg-orange-100 hover:text-orange-600"
@@ -50,7 +50,7 @@ export default function Solving() {
           </aside>
           <div className="flex flex-1 flex-col px-4">
             <WrapperContent currentPage={currentPage}>
-              {DItemsCurrentPage.map((item) => {
+              {currentItems.map((item) => {
                 return (
                   <ProblemItem
                     key={item.id}
@@ -58,8 +58,8 @@ export default function Solving() {
                     category={item.category}
                     title={item.title}
                     desc={item.desc}
-                    author={item.author}
-                    views={item.views}
+                    award={item.award}
+                    submission={item.submission}
                     publishDate={item.publishDate}
                   />
                 );
@@ -68,7 +68,7 @@ export default function Solving() {
             <PaginationBar
               currentPage={currentPage}
               setCurrentPage={setCurrentPage}
-              totalItems={DCardIdea.length}
+              totalItems={ProblemCard.length}
               itemsPerPage={itemsPerPage}
             />
           </div>

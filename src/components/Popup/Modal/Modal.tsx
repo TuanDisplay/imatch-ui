@@ -1,11 +1,11 @@
 import Button from '~/components/Button';
 import ModalWrapper from './ModalWrapper';
 import { ChevronLeft } from 'lucide-react';
-import { ChildNode } from '~/common/types';
+import { IChildNode } from '~/common/types';
 import { useAuthModal } from '~/hooks/useModalStore';
 import { useEffect, useRef } from 'react';
 
-export default function Modal({ children }: ChildNode) {
+export default function Modal({ children }: IChildNode) {
   const { closeAuthModal } = useAuthModal();
 
   const modalRef = useRef<HTMLDivElement>(null);

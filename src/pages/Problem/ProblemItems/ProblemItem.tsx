@@ -1,15 +1,21 @@
-import { CalendarDays, Eye, User, ArrowRight, Settings } from 'lucide-react';
-import { ICardItem } from '~/common/types';
+import {
+  CalendarDays,
+  ArrowRight,
+  Settings,
+  CircleDollarSign,
+  Lightbulb,
+} from 'lucide-react';
+import { ICard } from '~/common/types';
 
-export default function IdeaItem({
+export default function ProblemItem({
   imageUrl,
   category,
   title,
   desc,
-  author,
-  views,
+  award,
+  submission,
   publishDate,
-}: ICardItem) {
+}: ICard) {
   return (
     <div className="hover:shadow-primary mx-auto flex max-w-4xl cursor-pointer gap-6 rounded-2xl bg-white p-6 shadow-md transition-shadow duration-300">
       <img
@@ -36,12 +42,12 @@ export default function IdeaItem({
               <span>{publishDate}</span>
             </div>
             <div className="flex items-center gap-1">
-              <User size={16} />
-              <span>{author}</span>
+              <CircleDollarSign size={16} />
+              <span>{award} $</span>
             </div>
             <div className="flex items-center gap-1">
-              <Eye size={16} />
-              <span>{views} lượt xem</span>
+              <Lightbulb size={16} />
+              <span>{submission} đề xuất</span>
             </div>
             <div className="flex items-center gap-1">
               <Settings size={16} />

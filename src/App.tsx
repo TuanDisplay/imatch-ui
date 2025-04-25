@@ -12,11 +12,11 @@ function App() {
         {publicRoutes.map((route, index) => {
           const Page = route.component;
 
-          let Layout = MainLayout;
+          const Layout = MainLayout;
 
-          if (route.layout) {
-            Layout = route.layout;
-          }
+          // if (route.layout) {
+          //   Layout = route.layout;
+          // }
 
           return (
             <Route

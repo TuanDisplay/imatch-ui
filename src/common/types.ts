@@ -1,8 +1,12 @@
 import { Dispatch, SetStateAction, ReactNode } from 'react';
 import { z } from 'zod';
 
-export interface ChildNode {
+export interface IChildNode {
   children: ReactNode;
+}
+
+export interface TSetState {
+  setState: Dispatch<SetStateAction<boolean>>;
 }
 
 export interface IPostForm {
@@ -12,7 +16,7 @@ export interface IPostForm {
   isRequire: boolean;
 }
 
-export interface ICardItem {
+export interface ICard {
   id?: number;
   imageUrl: string;
   category: string;
@@ -25,9 +29,28 @@ export interface ICardItem {
   submission?: number;
 }
 
-export interface TSetState {
-  setState: Dispatch<SetStateAction<boolean>>;
-}
+export type TLoginSchema = z.infer<typeof loginSchema>;
+export type TRegisterSchema = z.infer<typeof registerSchema>;
+export type TSelectedSchema = z.infer<typeof selectedSchema>;
+
+export const loginSchema = z.object({
+  email: z
+    .string()
+    .nonempty('Email không được để trống')
+    .email('Email không đúng định dạng')
+    .refine((val) => !val.includes(' '), {
+      message: 'Email không được chứa khoảng trắng',
+    }),
+
+  password: z
+    .string()
+    .min(6, 'Mật khẩu phải có ít nhất 6 ký tự')
+    .max(32, 'Mật khẩu quá dài')
+    .regex(/[^A-Za-z0-9]/, 'Mật khẩu phải có ít nhất 1 ký tự đặc biệt')
+    .refine((val) => !val.includes(' '), {
+      message: 'Mật khẩu không được chứa khoảng trắng',
+    }),
+});
 
 export const registerSchema = z.object({
   username: z
@@ -52,8 +75,8 @@ export const registerSchema = z.object({
     .refine((val) => !val.includes(' '), {
       message: 'Mật khẩu không được chứa khoảng trắng',
     }),
-
-  selected: z.string().min(1, 'Vui lòng chọn danh mục'),
 });
 
-export type TRegisterSchema = z.infer<typeof registerSchema>;
+export const selectedSchema = z.object({
+  selected: z.string().min(1, 'Vui lòng chọn danh mục'),
+});
