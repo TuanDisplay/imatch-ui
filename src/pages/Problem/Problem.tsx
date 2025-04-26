@@ -54,11 +54,12 @@ export default function Solving() {
                 return (
                   <ProblemItem
                     key={item.id}
+                    id={item.id}
                     imageUrl={item.imageUrl}
                     category={item.category}
                     title={item.title}
                     desc={item.desc}
-                    award={item.award}
+                    price={item.price}
                     submission={item.submission}
                     publishDate={item.publishDate}
                   />

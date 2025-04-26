@@ -195,7 +195,7 @@ export default function Home() {
                     category={item.category}
                     title={item.title}
                     desc={item.desc}
-                    award={item.award}
+                    price={item.price}
                     submission={item.submission}
                     publishDate={item.publishDate}
                   />

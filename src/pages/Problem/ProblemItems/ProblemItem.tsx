@@ -5,14 +5,17 @@ import {
   CircleDollarSign,
   Lightbulb,
 } from 'lucide-react';
+import { Link } from 'react-router-dom';
+
 import { ICard } from '~/common/types';
 
 export default function ProblemItem({
+  id,
   imageUrl,
   category,
   title,
   desc,
-  award,
+  price,
   submission,
   publishDate,
 }: ICard) {
@@ -43,7 +46,7 @@ export default function ProblemItem({
             </div>
             <div className="flex items-center gap-1">
               <CircleDollarSign size={16} />
-              <span>{award} $</span>
+              <span>{price} $</span>
             </div>
             <div className="flex items-center gap-1">
               <Lightbulb size={16} />
@@ -55,12 +58,12 @@ export default function ProblemItem({
             </div>
           </div>
 
-          <a
-            href="#"
+          <Link
+            to={`/problem/${id}`}
             className="flex items-center gap-1 font-semibold text-green-600 hover:underline"
           >
             Xem Thêm <ArrowRight size={16} />
-          </a>
+          </Link>
         </div>
       </div>
     </div>

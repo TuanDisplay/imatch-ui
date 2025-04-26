@@ -54,6 +54,7 @@ export default function Exchange() {
                 return (
                   <IdeaItem
                     key={item.id}
+                    id={item.id}
                     imageUrl={item.imageUrl}
                     category={item.category}
                     title={item.title}

@@ -1,7 +1,9 @@
 import { CalendarDays, Eye, User, ArrowRight, Settings } from 'lucide-react';
-import { ICardItem } from '~/common/types';
+import { Link } from 'react-router-dom';
+import { ICard } from '~/common/types';
 
 export default function IdeaItem({
+  id,
   imageUrl,
   category,
   title,
@@ -9,7 +11,7 @@ export default function IdeaItem({
   author,
   views,
   publishDate,
-}: ICardItem) {
+}: ICard) {
   return (
     <div className="hover:shadow-primary mx-auto flex max-w-4xl cursor-pointer gap-6 rounded-2xl bg-white p-6 shadow-md transition-shadow duration-300">
       <img
@@ -49,12 +51,12 @@ export default function IdeaItem({
             </div>
           </div>
 
-          <a
-            href="#"
+          <Link
+            to={`/exchange/${id}`}
             className="flex items-center gap-1 font-semibold text-green-600 hover:underline"
           >
             Xem Thêm <ArrowRight size={16} />
-          </a>
+          </Link>
         </div>
       </div>
     </div>

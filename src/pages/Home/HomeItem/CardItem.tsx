@@ -17,7 +17,7 @@ export default function CardItem({
   author,
   views,
   publishDate,
-  award,
+  price,
   submission,
 }: ICard) {
   return (
@@ -47,7 +47,7 @@ export default function CardItem({
                 {author}
               </div>
             ) : (
-              <div className="line-clamp-1 text-sm font-bold">{award} $</div>
+              <div className="line-clamp-1 text-sm font-bold">{price} $</div>
             )}
           </div>
           <div className="flex items-center justify-end gap-2 pr-2">

@@ -40,7 +40,7 @@ export default function Header() {
     >
       <div className="flex items-center justify-between px-10 py-2">
         <Link to="/">
-          <img src="logo_rm.png" alt="logo" className="h-10" />
+          <img src="/logo_rm.png" alt="logo" className="h-10" />
         </Link>
         <nav className="flex h-fit gap-15 font-bold uppercase">
           <Menu links={links}>

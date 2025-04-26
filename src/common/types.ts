@@ -25,7 +25,7 @@ export interface ICard {
   author?: string;
   views?: number;
   publishDate: string;
-  award?: number;
+  price?: number;
   submission?: number;
 }
 

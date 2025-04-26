@@ -41,7 +41,7 @@ export default function Menu({ children, links }: MenuProps) {
             </MenuButton>
             <MenuItems
               anchor="bottom"
-              className="absolute z-[9999] mt-5 origin-top-right rounded-md bg-white text-nowrap shadow-lg duration-300"
+              className="absolute z-[9999] mt-5 origin-top-right rounded-md bg-white text-nowrap shadow-lg"
             >
               {links.map((link) => (
                 <MenuItem key={link.href}>
