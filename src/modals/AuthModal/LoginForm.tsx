@@ -1,6 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import { loginSchema, TLoginSchema, TSetState } from '~/common/types';
+import { TSetState } from '~/common/types';
+import {TLoginSchema, loginSchema} from '~/common/schema'
 import Button from '~/components/Button';
 import { Modal } from '~/components/Popup';
 import { useAuthModal } from '~/hooks/useModalStore';

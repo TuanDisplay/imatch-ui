@@ -1,10 +1,11 @@
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
-import { registerSchema, TRegisterSchema, TSetState } from '~/common/types';
-import Button from '~/components/Button';
+import { TSetState } from '~/common/types';
+import { TRegisterSchema, registerSchema } from '~/common/schema';
 import { Modal } from '~/components/Popup';
 import { useAuthModal } from '~/hooks/useModalStore';
+import Button from '~/components/Button';
 
 const classInput = 'w-full rounded-lg bg-white p-1.5 text-sm';
 

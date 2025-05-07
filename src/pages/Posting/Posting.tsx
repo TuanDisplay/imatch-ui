@@ -1,4 +1,5 @@
 import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 
 import Button from '~/components/Button';
 import {
@@ -8,11 +9,7 @@ import {
   UploadImageField,
 } from './FormItem';
 import { MajorCat } from '~/common/data';
-
-const majorO = [
-  { id: 77, value: '', name: 'Chọn lĩnh vực ngành' },
-  ...MajorCat,
-];
+import { TSelectedSchema, postFormSchema } from '~/common/schema';
 
 const methodO = [
   { value: '', name: 'Chọn phương thức' },
@@ -21,7 +18,11 @@ const methodO = [
 ];
 
 export default function Posting() {
-  const { handleSubmit } = useForm({});
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<TSelectedSchema>({ resolver: zodResolver(postFormSchema) });
 
   const onSubmit = () => {
     alert('Submit thanh cong');
@@ -36,7 +37,7 @@ export default function Posting() {
           className="h-full w-full object-cover"
         />
         <div className="absolute top-1/2 translate-y-[-50%] max-md:hidden">
-          <h2 className="bg-primary p-2 text-4xl font-bold text-white">
+          <h2 className="bg-primary p-2 text-4xl font-bold text-white uppercase">
             ĐĂNG Ý TƯỞNG
           </h2>
         </div>
@@ -55,13 +56,17 @@ export default function Posting() {
               label="Tên ý tưởng"
               placeholder="Vui lòng tóm tắt tiêu đề ngắn gọn, dễ hiểu"
               isRequire
+              register={register}
+              error={errors.text?.message}
             />
 
             <SelectField
               id="major"
               label="Lĩnh vực ngành"
-              optionData={majorO}
+              optionData={MajorCat}
               isRequire
+              register={register}
+              error={errors.selected?.message}
             />
 
             <SelectField
@@ -69,6 +74,8 @@ export default function Posting() {
               label="Phương thức"
               optionData={methodO}
               isRequire
+              register={register}
+              error={errors.selected?.message}
             />
 
             <EditorField
@@ -108,18 +115,24 @@ export default function Posting() {
                 label="Họ và tên"
                 placeholder="Nhập họ và tên của bạn"
                 isRequire
+                register={register}
+                error={errors.text?.message}
               />
               <TextField
                 id="email"
                 label="Email"
                 placeholder="Email của bạn"
                 isRequire
+                register={register}
+                error={errors.text?.message}
               />
               <TextField
                 id="phone-number"
                 label="Số điện thoại"
                 placeholder="Số điện thoại của bạn"
                 isRequire
+                register={register}
+                error={errors.text?.message}
               />
             </div>
           </div>

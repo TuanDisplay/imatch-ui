@@ -1,9 +1,11 @@
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
-import { IPostForm, selectedSchema, TSelectedSchema } from '~/common/types';
+import { UseFormRegister } from 'react-hook-form';
+import { IPostForm } from '~/common/types';
+import { TSelectedSchema } from '~/common/schema';
 
 interface ISelectInput extends IPostForm {
   optionData: IOptionData[];
+  register: UseFormRegister<TSelectedSchema>;
+  error: string | undefined;
 }
 
 interface IOptionData {
@@ -16,11 +18,9 @@ export default function SelectInput({
   label,
   isRequire,
   optionData,
+  register,
+  error,
 }: ISelectInput) {
-  const {
-    register,
-    formState: { errors },
-  } = useForm<TSelectedSchema>({ resolver: zodResolver(selectedSchema) });
   return (
     <div className="flex flex-col gap-3">
       <label htmlFor={id} className="text-skyBlue-900 text-xl font-bold">
@@ -29,6 +29,9 @@ export default function SelectInput({
       </label>
       <div className="rounded-xl bg-white px-4 py-2.5 drop-shadow-xl">
         <select id={id} {...register('selected')} className="w-full outline-0">
+          <option value={''} disabled selected>
+            --- Chọn danh mục ---
+          </option>
           {optionData.map((option, index) => {
             return (
               <option key={index} value={option.value}>
@@ -38,9 +41,7 @@ export default function SelectInput({
           })}
         </select>
       </div>
-      {errors.selected && (
-        <p className="text-xs text-red-500">{errors.selected.message}</p>
-      )}
+      {error && <p className="text-xs text-red-500">{error}</p>}
     </div>
   );
 }
