@@ -1,12 +1,12 @@
 import { ReactNode, useEffect, useState } from 'react';
 
 interface IWrapperContent {
-  currentPage: number;
+  currentItems: object[];
   children: ReactNode;
 }
 
 export default function WrapperContent({
-  currentPage,
+  currentItems,
   children,
 }: IWrapperContent) {
   const [isLoading, setLoading] = useState<boolean>(false);
@@ -17,7 +17,7 @@ export default function WrapperContent({
       setLoading(false);
     }, 1000);
     return () => clearTimeout(timer);
-  }, [currentPage]);
+  }, [currentItems]);
 
   return (
     <div className="relative h-[95vh] w-full overflow-hidden overflow-y-auto py-2">

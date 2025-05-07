@@ -13,16 +13,18 @@ import About from '~/pages/About';
 
 const publicRoutes = [
   { path: config.routes.home, component: Home },
-  { path: config.routes.profile, component: Profile },
-  { path: config.routes.posting, component: Posting },
   { path: config.routes.exchange, component: Exchange },
-  { path: config.routes.exchangeDetail, component: ExchangeDetail },
   { path: config.routes.problem, component: Problem },
-  { path: config.routes.problemDetail, component: ProblemDetail },
   { path: config.routes.expert, component: Expert },
   { path: config.routes.about, component: About },
 ];
 
-const privateRoutes = [];
+const privateRoutes = [
+  { path: config.routes.profile, component: Profile },
+  { path: config.routes.posting, component: Posting },
+  { path: config.routes.exchangeDetail, component: ExchangeDetail },
+  { path: config.routes.problemDetail, component: ProblemDetail },
+
+];
 
 export { publicRoutes, privateRoutes };

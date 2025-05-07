@@ -1,6 +1,12 @@
 import { Link } from 'react-router-dom';
 import { Menu } from '~/components/Popup';
-import { CircleFadingArrowUp, ShoppingCart, HandCoins } from 'lucide-react';
+import {
+  CircleFadingArrowUp,
+  ShoppingCart,
+  HandCoins,
+  Bell,
+  LogOut,
+} from 'lucide-react';
 
 import Button from '~/components/Button';
 import { useAuthModal } from '~/hooks/useModalStore';
@@ -26,7 +32,7 @@ const links = [
 ];
 
 export default function Header() {
-  const { openAuthModal } = useAuthModal();
+  const { openAuthModal, isAuthenticated, setIsAuthenticated } = useAuthModal();
   const hasPassedBanner = useHasScrolledBeyond(300);
 
   return (
@@ -54,20 +60,40 @@ export default function Header() {
           </Link>
         </nav>
 
-        <div className="flex gap-5">
-          <Button
-            primary
-            className="px-3 py-2 font-semibold"
-            onClick={openAuthModal}
-          >
-            Đăng nhập
-          </Button>
-          <div className="h-10 w-10 overflow-hidden rounded-full border-2 border-amber-300">
-            <Link to="/profile">
-              <img src="/no-user.png" alt="no-user" className="bg-cover" />
-            </Link>
+        {!isAuthenticated ? (
+          <div className="flex gap-5">
+            <Button
+              primary
+              className="px-3 py-2 font-semibold"
+              onClick={openAuthModal}
+            >
+              Đăng nhập
+            </Button>
+            <div className="h-10 w-10 overflow-hidden rounded-full border-2 border-amber-300">
+              <Link to="/profile">
+                <img src="/no-user.png" alt="no-user" className="bg-cover" />
+              </Link>
+            </div>
           </div>
-        </div>
+        ) : (
+          <div className="flex gap-5">
+            <div className="cursor-pointer rounded-full bg-amber-200 p-2 duration-300 hover:bg-amber-100">
+              <Bell className="text-black" />
+            </div>
+
+            <div className="h-10 w-10 overflow-hidden rounded-full border-2 border-amber-300">
+              <Link to="/profile">
+                <img src="/AvtTuan.jpg" alt="avatar" className="bg-cover" />
+              </Link>
+            </div>
+            <div className="border-l-[1px] py-2 pl-5">
+              <LogOut
+                className="hover:text-primary cursor-pointer duration-300"
+                onClick={() => setIsAuthenticated(false)}
+              />
+            </div>
+          </div>
+        )}
       </div>
     </header>
   );

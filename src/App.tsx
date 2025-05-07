@@ -1,8 +1,9 @@
 import { BrowserRouter, Routes, Route } from 'react-router';
 
 import MainLayout from '~/layouts';
-import { publicRoutes } from '~/routes';
+import { privateRoutes, publicRoutes } from '~/routes';
 import AuthModal from './modals';
+import PrivateRoute from './utils/PrivateRoute';
 
 function App() {
   return (
@@ -26,6 +27,26 @@ function App() {
                 <Layout>
                   <Page />
                 </Layout>
+              }
+            />
+          );
+        })}
+
+        {privateRoutes.map((route, index) => {
+          const Page = route.component;
+
+          const Layout = MainLayout;
+
+          return (
+            <Route
+              key={index}
+              path={route.path}
+              element={
+                <PrivateRoute>
+                  <Layout>
+                    <Page />
+                  </Layout>
+                </PrivateRoute>
               }
             />
           );

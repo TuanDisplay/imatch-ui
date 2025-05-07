@@ -1,6 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
 import { loginSchema, TLoginSchema, TSetState } from '~/common/types';
 import Button from '~/components/Button';
 import { Modal } from '~/components/Popup';
@@ -9,12 +8,7 @@ import { useAuthModal } from '~/hooks/useModalStore';
 const classInput = 'w-full rounded-lg bg-white p-1.5 text-sm';
 
 export default function LoginForm({ setState }: TSetState) {
-  const navigate = useNavigate();
-  const { closeAuthModal } = useAuthModal();
-
-  const fakeUsers = [
-    { email: 'test@example.com', password: '123456@', token: 'qweagasddasda' },
-  ];
+  const { closeAuthModal, setIsAuthenticated } = useAuthModal();
 
   const {
     register,
@@ -25,17 +19,21 @@ export default function LoginForm({ setState }: TSetState) {
   });
 
   const onSubmit = (data: TLoginSchema) => {
-    const user = fakeUsers.find(
-      (u) => u.email === data.email && u.password === data.password,
-    );
+    const dataUserJson = localStorage.getItem(data.email);
 
-    if (user) {
-      localStorage.setItem('user', JSON.stringify(user));
-      navigate('/');
-      closeAuthModal();
-      alert('Đăng nhập thành công!');
-    } else {
-      alert('Sai email hoặc mật khẩu');
+    if (dataUserJson && dataUserJson !== null) {
+      const dataUser = JSON.parse(dataUserJson);
+
+      if (
+        dataUser.email === data.email &&
+        dataUser.password === data.password
+      ) {
+        closeAuthModal();
+        setIsAuthenticated(true);
+        alert('Đăng nhập thành công!');
+      } else {
+        alert('Sai email hoặc mật khẩu');
+      }
     }
   };
 

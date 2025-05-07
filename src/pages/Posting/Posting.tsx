@@ -7,12 +7,11 @@ import {
   EditorField,
   UploadImageField,
 } from './FormItem';
+import { MajorCat } from '~/common/data';
 
 const majorO = [
-  { value: '', name: 'Chọn lĩnh vực ngành' },
-  { value: 'technology', name: 'Công nghệ' },
-  { value: 'enviroment', name: 'Môi trường' },
-  { value: 'agriulture', name: 'Nông nghiệp' },
+  { id: 77, value: '', name: 'Chọn lĩnh vực ngành' },
+  ...MajorCat,
 ];
 
 const methodO = [

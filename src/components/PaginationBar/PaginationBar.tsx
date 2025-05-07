@@ -20,17 +20,16 @@ export default function PaginationBar({
 
   return (
     <div className="mx-auto mt-3 flex w-fit gap-2">
-      <div className="">
-        <Button
-          leftIcon={<ChevronLeft />}
-          onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
-          disable={currentPage === 1}
-          primary
-          className="h-10 w-24 font-bold"
-        >
-          Prev
-        </Button>
-      </div>
+      <Button
+        leftIcon={<ChevronLeft />}
+        onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+        disable={currentPage === 1}
+        primary
+        className="h-10 w-24 font-bold"
+      >
+        Prev
+      </Button>
+
       {Array.from({ length: totalPages }, (_, i) => (
         <Button
           key={i}

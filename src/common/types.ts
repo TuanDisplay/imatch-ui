@@ -20,6 +20,7 @@ export interface ICard {
   id?: number;
   imageUrl: string;
   category: string;
+  catValue?: string;
   title: string;
   desc?: string;
   author?: string;
@@ -53,11 +54,10 @@ export const loginSchema = z.object({
 });
 
 export const registerSchema = z.object({
-  username: z
+  fullName: z
     .string()
-    .min(5, { message: 'Tên phải từ 3 ký tự' })
-    .max(15, { message: 'Tên không được quá 15 ký tự' })
-    .regex(/^[a-zA-Z0-9]+$/, 'Tên chỉ được chứa chữ và số'),
+    .min(3, { message: 'Tên phải từ 3 ký tự' })
+    .max(15, { message: 'Tên không được quá 15 ký tự' }),
 
   email: z
     .string()
@@ -72,6 +72,15 @@ export const registerSchema = z.object({
     .min(6, 'Mật khẩu phải có ít nhất 6 ký tự')
     .max(32, 'Mật khẩu quá dài')
     .regex(/[^A-Za-z0-9]/, 'Mật khẩu phải có ít nhất 1 ký tự đặc biệt')
+    .refine((val) => !val.includes(' '), {
+      message: 'Mật khẩu không được chứa khoảng trắng',
+    }),
+
+  code: z
+    .string()
+    .regex(/^\d{6}$/, {
+      message: 'Phải là 6 chữ số',
+    })
     .refine((val) => !val.includes(' '), {
       message: 'Mật khẩu không được chứa khoảng trắng',
     }),

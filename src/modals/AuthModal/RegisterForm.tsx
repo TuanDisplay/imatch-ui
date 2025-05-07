@@ -4,10 +4,13 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { registerSchema, TRegisterSchema, TSetState } from '~/common/types';
 import Button from '~/components/Button';
 import { Modal } from '~/components/Popup';
+import { useAuthModal } from '~/hooks/useModalStore';
 
 const classInput = 'w-full rounded-lg bg-white p-1.5 text-sm';
 
 export default function RegisterForm({ setState }: TSetState) {
+  const { closeAuthModal } = useAuthModal();
+
   const {
     register,
     handleSubmit,
@@ -17,8 +20,20 @@ export default function RegisterForm({ setState }: TSetState) {
   });
 
   const onSubmit = (data: TRegisterSchema) => {
-    console.log('Dữ liệu hợp lệ:', data);
-    // Gọi API đăng nhập ở đây
+    const dataUser = {
+      fullName: data.fullName,
+      email: data.email,
+      password: data.password,
+    };
+
+    if (data.code === '123456') {
+      const json = JSON.stringify(dataUser);
+      localStorage.setItem(data.email, json);
+      closeAuthModal();
+      alert('Đăng ký thành công');
+    } else {
+      alert('Mã xác nhập không hợp lệ');
+    }
   };
 
   return (
@@ -36,18 +51,18 @@ export default function RegisterForm({ setState }: TSetState) {
           className="mx-auto max-w-md space-y-4 rounded px-4 py-2"
         >
           <div className="flex flex-col gap-2">
-            <label htmlFor="username" className="font-bold">
+            <label htmlFor="fullName" className="font-bold">
               Tên hiển thị?
             </label>
             <input
               type="text"
-              {...register('username')}
-              id="username"
+              {...register('fullName')}
+              id="fullName"
               placeholder="Tên hiển thị dưới bài đăng của bạn"
               className={classInput}
             />
-            {errors.username && (
-              <p className="text-xs text-red-500">{errors.username.message}</p>
+            {errors.fullName && (
+              <p className="text-xs text-red-500">{errors.fullName.message}</p>
             )}
           </div>
 
@@ -77,11 +92,12 @@ export default function RegisterForm({ setState }: TSetState) {
               <p className="text-xs text-red-500">{errors.password.message}</p>
             )}
           </div>
-          <div className="">
+          <div>
             <div className="mt-3 h-[1px] w-full bg-black"></div>
             <div className="mt-3 flex w-full overflow-hidden rounded-lg">
               <input
                 type="text"
+                {...register('code')}
                 placeholder="Mã xác thực"
                 className="flex-1 bg-white p-1.5 text-sm outline-0"
               />
@@ -93,6 +109,9 @@ export default function RegisterForm({ setState }: TSetState) {
                 Gửi mã
               </Button>
             </div>
+            {errors.code && (
+              <p className="text-xs text-red-500">{errors.code.message}</p>
+            )}
 
             <Button type="submit" className="mt-3 w-full p-1 font-bold" primary>
               Đăng ký
