@@ -16,7 +16,7 @@ interface MenuProps {
 }
 
 interface MenuItems {
-  href: string;
+  to: string;
   label: string;
   icon: ReactNode;
 }
@@ -44,9 +44,9 @@ export default function Menu({ children, links }: MenuProps) {
               className="absolute z-[9999] mt-5 origin-top-right rounded-md bg-white text-nowrap shadow-lg"
             >
               {links.map((link) => (
-                <MenuItem key={link.href}>
+                <MenuItem key={link.to}>
                   <Button
-                    href={link.href}
+                    to={link.to}
                     leftIcon={link.icon}
                     className="hover:bg-primary cursor-pointer justify-start px-5 py-2.5 text-sm hover:text-white"
                   >

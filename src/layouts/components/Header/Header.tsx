@@ -15,17 +15,17 @@ import clsx from 'clsx';
 
 const links = [
   {
-    href: '/posting',
+    to: '/posting',
     label: 'Đăng ý tưởng',
     icon: <CircleFadingArrowUp className="h-5" />,
   },
   {
-    href: '/exchange',
+    to: '/exchange',
     label: 'Mua ý tưởng',
     icon: <ShoppingCart className="h-5" />,
   },
   {
-    href: '/problem',
+    to: '/problem',
     label: 'Đưa giải pháp',
     icon: <HandCoins className="h-5" />,
   },
