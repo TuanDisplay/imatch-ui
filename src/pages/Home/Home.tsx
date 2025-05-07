@@ -141,6 +141,7 @@ export default function Home() {
                 <SwiperSlide>
                   <CardItem
                     key={item.id}
+                    id={item.id}
                     imageUrl={item.imageUrl}
                     category={item.category}
                     title={item.title}
@@ -148,6 +149,7 @@ export default function Home() {
                     author={item.author}
                     views={item.views}
                     publishDate={item.publishDate}
+                    type="exchange"
                   />
                 </SwiperSlide>
               );
@@ -191,6 +193,7 @@ export default function Home() {
                 <SwiperSlide>
                   <CardItem
                     key={item.id}
+                    id={item.id}
                     imageUrl={item.imageUrl}
                     category={item.category}
                     title={item.title}
@@ -198,6 +201,7 @@ export default function Home() {
                     price={item.price}
                     submission={item.submission}
                     publishDate={item.publishDate}
+                    type="problem"
                   />
                 </SwiperSlide>
               );

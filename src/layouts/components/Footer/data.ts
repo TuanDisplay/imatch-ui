@@ -10,7 +10,7 @@ export const DInfoFooter = [
     title: 'Các liên kết',
     list: [
       { name: 'Mua ý tưởng', link: '/exchange' },
-      { name: 'Đưa giải pháp', link: '/problem' },
+      { name: 'Giải quyết vấn đề', link: '/problem' },
       { name: 'Chuyên gia tư vấn', link: '/expert' },
       { name: 'Về chúng tôi', link: '/about' },
     ],

@@ -17,6 +17,7 @@ export interface IPostForm {
 
 export interface ICard {
   id?: number;
+  type?:string;
   imageUrl: string;
   category: string;
   catValue?: string;

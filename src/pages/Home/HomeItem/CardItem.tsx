@@ -10,6 +10,8 @@ import Button from '~/components/Button';
 import { ICard } from '~/common/types';
 
 export default function CardItem({
+  id,
+  type,
   imageUrl,
   category,
   title,
@@ -34,7 +36,7 @@ export default function CardItem({
       </div>
       <div className="flex flex-auto flex-col gap-2.5 px-4 py-3 pb-4">
         <h2 className="line-clamp-2 text-xl font-bold">
-          <Link to="/profile">{title}</Link>
+          <Link to={`/${type}/${id}`}>{title}</Link>
         </h2>
 
         <p className="line-clamp-3 text-sm font-light">{desc}</p>
@@ -62,7 +64,11 @@ export default function CardItem({
           </div>
         </div>
         <div className="flex justify-center">
-          <Button className="px-3 py-1.5 text-lg font-bold" primary>
+          <Button
+            to={`/${type}/${id}`}
+            className="px-3 py-1.5 text-lg font-bold"
+            primary
+          >
             Chi tiết
           </Button>
         </div>

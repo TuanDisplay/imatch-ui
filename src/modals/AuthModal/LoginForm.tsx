@@ -1,7 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { TSetState } from '~/common/types';
-import {TLoginSchema, loginSchema} from '~/common/schema'
+import { TLoginSchema, loginSchema } from '~/common/schema';
 import Button from '~/components/Button';
 import { Modal } from '~/components/Popup';
 import { useAuthModal } from '~/hooks/useModalStore';
@@ -31,7 +31,6 @@ export default function LoginForm({ setState }: TSetState) {
       ) {
         closeAuthModal();
         setIsAuthenticated(true);
-        alert('Đăng nhập thành công!');
       } else {
         alert('Sai email hoặc mật khẩu');
       }

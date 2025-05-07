@@ -1,6 +1,13 @@
 import { Link } from 'react-router-dom';
 import { Menu } from '~/components/Popup';
 import {
+  Menu as Wrapper,
+  MenuButton,
+  MenuItem,
+  MenuItems,
+} from '@headlessui/react';
+
+import {
   CircleFadingArrowUp,
   ShoppingCart,
   HandCoins,
@@ -26,7 +33,7 @@ const links = [
   },
   {
     to: '/problem',
-    label: 'Đưa giải pháp',
+    label: 'Giải quyết vấn đề',
     icon: <HandCoins className="h-5" />,
   },
 ];
@@ -44,7 +51,7 @@ export default function Header() {
         },
       )}
     >
-      <div className="flex items-center justify-between px-10 py-2">
+      <div className="ml-10 flex items-center justify-between px-10 py-2">
         <Link to="/">
           <img src="/logo_rm.png" alt="logo" className="h-10" />
         </Link>
@@ -77,9 +84,51 @@ export default function Header() {
           </div>
         ) : (
           <div className="flex gap-5">
-            <div className="cursor-pointer rounded-full bg-amber-200 p-2 duration-300 hover:bg-amber-100">
-              <Bell className="text-black" />
-            </div>
+            <Wrapper>
+              <MenuButton className="cursor-pointer rounded-full bg-amber-200 p-2 duration-300 hover:bg-amber-100">
+                <Bell className="text-black" />
+              </MenuButton>
+
+              <MenuItems
+                anchor="bottom"
+                className="absolute right-0 z-50 mt-2 w-75 origin-top-right divide-y divide-gray-100 rounded-xl bg-white shadow-lg ring-1 ring-black/10 focus:outline-none"
+              >
+                <div className="px-4 py-3">
+                  <p className="text-primary text-sm font-semibold uppercase">
+                    Thông báo
+                  </p>
+                </div>
+
+                {/* Danh sách thông báo */}
+                <div className="max-h-60 overflow-y-auto">
+                  {[
+                    'Bạn có một tin nhắn mới.',
+                    'Ý tưởng của bạn vừa được phê duyệt!',
+                    'Bạn nhận được 3 lượt thích mới.',
+                    'Hệ thống sẽ bảo trì lúc 12:00 đêm nay.',
+                  ].map((message, idx) => (
+                    <MenuItem key={idx}>
+                      {({ active }) => (
+                        <div
+                          className={`cursor-pointer px-4 py-2 text-sm ${
+                            active
+                              ? 'text-primary bg-gray-100'
+                              : 'text-gray-700'
+                          }`}
+                        >
+                          {message}
+                        </div>
+                      )}
+                    </MenuItem>
+                  ))}
+                </div>
+
+                {/* Xem tất cả */}
+                <div className="cursor-pointer px-4 py-3 text-center text-sm text-blue-600 hover:underline">
+                  Xem tất cả
+                </div>
+              </MenuItems>
+            </Wrapper>
 
             <div className="h-10 w-10 overflow-hidden rounded-full border-2 border-amber-300">
               <Link to="/profile">
