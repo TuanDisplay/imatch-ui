@@ -264,3 +264,70 @@ export const ProblemCard = [
     ],
   },
 ];
+
+export const ExpertCard = [
+  {
+    id: 1,
+    imageUrl: 'AvtTuan.jpg',
+    author: 'Lê Viết Tuấn',
+    category: 'Công nghệ',
+    catValue: 'technology',
+    desc: 'Xin chào! Tôi là một chuyên gia công nghệ thông tin, với nền tảng vững chắc trong phát triển phần mềm, kiến trúc hệ thống, bảo mật và trí tuệ nhân tạo. Tôi có kinh nghiệm chuyên sâu trong việc thiết kế và triển khai hệ thống backend sử dụng GoLang, xây dựng API RESTful, tích hợp gRPC và tối ưu hóa hiệu suất hệ thống. Ngoài ra, tôi cũng có chuyên môn về cơ sở dữ liệu NoSQL như MongoDB, quản lý hệ thống Linux và bảo mật thông tin.',
+
+    views: 2000,
+    consultCount: 200,
+    rate: 3.5,
+    publishDate: '28/05/2003',
+    achievements: [
+      'Năm 1921, nhận giải Nobel Vật lý.',
+      'Năm 1914, làm giám đốc Viện Kaiser Wilhelm.',
+      'Năm 1916, được bầu làm chủ tịch Hội Vật lý Đức.',
+    ],
+  },
+
+  {
+    id: 2,
+    imageUrl: 'AvtHuy.png',
+    author: 'Nguyễn Bảo Anh Huy',
+    category: 'Môi trường',
+    catValue: 'environment',
+    desc: 'Xin chào! Tôi là một chuyên gia công nghệ thông tin, với nền tảng vững chắc trong phát triển phần mềm, kiến trúc hệ thống, bảo mật và trí tuệ nhân tạo. Tôi có kinh nghiệm chuyên sâu trong việc thiết kế và triển khai hệ thống backend sử dụng GoLang, xây dựng API RESTful, tích hợp gRPC và tối ưu hóa hiệu suất hệ thống. Ngoài ra, tôi cũng có chuyên môn về cơ sở dữ liệu NoSQL như MongoDB, quản lý hệ thống Linux và bảo mật thông tin.',
+
+    views: 2000,
+    consultCount: 2000,
+    rate: 4.5,
+    publishDate: '28/05/2003',
+    achievements: [
+      'Năm 1921, nhận giải Nobel Vật lý.',
+      'Năm 1914, làm giám đốc Viện Kaiser Wilhelm.',
+      'Năm 1916, được bầu làm chủ tịch Hội Vật lý Đức.',
+    ],
+  },
+];
+
+export const CommentCard = [
+  {
+    id: 1,
+    imageUrl: 'AvtTuan.jpg',
+    author: 'Lê Viết Tuấn',
+    rate: 4,
+    publishDate: '25/01/2025',
+    desc: 'Anh này cực kỳ chuyên nghiệp và giàu kinh nghiệm. Mọi vấn đề mình gặp phải đều được giải quyết rất nhanh chóng và dễ hiểu',
+  },
+  {
+    id: 2,
+    imageUrl: 'AvtHuy.png',
+    author: 'Nguyễn Bảo Anh Huy',
+    rate: 4,
+    publishDate: '25/01/2025',
+    desc: 'Cô ấy tư vấn rất chi tiết, thái độ thân thiện. Tuy nhiên do lịch khá bận nên cần đặt lịch trước vài ngày.',
+  },
+  {
+    id: 3,
+    imageUrl: 'AvtTuan.jpg',
+    author: 'Lê Viết Tuấn',
+    rate: 4,
+    publishDate: '25/01/2025',
+    desc: 'Tư duy logic, trình bày rõ ràng. Nhờ anh Huy mà team mình tiết kiệm được rất nhiều thời gian phân tích dữ liệu.',
+  },
+];

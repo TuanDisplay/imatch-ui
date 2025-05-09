@@ -3,11 +3,12 @@ const routes = {
   profile: '/profile',
   posting: '/posting',
   exchange: '/exchange',
-  exchangeDetail: '/exchange/:exchangeId',
   problem: '/problem',
-  problemDetail: '/problem/:problemId',
   expert: '/expert',
   about: '/about',
+  exchangeDetail: '/exchange/:exchangeId',
+  problemDetail: '/problem/:problemId',
+  expertDetail: '/expert/:expertId',
 };
 
 export default routes;

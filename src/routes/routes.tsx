@@ -5,11 +5,12 @@ import Home from '~/pages/Home';
 import Profile from '~/pages/Profile';
 import Posting from '~/pages/Posting';
 import Exchange from '~/pages/Exchange';
-import ExchangeDetail from '~/pages/ExchangeDetail';
 import Problem from '~/pages/Problem';
-import ProblemDetail from '~/pages/ProblemDetail';
 import Expert from '~/pages/Expert';
 import About from '~/pages/About';
+import ExchangeDetail from '~/pages/ExchangeDetail';
+import ProblemDetail from '~/pages/ProblemDetail';
+import ExpertDetail from '~/pages/ExpertDetail';
 
 const publicRoutes = [
   { path: config.routes.home, component: Home },
@@ -24,7 +25,7 @@ const privateRoutes = [
   { path: config.routes.posting, component: Posting },
   { path: config.routes.exchangeDetail, component: ExchangeDetail },
   { path: config.routes.problemDetail, component: ProblemDetail },
-
+  { path: config.routes.expertDetail, component: ExpertDetail},
 ];
 
 export { publicRoutes, privateRoutes };

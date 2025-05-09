@@ -17,20 +17,23 @@ export interface IPostForm {
 
 export interface ICard {
   id?: number;
-  type?:string;
+  type?: string;
   imageUrl: string;
-  category: string;
+  category?: string;
   catValue?: string;
-  title: string;
+  title?: string;
   desc?: string;
   author?: string;
   views?: number;
-  publishDate: string;
+  publishDate?: string;
   price?: number;
+
   submission?: number;
+
+  consultCount?: number;
+  rate?: number;
 }
 
-// export type TLoginSchema = z.infer<typeof loginSchema>;
 // export type TRegisterSchema = z.infer<typeof registerSchema>;
 // export type TSelectedSchema = z.infer<typeof selectedSchema>;
 
