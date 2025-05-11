@@ -13,12 +13,15 @@ import {
   HandCoins,
   Bell,
   LogOut,
+  Heart,
 } from 'lucide-react';
 
 import Button from '~/components/Button';
 import { useAuthModal } from '~/hooks/useModalStore';
 import { useHasScrolledBeyond } from '~/hooks/useHasScrolledBeyond';
 import clsx from 'clsx';
+import httpRequest from '~/utils/httpRequest';
+import toast from 'react-hot-toast';
 
 const links = [
   {
@@ -41,6 +44,33 @@ const links = [
 export default function Header() {
   const { openAuthModal, isAuthenticated, setIsAuthenticated } = useAuthModal();
   const hasPassedBanner = useHasScrolledBeyond(300);
+
+  const logoutHandle = async () => {
+    try {
+      const token = localStorage.getItem('accessToken')?.trim();
+      if (!token) {
+        toast.error('Không tìm thấy token!');
+        return;
+      }
+
+      await httpRequest.post(
+        '/logout',
+        {},
+        {
+          headers: {
+            'x-token': token,
+          },
+        },
+      );
+
+      localStorage.removeItem('accessToken');
+      setIsAuthenticated(false);
+      toast.success('Đăng xuất thành công! 🎉');
+    } catch (error: any) {
+      toast.error('Lỗi đăng xuất');
+      console.error('Logout thất bại', error?.response?.data || error.message);
+    }
+  };
 
   return (
     <header
@@ -84,6 +114,11 @@ export default function Header() {
           </div>
         ) : (
           <div className="flex gap-5">
+            <Link to="/my-favorate">
+              <div className="cursor-pointer rounded-full bg-amber-200 p-2 duration-300 hover:bg-amber-100">
+                <Heart className="text-black" />
+              </div>
+            </Link>
             <Wrapper>
               <MenuButton className="cursor-pointer rounded-full bg-amber-200 p-2 duration-300 hover:bg-amber-100">
                 <Bell className="text-black" />
@@ -138,7 +173,7 @@ export default function Header() {
             <div className="border-l-[1px] py-2 pl-5">
               <LogOut
                 className="hover:text-primary cursor-pointer duration-300"
-                onClick={() => setIsAuthenticated(false)}
+                onClick={logoutHandle}
               />
             </div>
           </div>

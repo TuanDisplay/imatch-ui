@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import PaginationBar from '~/components/PaginationBar';
 import { usePagination } from '~/hooks/usePagination';
-import { ProblemCard } from '~/common/data';
+import { MajorCat, ProblemCard } from '~/common/data';
 import { ProblemItem } from './ProblemItems';
 import { WrapperContent } from '~/components/Content';
 import CatBar from '~/components/CatBar';
@@ -35,7 +35,7 @@ export default function Solving() {
       </div>
       <div className="container mx-auto py-5">
         <div className="flex gap-6">
-          <CatBar data={[...ProblemCard]} setData={setData} />
+          <CatBar CatItems={MajorCat} data={[...ProblemCard]} setData={setData} />
           <div className="flex flex-1 flex-col px-4">
             <WrapperContent currentItems={currentItems}>
               {data.length === 0 ? (

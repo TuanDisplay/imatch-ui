@@ -1,14 +1,20 @@
 import clsx from 'clsx';
 import { useState } from 'react';
-import { MajorCat } from '~/common/data';
 import { ICard } from '~/common/types';
 
 interface ICatBar {
+  CatItems: ICatItem[];
   data: ICard[];
   setData: any;
 }
 
-export default function CatBar({ data, setData }: ICatBar) {
+interface ICatItem {
+  id: number;
+  name: string;
+  value: string;
+}
+
+export default function CatBar({CatItems, data, setData }: ICatBar) {
   const [selected, setSelected] = useState('');
 
   const filterHandle = (value: string) => {
@@ -23,7 +29,7 @@ export default function CatBar({ data, setData }: ICatBar) {
         Danh Mục
       </div>
       <ul className="space-y-1">
-        {MajorCat.map((cat, index) => (
+        {CatItems.map((cat, index) => (
           <li
             key={index}
             className={clsx(

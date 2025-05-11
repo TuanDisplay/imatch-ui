@@ -1,39 +1,55 @@
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import toast from 'react-hot-toast';
 
 import { TSetState } from '~/common/types';
 import { TRegisterSchema, registerSchema } from '~/common/schema';
 import { Modal } from '~/components/Popup';
 import { useAuthModal } from '~/hooks/useModalStore';
 import Button from '~/components/Button';
+import httpRequest from '~/utils/httpRequest';
 
 const classInput = 'w-full rounded-lg bg-white p-1.5 text-sm';
 
 export default function RegisterForm({ setState }: TSetState) {
+  // const [codeSent, setCodeSent] = useState(false);
   const { closeAuthModal } = useAuthModal();
 
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<TRegisterSchema>({
     resolver: zodResolver(registerSchema),
   });
 
-  const onSubmit = (data: TRegisterSchema) => {
-    const dataUser = {
-      fullName: data.fullName,
-      email: data.email,
-      password: data.password,
-    };
-
-    if (data.code === '123456') {
-      const json = JSON.stringify(dataUser);
-      localStorage.setItem(data.email, json);
+  const handleSendCode = async (data: TRegisterSchema) => {
+    try {
+      const res = await httpRequest.post('/sign', {
+        username: data.fname,
+        email: data.email,
+        password: data.password,
+      });
+      toast.success('Mã xác nhận đã được gửi đến email!');
+      console.log('Đăng ký thành công', res.data);
       closeAuthModal();
-      alert('Đăng ký thành công');
-    } else {
-      alert('Mã xác nhập không hợp lệ');
+    } catch (err: any) {
+      toast.error(err.response?.data?.message || 'Đăng ký thất bại');
+      console.error('Lỗi gửi mã:', err);
+    }
+  };
+
+  const onSubmit = async (data: TRegisterSchema) => {
+    try {
+      await httpRequest.post('/verify-otp', {
+        email: data.email,
+        otp_code: data.code,
+      });
+      // setCodeSent(true);
+      toast.success('Đăng ký thành công!');
+    } catch (err: any) {
+      console.error('Lỗi gửi mã xác nhận:', err.response?.data || err.message);
+      toast.error('Không thể gửi mã xác nhận. Vui lòng thử lại.');
     }
   };
 
@@ -52,18 +68,18 @@ export default function RegisterForm({ setState }: TSetState) {
           className="mx-auto max-w-md space-y-4 rounded px-4 py-2"
         >
           <div className="flex flex-col gap-2">
-            <label htmlFor="fullName" className="font-bold">
+            <label htmlFor="fname" className="font-bold">
               Tên hiển thị?
             </label>
             <input
               type="text"
-              {...register('fullName')}
-              id="fullName"
+              {...register('fname')}
+              id="fname"
               placeholder="Tên hiển thị dưới bài đăng của bạn"
               className={classInput}
             />
-            {errors.fullName && (
-              <p className="text-xs text-red-500">{errors.fullName.message}</p>
+            {errors.fname && (
+              <p className="text-xs text-red-500">{errors.fname.message}</p>
             )}
           </div>
 
@@ -106,6 +122,7 @@ export default function RegisterForm({ setState }: TSetState) {
                 type="button"
                 className="rounded-none px-2 font-medium"
                 primary
+                onClick={handleSubmit(handleSendCode)}
               >
                 Gửi mã
               </Button>
@@ -115,7 +132,7 @@ export default function RegisterForm({ setState }: TSetState) {
             )}
 
             <Button type="submit" className="mt-3 w-full p-1 font-bold" primary>
-              Đăng ký
+              {isSubmitting ? 'Đang đăng ký...' : 'Đăng ký'}
             </Button>
           </div>
 

@@ -2,12 +2,13 @@ import { useState } from 'react';
 
 import PaginationBar from '~/components/PaginationBar';
 import { usePagination } from '~/hooks/usePagination';
-import { IdeaCard } from '~/common/data';
+import { IdeaCard,MajorCat } from '~/common/data';
 import { IdeaItem } from './ExchangeItems';
 import { WrapperContent } from '~/components/Content';
 import CatBar from '~/components/CatBar';
 
-export default function Solving() {
+
+export default function Exchange() {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [data, setData] = useState([...IdeaCard]);
 
@@ -35,7 +36,7 @@ export default function Solving() {
       </div>
       <div className="container mx-auto py-5">
         <div className="flex gap-6">
-          <CatBar data={[...IdeaCard]} setData={setData} />
+          <CatBar CatItems={MajorCat} data={[...IdeaCard]} setData={setData} />
           <div className="flex flex-1 flex-col px-4">
             <WrapperContent currentItems={currentItems}>
               {data.length === 0 ? (

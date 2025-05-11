@@ -1,6 +1,11 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
+type TBookingModal = {
+  isBookingOpen: boolean;
+  setIsBookingModal: (value: boolean) => void;
+};
+
 type TAuthModal = {
   isAuthOpen: boolean;
   isAuthenticated: boolean;
@@ -16,6 +21,13 @@ type TDropdownModal = {
   closeDropdownModal: () => void;
 };
 
+export const useBookingModal = create<TBookingModal>((set) => ({
+  isBookingOpen: false,
+  setIsBookingModal(value) {
+    set({ isBookingOpen: value });
+  },
+}));
+
 export const useAuthModal = create<TAuthModal>()(
   persist(
     (set) => ({
@@ -25,8 +37,6 @@ export const useAuthModal = create<TAuthModal>()(
       setIsAuthenticated: (value) => set({ isAuthenticated: value }),
       openAuthModal: () => set({ isAuthOpen: true }),
       closeAuthModal: () => set({ isAuthOpen: false }),
-
-      // logout: () => set({ isAuthenticated: false }),
     }),
     {
       name: 'auth-storage', // 👈 key trong localStorage

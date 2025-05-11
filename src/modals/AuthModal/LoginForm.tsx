@@ -5,6 +5,8 @@ import { TLoginSchema, loginSchema } from '~/common/schema';
 import Button from '~/components/Button';
 import { Modal } from '~/components/Popup';
 import { useAuthModal } from '~/hooks/useModalStore';
+import toast from 'react-hot-toast';
+import httpRequest from '~/utils/httpRequest';
 
 const classInput = 'w-full rounded-lg bg-white p-1.5 text-sm';
 
@@ -14,26 +16,21 @@ export default function LoginForm({ setState }: TSetState) {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<TLoginSchema>({
     resolver: zodResolver(loginSchema),
   });
 
-  const onSubmit = (data: TLoginSchema) => {
-    const dataUserJson = localStorage.getItem(data.email);
-
-    if (dataUserJson && dataUserJson !== null) {
-      const dataUser = JSON.parse(dataUserJson);
-
-      if (
-        dataUser.email === data.email &&
-        dataUser.password === data.password
-      ) {
-        closeAuthModal();
-        setIsAuthenticated(true);
-      } else {
-        alert('Sai email hoặc mật khẩu');
-      }
+  const onSubmit = async (data: TLoginSchema) => {
+    try {
+      const res = await httpRequest.post('/login', data);
+      toast.success('Đăng nhập thành công! 🎉');
+      const token = res.data.data.token;
+      localStorage.setItem('accessToken', token);
+      closeAuthModal();
+      setIsAuthenticated(true)
+    } catch (error: any) {
+      console.error('Login thất bại', error?.response?.data || error.message);
     }
   };
 
@@ -81,7 +78,7 @@ export default function LoginForm({ setState }: TSetState) {
             <span className="ml-2 text-sm">Ghi nhớ đăng nhập</span>
           </label>
           <Button type="submit" className="mt-3 w-full p-1 font-bold" primary>
-            Đăng nhập
+            {isSubmitting ? 'Đang đăng nhập...' : 'Đăng nhập'}
           </Button>
         </form>
 

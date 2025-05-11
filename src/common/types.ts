@@ -15,9 +15,10 @@ export interface IPostForm {
   isRequire: boolean;
 }
 
+type TCardType = 'idea' | 'problem' | 'expert'
 export interface ICard {
   id?: number;
-  type?: string;
+  type?: TCardType;
   imageUrl: string;
   category?: string;
   catValue?: string;
@@ -27,12 +28,13 @@ export interface ICard {
   views?: number;
   publishDate?: string;
   price?: number;
-
   submission?: number;
-
   consultCount?: number;
   rate?: number;
 }
+
+
+
 
 // export type TRegisterSchema = z.infer<typeof registerSchema>;
 // export type TSelectedSchema = z.infer<typeof selectedSchema>;

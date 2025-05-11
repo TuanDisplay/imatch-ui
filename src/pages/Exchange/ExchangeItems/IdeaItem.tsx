@@ -1,4 +1,12 @@
-import { CalendarDays, Eye, User, ArrowRight, Settings } from 'lucide-react';
+import {
+  CalendarDays,
+  Eye,
+  User,
+  ArrowRight,
+  Settings,
+  Heart,
+} from 'lucide-react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ICard } from '~/common/types';
 
@@ -12,8 +20,20 @@ export default function IdeaItem({
   views,
   publishDate,
 }: ICard) {
+  const [isFavorate, setFavorate] = useState<boolean>(false);
+
   return (
-    <div className="hover:shadow-primary mx-auto flex max-w-4xl cursor-pointer gap-6 rounded-2xl bg-white p-6 shadow-md transition-shadow duration-300">
+    <div className="hover:shadow-primary relative mx-auto flex max-w-4xl cursor-pointer gap-6 rounded-2xl bg-white p-6 shadow-md transition-shadow duration-300">
+      <div
+        className="group absolute top-0 right-0 mt-4 mr-4"
+        onClick={() => setFavorate(!isFavorate)}
+      >
+        {isFavorate ? (
+          <Heart size={18} fill="#ff6e00" stroke="#ff6e00" />
+        ) : (
+          <Heart size={18} className="hover:text-primary" />
+        )}
+      </div>
       <img
         src={imageUrl}
         alt="idea-item"

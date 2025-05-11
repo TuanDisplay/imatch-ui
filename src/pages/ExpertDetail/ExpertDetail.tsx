@@ -3,14 +3,18 @@ import { useParams } from 'react-router-dom';
 import Button from '~/components/Button';
 import { ExpertCard, CommentCard } from '~/common/data';
 import Comment from '~/components/Comment';
+import BookingModal from '~/modals/BookingModal';
+import { useBookingModal } from '~/hooks/useModalStore';
 
 export default function ExpertDetail() {
   const { expertId } = useParams();
+  const { isBookingOpen, setIsBookingModal } = useBookingModal();
 
   const data = ExpertCard.find((item) => item.id.toString() === expertId);
 
   return (
     <>
+      {isBookingOpen && <BookingModal />}
       <div className="relative flex justify-center">
         <img
           src="/banner/about-banner.jpg"
@@ -61,6 +65,13 @@ export default function ExpertDetail() {
               </div>
               <div className="flex gap-3">
                 <Button className="px-4 py-2 font-semibold" primary>
+                  Liên hệ
+                </Button>
+                <Button
+                  className="px-4 py-2 font-semibold"
+                  primary
+                  onClick={() => setIsBookingModal(true)}
+                >
                   Đặt lịch
                 </Button>
               </div>

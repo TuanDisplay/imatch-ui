@@ -6,6 +6,7 @@ const routes = {
   problem: '/problem',
   expert: '/expert',
   about: '/about',
+  myFavorate: '/my-favorate',
   exchangeDetail: '/exchange/:exchangeId',
   problemDetail: '/problem/:problemId',
   expertDetail: '/expert/:expertId',

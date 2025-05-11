@@ -76,7 +76,7 @@ export const IdeaCard = [
   },
 
   {
-    id: 1,
+    id: 4,
     imageUrl: '/thumbnail/climate-change.jpg',
     category: 'Môi trường',
     catValue: 'environment',
@@ -96,7 +96,7 @@ export const IdeaCard = [
   },
 
   {
-    id: 2,
+    id: 5,
     imageUrl: '/thumbnail/dragon-fruit.jpg',
     category: 'Nông nghiệp',
     catValue: 'agriculture',
@@ -115,7 +115,7 @@ export const IdeaCard = [
     ],
   },
   {
-    id: 3,
+    id: 6,
     imageUrl: '/thumbnail/start-up.jpg',
     category: 'Kinh doanh',
     catValue: 'business',
@@ -331,3 +331,4 @@ export const CommentCard = [
     desc: 'Tư duy logic, trình bày rõ ràng. Nhờ anh Huy mà team mình tiết kiệm được rất nhiều thời gian phân tích dữ liệu.',
   },
 ];
+
