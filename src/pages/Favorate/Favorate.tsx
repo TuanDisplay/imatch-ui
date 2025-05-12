@@ -1,19 +1,13 @@
 import { useState } from 'react';
-
-import { IdeaCard, ProblemCard, ExpertCard } from '~/common/data';
-import { IdeaItem } from '~/pages/Exchange/ExchangeItems/';
-import { ProblemItem } from '~/pages/Problem/ProblemItems/';
-import ExpertItem from '~/pages/Expert/ExpertItems/';
-
-import { WrapperContent } from '~/components/Content';
 import clsx from 'clsx';
+
+import { ExpertFav, IdeaFav, ProblemFav } from './FavorateItems';
 
 const list = [
   { id: 1, name: 'Mua - bán ý tưởng', value: 'exchange-idea' },
   { id: 2, name: 'Giải quyết vấn đề', value: 'solving-problem' },
   { id: 3, name: 'Chuyên gia tư vấn', value: 'expert-consult' },
 ];
-
 
 export default function Favorate() {
   const [selectedValue, setSelectedValue] = useState<string>('exchange-idea');
@@ -59,27 +53,9 @@ export default function Favorate() {
             })}
           </div>
           <div className="py-5">
-            <WrapperContent currentItems={IdeaCard}>
-              {IdeaCard.length === 0 ? (
-                <div className="">Không có dữ liệu</div>
-              ) : (
-                IdeaCard.map((item) => {
-                  return (
-                    <IdeaItem
-                      key={item.id}
-                      id={item.id}
-                      imageUrl={item.imageUrl}
-                      category={item.category}
-                      title={item.title}
-                      desc={item.desc}
-                      author={item.author}
-                      views={item.views}
-                      publishDate={item.publishDate}
-                    />
-                  );
-                })
-              )}
-            </WrapperContent>
+            {selectedValue === 'exchange-idea' && <IdeaFav />}
+            {selectedValue === 'solving-problem' && <ProblemFav />}
+            {selectedValue === 'expert-consult' && <ExpertFav />}
           </div>
         </div>
       </div>

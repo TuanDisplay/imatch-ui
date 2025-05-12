@@ -1,13 +1,14 @@
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { AxiosError } from 'axios';
 import toast from 'react-hot-toast';
 
+import * as authService from '~/services/auth.service';
 import { TSetState } from '~/common/types';
 import { TRegisterSchema, registerSchema } from '~/common/schema';
 import { Modal } from '~/components/Popup';
 import { useAuthModal } from '~/hooks/useModalStore';
 import Button from '~/components/Button';
-import httpRequest from '~/utils/httpRequest';
 
 const classInput = 'w-full rounded-lg bg-white p-1.5 text-sm';
 
@@ -25,31 +26,23 @@ export default function RegisterForm({ setState }: TSetState) {
 
   const handleSendCode = async (data: TRegisterSchema) => {
     try {
-      const res = await httpRequest.post('/sign', {
-        username: data.fname,
-        email: data.email,
-        password: data.password,
-      });
+      await authService.signUp(data);
       toast.success('Mã xác nhận đã được gửi đến email!');
-      console.log('Đăng ký thành công', res.data);
-      closeAuthModal();
-    } catch (err: any) {
-      toast.error(err.response?.data?.message || 'Đăng ký thất bại');
-      console.error('Lỗi gửi mã:', err);
+    } catch (err) {
+      const error = err as AxiosError<{ message: string; codeStatus: number }>;
+      toast.error(error.response?.data.message || 'Có lỗi xảy ra');
     }
   };
 
   const onSubmit = async (data: TRegisterSchema) => {
     try {
-      await httpRequest.post('/verify-otp', {
-        email: data.email,
-        otp_code: data.code,
-      });
+      await authService.sendCode(data);
       // setCodeSent(true);
       toast.success('Đăng ký thành công!');
-    } catch (err: any) {
-      console.error('Lỗi gửi mã xác nhận:', err.response?.data || err.message);
-      toast.error('Không thể gửi mã xác nhận. Vui lòng thử lại.');
+      closeAuthModal();
+    } catch (err) {
+      const error = err as AxiosError<{ message: string; codeStatus: number }>;
+      toast.error(error.response?.data.message || 'Có lỗi xảy ra');
     }
   };
 

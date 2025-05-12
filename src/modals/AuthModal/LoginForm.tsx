@@ -1,12 +1,14 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
+import { AxiosError } from 'axios';
+
 import { TSetState } from '~/common/types';
 import { TLoginSchema, loginSchema } from '~/common/schema';
-import Button from '~/components/Button';
 import { Modal } from '~/components/Popup';
 import { useAuthModal } from '~/hooks/useModalStore';
-import toast from 'react-hot-toast';
-import httpRequest from '~/utils/httpRequest';
+import { login } from '~/services/auth.service';
+import Button from '~/components/Button';
 
 const classInput = 'w-full rounded-lg bg-white p-1.5 text-sm';
 
@@ -23,14 +25,14 @@ export default function LoginForm({ setState }: TSetState) {
 
   const onSubmit = async (data: TLoginSchema) => {
     try {
-      const res = await httpRequest.post('/login', data);
+      const token = await login(data);
       toast.success('Đăng nhập thành công! 🎉');
-      const token = res.data.data.token;
       localStorage.setItem('accessToken', token);
       closeAuthModal();
-      setIsAuthenticated(true)
-    } catch (error: any) {
-      console.error('Login thất bại', error?.response?.data || error.message);
+      setIsAuthenticated(true);
+    } catch (err) {
+      const error = err as AxiosError<{ message: string }>;
+      toast.error(error.response?.data.message || 'Có lỗi xảy ra');
     }
   };
 

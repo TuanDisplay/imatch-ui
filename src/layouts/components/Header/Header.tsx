@@ -47,21 +47,17 @@ export default function Header() {
 
   const logoutHandle = async () => {
     try {
-      const token = localStorage.getItem('accessToken')?.trim();
-      if (!token) {
-        toast.error('Không tìm thấy token!');
-        return;
-      }
+      // const token = localStorage.getItem('accessToken')?.trim();
 
-      await httpRequest.post(
-        '/logout',
-        {},
-        {
-          headers: {
-            'x-token': token,
-          },
-        },
-      );
+      // await httpRequest.post(
+      //   '/logout',
+      //   {},
+      //   {
+      //     headers: {
+      //       'x-token': token,
+      //     },
+      //   },
+      // );
 
       localStorage.removeItem('accessToken');
       setIsAuthenticated(false);
