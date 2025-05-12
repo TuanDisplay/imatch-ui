@@ -26,7 +26,7 @@ export const IdeaCard = [
     benefitValue:
       'Giảm lượng rác thải - Những nhạc cụ cũ, hỏng hoặc không còn sử dụng được nếu bỏ đi sẽ gây lãng phí và ô nhiễm. Việc tái sử dụng giúp kéo dài vòng đời của chúng.',
     author: 'Lê Viết Tuấn',
-    price: 5000,
+    price: 1500000,
     views: 80,
     publishDate: '25/01/2025',
     image: [
@@ -46,7 +46,7 @@ export const IdeaCard = [
     benefitValue:
       'Đèn ánh sáng tím hoặc xanh dương có khả năng thu hút côn trùng vào ban đêm.Kết hợp với lưới điện hoặc bẫy dính sẽ tiêu diệt côn trùng hiệu quả mà không ảnh hưởng đến cây trồng. Lưu ý không nên dùng ánh sáng trắng mạnh quá, có thể làm rối loạn sinh học cây.',
     author: 'Trần Bảo Anh Huy',
-    price: 5000,
+    price: 2500000,
     views: 12,
     publishDate: '25/01/2025',
     image: [
@@ -65,7 +65,7 @@ export const IdeaCard = [
     benefitValue:
       'Đèn ánh sáng tím hoặc xanh dương có khả năng thu hút côn trùng vào ban đêm.Kết hợp với lưới điện hoặc bẫy dính sẽ tiêu diệt côn trùng hiệu quả mà không ảnh hưởng đến cây trồng. Lưu ý không nên dùng ánh sáng trắng mạnh quá, có thể làm rối loạn sinh học cây.',
     author: 'Trần Bảo Anh Huy',
-    price: 5000,
+    price: 5500000,
     views: 12,
     publishDate: '25/01/2025',
     image: [
@@ -85,7 +85,7 @@ export const IdeaCard = [
     benefitValue:
       'Giảm lượng rác thải - Những nhạc cụ cũ, hỏng hoặc không còn sử dụng được nếu bỏ đi sẽ gây lãng phí và ô nhiễm. Việc tái sử dụng giúp kéo dài vòng đời của chúng.',
     author: 'Lê Viết Tuấn',
-    price: 5000,
+    price: 100000,
     views: 80,
     publishDate: '25/01/2025',
     image: [
@@ -105,7 +105,7 @@ export const IdeaCard = [
     benefitValue:
       'Đèn ánh sáng tím hoặc xanh dương có khả năng thu hút côn trùng vào ban đêm.Kết hợp với lưới điện hoặc bẫy dính sẽ tiêu diệt côn trùng hiệu quả mà không ảnh hưởng đến cây trồng. Lưu ý không nên dùng ánh sáng trắng mạnh quá, có thể làm rối loạn sinh học cây.',
     author: 'Trần Bảo Anh Huy',
-    price: 5000,
+    price: 1000000,
     views: 12,
     publishDate: '25/01/2025',
     image: [
@@ -124,7 +124,7 @@ export const IdeaCard = [
     benefitValue:
       'Đèn ánh sáng tím hoặc xanh dương có khả năng thu hút côn trùng vào ban đêm.Kết hợp với lưới điện hoặc bẫy dính sẽ tiêu diệt côn trùng hiệu quả mà không ảnh hưởng đến cây trồng. Lưu ý không nên dùng ánh sáng trắng mạnh quá, có thể làm rối loạn sinh học cây.',
     author: 'Trần Bảo Anh Huy',
-    price: 5000,
+    price: 500000,
     views: 12,
     publishDate: '25/01/2025',
     image: [
@@ -144,7 +144,7 @@ export const ProblemCard = [
     author: 'Lê Viết Tuấn',
     title: 'Thách thức khi chuyển đổi số trong doanh nghiệp nhỏ',
     desc: 'Trong bối cảnh công nghệ ngày càng đóng vai trò then chốt trong sự phát triển của nền kinh tế, chuyển đổi số không còn là lựa chọn mà là yêu cầu sống còn đối với doanh nghiệp. Tuy nhiên, với các doanh nghiệp nhỏ, hành trình này đối mặt với muôn vàn rào cản – từ hạn chế về nguồn lực, trình độ công nghệ cho đến tư duy quản trị. ',
-    price: 25000,
+    price: 2500000,
     benefitValue:
       'Đèn ánh sáng tím hoặc xanh dương có khả năng thu hút côn trùng vào ban đêm.Kết hợp với lưới điện hoặc bẫy dính sẽ tiêu diệt côn trùng hiệu quả mà không ảnh hưởng đến cây trồng. Lưu ý không nên dùng ánh sáng trắng mạnh quá, có thể làm rối loạn sinh học cây.',
 
@@ -165,7 +165,7 @@ export const ProblemCard = [
     author: 'Lê Viết Tuấn',
     title: 'Làm sao để một startup cạnh tranh với các tập đoàn lớn?',
     desc: 'Trong cuộc chơi thị trường khốc liệt, startup thường bị xem là “kẻ yếu thế” trước các tập đoàn khổng lồ với nguồn vốn dồi dào, thương hiệu mạnh và mạng lưới rộng lớn. Thế nhưng, chính sự linh hoạt, sáng tạo và khả năng đổi mới không ngừng lại là lợi thế đặc biệt của startup.',
-    price: 5000,
+    price: 2225000,
     benefitValue:
       'Đèn ánh sáng tím hoặc xanh dương có khả năng thu hút côn trùng vào ban đêm.Kết hợp với lưới điện hoặc bẫy dính sẽ tiêu diệt côn trùng hiệu quả mà không ảnh hưởng đến cây trồng. Lưu ý không nên dùng ánh sáng trắng mạnh quá, có thể làm rối loạn sinh học cây.',
 
@@ -189,7 +189,7 @@ export const ProblemCard = [
 
     title: 'Ứng phó với biến đổi khí hậu trong sản xuất nông nghiệp',
     desc: 'Biến đổi khí hậu đang trở thành mối đe dọa nghiêm trọng đối với nền nông nghiệp – lĩnh vực vốn phụ thuộc lớn vào thời tiết và điều kiện tự nhiên. Những thay đổi bất thường về nhiệt độ, lượng mưa, và thiên tai không chỉ ảnh hưởng đến năng suất mà còn đặt ra bài toán lớn về sinh kế cho người nông dân',
-    price: 15000,
+    price: 1500000,
 
     submission: 12,
     publishDate: '02/01/2025',
@@ -208,7 +208,7 @@ export const ProblemCard = [
     author: 'Lê Viết Tuấn',
     title: 'Thách thức khi chuyển đổi số trong doanh nghiệp nhỏ',
     desc: 'Trong bối cảnh công nghệ ngày càng đóng vai trò then chốt trong sự phát triển của nền kinh tế, chuyển đổi số không còn là lựa chọn mà là yêu cầu sống còn đối với doanh nghiệp. Tuy nhiên, với các doanh nghiệp nhỏ, hành trình này đối mặt với muôn vàn rào cản – từ hạn chế về nguồn lực, trình độ công nghệ cho đến tư duy quản trị. ',
-    price: 25000,
+    price: 1225000,
     benefitValue:
       'Đèn ánh sáng tím hoặc xanh dương có khả năng thu hút côn trùng vào ban đêm.Kết hợp với lưới điện hoặc bẫy dính sẽ tiêu diệt côn trùng hiệu quả mà không ảnh hưởng đến cây trồng. Lưu ý không nên dùng ánh sáng trắng mạnh quá, có thể làm rối loạn sinh học cây.',
 
@@ -229,7 +229,7 @@ export const ProblemCard = [
     author: 'Lê Viết Tuấn',
     title: 'Làm sao để một startup cạnh tranh với các tập đoàn lớn?',
     desc: 'Trong cuộc chơi thị trường khốc liệt, startup thường bị xem là “kẻ yếu thế” trước các tập đoàn khổng lồ với nguồn vốn dồi dào, thương hiệu mạnh và mạng lưới rộng lớn. Thế nhưng, chính sự linh hoạt, sáng tạo và khả năng đổi mới không ngừng lại là lợi thế đặc biệt của startup.',
-    price: 5000,
+    price: 1505000,
     benefitValue:
       'Đèn ánh sáng tím hoặc xanh dương có khả năng thu hút côn trùng vào ban đêm.Kết hợp với lưới điện hoặc bẫy dính sẽ tiêu diệt côn trùng hiệu quả mà không ảnh hưởng đến cây trồng. Lưu ý không nên dùng ánh sáng trắng mạnh quá, có thể làm rối loạn sinh học cây.',
 
@@ -253,7 +253,7 @@ export const ProblemCard = [
 
     title: 'Ứng phó với biến đổi khí hậu trong sản xuất nông nghiệp',
     desc: 'Biến đổi khí hậu đang trở thành mối đe dọa nghiêm trọng đối với nền nông nghiệp – lĩnh vực vốn phụ thuộc lớn vào thời tiết và điều kiện tự nhiên. Những thay đổi bất thường về nhiệt độ, lượng mưa, và thiên tai không chỉ ảnh hưởng đến năng suất mà còn đặt ra bài toán lớn về sinh kế cho người nông dân',
-    price: 15000,
+    price: 150000,
 
     submission: 12,
     publishDate: '02/01/2025',
@@ -331,4 +331,3 @@ export const CommentCard = [
     desc: 'Tư duy logic, trình bày rõ ràng. Nhờ anh Huy mà team mình tiết kiệm được rất nhiều thời gian phân tích dữ liệu.',
   },
 ];
-

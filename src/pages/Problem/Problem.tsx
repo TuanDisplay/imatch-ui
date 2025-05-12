@@ -6,13 +6,16 @@ import { MajorCat, ProblemCard } from '~/common/data';
 import { ProblemItem } from './ProblemItems';
 import { WrapperContent } from '~/components/Content';
 import CatBar from '~/components/CatBar';
+import FilterBar from '~/layouts/components/Filter';
+import { IProblemCard } from '~/common/types';
 
 export default function Solving() {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [data, setData] = useState([...ProblemCard]);
+  const [filter, setFilter] = useState<IProblemCard[]>([])
 
   const itemsPerPage = 3;
-  const currentItems = usePagination(data, currentPage, itemsPerPage);
+  const currentItems = usePagination(filter, currentPage, itemsPerPage);
 
   return (
     <>
@@ -37,6 +40,7 @@ export default function Solving() {
         <div className="flex gap-6">
           <CatBar CatItems={MajorCat} data={[...ProblemCard]} setData={setData} />
           <div className="flex flex-1 flex-col px-4">
+            <FilterBar<IProblemCard> data={data} onFiltered={setFilter}></FilterBar>
             <WrapperContent currentItems={currentItems}>
               {data.length === 0 ? (
                 <div className="">Không có dữ liệu</div>
