@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Menu } from '~/components/Popup';
+import toast from 'react-hot-toast';
+import { AxiosError } from 'axios';
 import {
   Menu as Wrapper,
   MenuButton,
@@ -20,8 +22,6 @@ import Button from '~/components/Button';
 import { useAuthModal } from '~/hooks/useModalStore';
 import { useHasScrolledBeyond } from '~/hooks/useHasScrolledBeyond';
 import clsx from 'clsx';
-import httpRequest from '~/utils/httpRequest';
-import toast from 'react-hot-toast';
 
 const links = [
   {
@@ -62,9 +62,9 @@ export default function Header() {
       localStorage.removeItem('accessToken');
       setIsAuthenticated(false);
       toast.success('Đăng xuất thành công! 🎉');
-    } catch (error: any) {
-      toast.error('Lỗi đăng xuất');
-      console.error('Logout thất bại', error?.response?.data || error.message);
+    } catch (err) {
+      const error = err as AxiosError<{ message: string; codeStatus: number }>;
+      toast.error(error.response?.data.message || 'Có lỗi xảy ra');
     }
   };
 

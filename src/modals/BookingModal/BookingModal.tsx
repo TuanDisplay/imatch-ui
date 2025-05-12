@@ -1,6 +1,5 @@
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-// import {  } from '';
 
 import Button from '~/components/Button';
 import { bookingFormSchema, TBookingSchema } from '~/common/schema';
@@ -13,12 +12,12 @@ export default function BookingModal() {
     formState: { errors },
   } = useForm<TBookingSchema>({ resolver: zodResolver(bookingFormSchema) });
 
-  const onSubmit = (data: any) => {
+  const onSubmit = (data: TBookingSchema) => {
     const bookingInfo = {
       fname: data.fname,
       date: data.date,
       time: data.time,
-      iso: new Date(`${data.date}T${data.time}`).toISOString(),
+      // iso: new Date(`${data.date}T${data.time}`).toISOString(),
     };
     const JBooking = JSON.stringify(bookingInfo);
     localStorage.setItem(data.fname, JBooking);

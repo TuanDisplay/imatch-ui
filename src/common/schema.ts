@@ -1,11 +1,11 @@
 import { z } from 'zod';
-import { isAfter, addDays, startOfDay } from 'date-fns';
+// import { isAfter, addDays, startOfDay } from 'date-fns';
 
 export type TLoginSchema = z.infer<typeof loginSchema>;
 export type TRegisterSchema = z.infer<typeof registerSchema>;
 export type TSelectedSchema = z.infer<typeof postFormSchema>;
 export type TBookingSchema = z.infer<typeof bookingFormSchema>;
-export type TProfileSchema = z.infer<typeof profileSchema>
+export type TProfileSchema = z.infer<typeof profileSchema>;
 
 export const loginSchema = z.object({
   email: z
@@ -23,7 +23,7 @@ export const loginSchema = z.object({
 });
 
 export const registerSchema = z.object({
-    fname: z
+  fname: z
     .string()
     .trim()
     .nonempty('Không được để trống trường này')
@@ -72,17 +72,7 @@ export const bookingFormSchema = z.object({
     .refine((val) => /^[a-zA-ZÀ-ỹ\s]+$/.test(val), {
       message: 'Họ và tên không được chứa ký tự đặc biệt hoặc số',
     }),
-  date: z.preprocess(
-    (val) => (typeof val === 'string' ? new Date(val) : val),
-    z
-      .date({
-        required_error: 'Vui lòng chọn ngày',
-        invalid_type_error: 'Ngày không hợp lệ',
-      })
-      .refine((date) => isAfter(startOfDay(date), addDays(new Date(), 0)), {
-        message: 'Ngày hẹn phải sau hôm nay',
-      }),
-  ),
+  date: z.string().min(1, 'Vui lòng chọn thời gian'),
   time: z
     .string()
     .min(1, 'Vui lòng chọn thời gian')
@@ -101,3 +91,15 @@ export const profileSchema = z.object({
   birthDate: z.string().nonempty('Không được để trống trường này'),
   bio: z.string().nonempty('Không được để trống trường này'),
 });
+
+// preprocess(
+//     (val) => (typeof val === 'string' ? new Date(val) : val),
+//     z
+//       .date({
+//         required_error: 'Vui lòng chọn ngày',
+//         invalid_type_error: 'Ngày không hợp lệ',
+//       })
+//       .refine((date) => isAfter(startOfDay(date), addDays(new Date(), 0)), {
+//         message: 'Ngày hẹn phải sau hôm nay',
+//       }),
+//   ),
