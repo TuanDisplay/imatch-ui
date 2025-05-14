@@ -75,10 +75,10 @@ export default function LoginForm({ setState }: TSetState) {
             )}
           </div>
 
-          <label className="flex items-center">
+          {/* <label className="flex items-center">
             <input type="checkbox" />
             <span className="ml-2 text-sm">Ghi nhớ đăng nhập</span>
-          </label>
+          </label> */}
           <Button type="submit" className="mt-3 w-full p-1 font-bold" primary>
             {isSubmitting ? 'Đang đăng nhập...' : 'Đăng nhập'}
           </Button>

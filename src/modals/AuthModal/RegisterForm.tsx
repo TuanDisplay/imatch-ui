@@ -2,6 +2,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { AxiosError } from 'axios';
 import toast from 'react-hot-toast';
+import { useEffect, useState } from 'react';
 
 import * as authService from '~/services/auth.service';
 import { TSetState } from '~/common/types';
@@ -13,20 +14,38 @@ import Button from '~/components/Button';
 const classInput = 'w-full rounded-lg bg-white p-1.5 text-sm';
 
 export default function RegisterForm({ setState }: TSetState) {
-  // const [codeSent, setCodeSent] = useState(false);
+  const [isCodeSent, setCodeSent] = useState(false);
+  const [timeLeft, setTimeLeft] = useState<number>(0);
+
   const { closeAuthModal } = useAuthModal();
 
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors, isSubmitting },
   } = useForm<TRegisterSchema>({
+    mode: 'onChange',
     resolver: zodResolver(registerSchema),
   });
+
+  const displayName = watch('fname');
+  const email = watch('email');
+  const password = watch('password');
+
+  const isSendCodeDisabled =
+    displayName &&
+    email &&
+    password &&
+    !errors.email &&
+    !errors.password &&
+    !errors.fname;
 
   const handleSendCode = async (data: TRegisterSchema) => {
     try {
       await authService.signUp(data);
+      setCodeSent(true);
+      setTimeLeft(30);
       toast.success('Mã xác nhận đã được gửi đến email!');
     } catch (err) {
       const error = err as AxiosError<{ message: string; codeStatus: number }>;
@@ -37,7 +56,6 @@ export default function RegisterForm({ setState }: TSetState) {
   const onSubmit = async (data: TRegisterSchema) => {
     try {
       await authService.sendCode(data);
-      // setCodeSent(true);
       toast.success('Đăng ký thành công!');
       closeAuthModal();
     } catch (err) {
@@ -45,6 +63,14 @@ export default function RegisterForm({ setState }: TSetState) {
       toast.error(error.response?.data.message || 'Có lỗi xảy ra');
     }
   };
+
+  useEffect(() => {
+    if (timeLeft === 0) return;
+    const timer = setInterval(() => {
+      setTimeLeft((prev) => prev - 1);
+    }, 1000);
+    return () => clearInterval(timer);
+  }, [timeLeft]);
 
   return (
     <Modal>
@@ -106,18 +132,21 @@ export default function RegisterForm({ setState }: TSetState) {
             <div className="mt-3 h-[1px] w-full bg-black"></div>
             <div className="mt-3 flex w-full overflow-hidden rounded-lg">
               <input
-                type="text"
+                type="number"
                 {...register('code')}
                 placeholder="Mã xác thực"
-                className="flex-1 bg-white p-1.5 text-sm outline-0"
+                minLength={6}
+                className="flex-1 bg-white p-1.5 text-sm outline-0 disabled:bg-gray-400"
+                disabled={!isCodeSent}
               />
               <Button
                 type="button"
-                className="rounded-none px-2 font-medium"
+                className="w-20 rounded-none px-2 font-medium"
                 primary
+                disable={!isSendCodeDisabled || timeLeft > 0}
                 onClick={handleSubmit(handleSendCode)}
               >
-                Gửi mã
+                {timeLeft > 0 ? timeLeft + ' s' : 'Gửi mã'}
               </Button>
             </div>
             {errors.code && (

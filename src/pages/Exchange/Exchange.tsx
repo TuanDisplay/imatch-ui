@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { usePagination } from '~/hooks/usePagination';
 import { IdeaCard, MajorCat } from '~/common/data';
@@ -8,27 +8,27 @@ import { IIdeaCard } from '~/common/types';
 import PaginationBar from '~/components/PaginationBar';
 import CatBar from '~/components/CatBar';
 import FilterBar from '~/layouts/components/Filter';
-// import * as ideaService from '~/services/idea.service'
+import * as ideaService from '~/services/idea.service';
 
 export default function Exchange() {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [data, setData] = useState([...IdeaCard]);
   const [dataFilter, setDataFilter] = useState<IIdeaCard[]>([]);
-  // const [realData, setRealData] = useState()
+  const [realData, setRealData] = useState();
 
   const itemsPerPage = 3;
   const currentItems = usePagination(dataFilter, currentPage, itemsPerPage);
 
-  // useEffect(()=>{
-  //   const fetchApi = async() => {
-  //     const token = localStorage.getItem('accessToken')?.trim();
-  //     const result = await ideaService.ideas(token)
-  //     setRealData(result)
-  //   }
-  //   fetchApi();
-  // },[setRealData])
+  useEffect(() => {
+    const fetchApi = async () => {
+      // const token = localStorage.getItem('accessToken')?.trim();
+      const result = await ideaService.ideas();
+      setRealData(result);
+    };
+    fetchApi();
+  }, [setRealData]);
 
-  // console.log('RealData: '+realData);
+  console.log('RealData: ' + realData);
 
   return (
     <>

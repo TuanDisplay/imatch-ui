@@ -53,14 +53,13 @@ export const registerSchema = z.object({
       message: 'Mật khẩu không được chứa khoảng trắng',
     }),
 
-  code: z
-    .string()
-    .regex(/^\d{6}$/, {
-      message: 'Phải là 6 chữ số',
-    })
-    .refine((val) => !val.includes(' '), {
-      message: 'Mật khẩu không được chứa khoảng trắng',
-    }),
+  code: z.string().optional(),
+  // .regex(/^\d{6}$/, {
+  //   message: 'Mã xác nhận không hợp',
+  // })
+  // .refine((val) => !val.includes(' '), {
+  //   message: 'Mã xác nhận không được chứa khoảng trắng',
+  // }),
 });
 
 export const postFormSchema = z.object({
@@ -81,8 +80,8 @@ export const postFormSchema = z.object({
 
   ipImgUpload: reqImgUpload('Không được để trống ảnh'),
   relatedImgUpload: reqImgUpload('Không được để trống ảnh'),
-  relatedImgUpload2:  reqImgUpload('Không được để trống ảnh'),
-  relatedImgUpload3:  reqImgUpload('Không được để trống ảnh'),
+  relatedImgUpload2: reqImgUpload('Không được để trống ảnh'),
+  relatedImgUpload3: reqImgUpload('Không được để trống ảnh'),
 });
 
 export const bookingFormSchema = z.object({
