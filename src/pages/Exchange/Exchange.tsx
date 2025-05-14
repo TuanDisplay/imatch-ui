@@ -4,10 +4,10 @@ import { usePagination } from '~/hooks/usePagination';
 import { IdeaCard, MajorCat } from '~/common/data';
 import { IdeaItem } from './ExchangeItems';
 import { WrapperContent } from '~/components/Content';
+import { IIdeaCard } from '~/common/types';
 import PaginationBar from '~/components/PaginationBar';
 import CatBar from '~/components/CatBar';
 import FilterBar from '~/layouts/components/Filter';
-import { IIdeaCard } from '~/common/types';
 
 export default function Exchange() {
   const [currentPage, setCurrentPage] = useState<number>(1);

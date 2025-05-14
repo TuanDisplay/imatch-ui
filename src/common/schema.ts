@@ -1,9 +1,14 @@
 import { z } from 'zod';
 // import { isAfter, addDays, startOfDay } from 'date-fns';
 
+const reqText = (message: string) => z.string().trim().nonempty(message);
+const reqSelect = (message: string) => z.string().trim().nonempty(message);
+const reqTextArea = (message: string) => z.string().trim().nonempty(message);
+const reqImgUpload = (message: string) => z.string().trim().nonempty(message);
+
 export type TLoginSchema = z.infer<typeof loginSchema>;
 export type TRegisterSchema = z.infer<typeof registerSchema>;
-export type TSelectedSchema = z.infer<typeof postFormSchema>;
+export type TPostFormSchema = z.infer<typeof postFormSchema>;
 export type TBookingSchema = z.infer<typeof bookingFormSchema>;
 export type TProfileSchema = z.infer<typeof profileSchema>;
 
@@ -59,9 +64,25 @@ export const registerSchema = z.object({
 });
 
 export const postFormSchema = z.object({
-  text: z.string().trim().min(1, { message: 'Không được để trống' }),
-  textArea: z.string().nonempty('Không được để trống'),
-  selected: z.string().min(1, { message: 'Vui lòng chọn danh mục' }),
+  title: reqText('Không được để trống'),
+  fname: reqText('Không được để trống'),
+  email: reqText('Không được để trống'),
+  phone: reqText('Không được để trống'),
+
+  descTxtEdit: reqTextArea('Không được để trống'),
+  valueTxtEdit: reqTextArea('Không được để trống'),
+
+  majorSelect: reqSelect('Vui lòng chọn danh mục'),
+  methodSelect: reqSelect('Vui lòng chọn danh mục'),
+
+  ipRadio: z.enum(['yes', 'no'], {
+    required_error: 'Vui lòng chọn một tùy chọn.',
+  }),
+
+  ipImgUpload: reqImgUpload('Không được để trống ảnh'),
+  relatedImgUpload: reqImgUpload('Không được để trống ảnh'),
+  relatedImgUpload2:  reqImgUpload('Không được để trống ảnh'),
+  relatedImgUpload3:  reqImgUpload('Không được để trống ảnh'),
 });
 
 export const bookingFormSchema = z.object({

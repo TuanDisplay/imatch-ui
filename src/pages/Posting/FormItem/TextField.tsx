@@ -1,9 +1,8 @@
+import { UseFormRegisterReturn } from 'react-hook-form';
 import { IPostForm } from '~/common/types';
-import { UseFormRegister } from 'react-hook-form';
-import { TSelectedSchema } from '~/common/schema';
 
 interface TextInput extends IPostForm {
-  register: UseFormRegister<TSelectedSchema>;
+  register: UseFormRegisterReturn;
   error: string | undefined;
 }
 
@@ -23,7 +22,7 @@ export default function TextInput({
       </label>
       <input
         id={id}
-        {...register('text')}
+        {...register}
         type="text"
         placeholder={placeholder}
         className="rounded-xl bg-white px-4 py-2.5 drop-shadow-xl"

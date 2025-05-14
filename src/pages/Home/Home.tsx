@@ -149,7 +149,7 @@ export default function Home() {
                     author={item.author}
                     views={item.views}
                     publishDate={item.publishDate}
-                    type="idea"
+                    type="exchange"
                   />
                 </SwiperSlide>
               );

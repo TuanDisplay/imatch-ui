@@ -1,4 +1,4 @@
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import Button from '~/components/Button';
@@ -9,10 +9,10 @@ import {
   UploadImageField,
 } from './FormItem';
 import { MajorCat } from '~/common/data';
-import { TSelectedSchema, postFormSchema } from '~/common/schema';
+import { TPostFormSchema, postFormSchema } from '~/common/schema';
+import toast from 'react-hot-toast';
 
 const methodO = [
-  { value: '', name: 'Chọn phương thức' },
   { value: 'posting-idea', name: 'Mua - Bán ý tưởng' },
   { value: 'solving-problem', name: 'Đặt vấn đề' },
 ];
@@ -21,13 +21,35 @@ export default function Posting() {
   const {
     register,
     handleSubmit,
+    control,
+    setValue,
     formState: { errors },
-  } = useForm<TSelectedSchema>({ resolver: zodResolver(postFormSchema) });
+  } = useForm<TPostFormSchema>({ resolver: zodResolver(postFormSchema) });
 
-  const onSubmit = () => {
-    alert('Submit thanh cong');
+  const onSubmit = (data: TPostFormSchema) => {
+    try {
+      const dataInput = {
+        title: data.title,
+        majorValue: data.majorSelect,
+        methodValue: data.methodSelect,
+        descTxtArea: data.descTxtEdit,
+        valueTextArea: data.valueTxtEdit,
+        isIP: data.ipRadio,
+        fname: data.fname,
+        email: data.email,
+        phone: data.phone,
+        ipImg: data.ipImgUpload,
+        relatedImg: data.relatedImgUpload,
+        relatedImg2: data.relatedImgUpload2,
+        relatedImg3: data.relatedImgUpload3,
+      };
+      console.log('Data: ' + JSON.stringify(dataInput));
+      toast.success('Đăng thành công');
+    } catch (err) {
+      toast.error('Lỗi đăng');
+      console.log(err);
+    }
   };
-
   return (
     <div>
       <div className="relative flex justify-center">
@@ -56,8 +78,8 @@ export default function Posting() {
               label="Tên ý tưởng"
               placeholder="Vui lòng tóm tắt tiêu đề ngắn gọn, dễ hiểu"
               isRequire
-              register={register}
-              error={errors.text?.message}
+              register={register('title')}
+              error={errors.title?.message}
             />
 
             <SelectField
@@ -65,8 +87,8 @@ export default function Posting() {
               label="Lĩnh vực ngành"
               optionData={MajorCat}
               isRequire
-              register={register}
-              error={errors.selected?.message}
+              register={register('majorSelect')}
+              error={errors.majorSelect?.message}
             />
 
             <SelectField
@@ -74,35 +96,71 @@ export default function Posting() {
               label="Phương thức"
               optionData={methodO}
               isRequire
-              register={register}
-              error={errors.selected?.message}
+              register={register('methodSelect')}
+              error={errors.methodSelect?.message}
             />
 
-            <EditorField
-              label="Nội dung chi tiết"
-              placeholder="Giới thiệu về sản phẩm, từ những vấn đề nào để dẫn đến ý tưởng này..."
-              isRequire
+            <Controller
+              name="descTxtEdit"
+              control={control}
+              render={({ field }) => (
+                <EditorField
+                  label="Nội dung chi tiết"
+                  value={field.value}
+                  setValue={field.onChange}
+                  placeholder="Giới thiệu về sản phẩm, từ những vấn đề nào để dẫn đến ý tưởng này..."
+                  isRequire
+                />
+              )}
             />
 
-            <EditorField
-              label="Giá trị và lợi ích"
-              placeholder="Giá trị và lợi ích của sản phẩm mang lại là gì?"
-              isRequire
+            <Controller
+              name="valueTxtEdit"
+              control={control}
+              render={({ field }) => (
+                <EditorField
+                  label="Giá trị - Lợi ích"
+                  value={field.value}
+                  setValue={field.onChange}
+                  placeholder="Trình bày các lợi ích mang lại từ sản phẩm để thu hút người dùng..."
+                  isRequire
+                />
+              )}
             />
 
-            <UploadImageField
-              label="Bạn đã đăng ký quyền sở hữu trí tuệ cho ý tưởng này chưa?"
-              subtitle="Vui lòng cung cấp hình ảnh lên nếu như bạn đã đăng ký quyền sở
+            <Controller
+              name="ipImgUpload"
+              control={control}
+              render={({ field }) => (
+                <UploadImageField
+                  id={field.name}
+                  label="Bạn đã đăng ký quyền sở hữu trí tuệ cho ý tưởng này chưa?"
+                  subtitle="Vui lòng cung cấp hình ảnh lên nếu như bạn đã đăng ký quyền sở
               hữu trí tuệ cho ý tưởng này."
-              isSelectRadio={true}
-              isRequire
+                  isRequire
+                  radioRegis={register('ipRadio')}
+                  imgError={errors.ipImgUpload?.message}
+                  radioError={errors.ipRadio?.message}
+                  name={field.name}
+                  setValue={setValue}
+                />
+              )}
             />
 
-            <UploadImageField
-              label="Hình Ảnh"
-              subtitle="Vui lòng cung cấp 2 hình ảnh liên quan đến ý tưởng."
-              isSelectRadio={false}
-              isRequire
+            <Controller
+              name="relatedImgUpload"
+              control={control}
+              render={({ field }) => (
+                <UploadImageField
+                  id={field.name}
+                  label="Hình Ảnh"
+                  subtitle="Vui lòng cung cấp 2 hình ảnh liên quan đến ý tưởng."
+                  isRequire
+                  imgError={errors.relatedImgUpload?.message}
+                  name="relatedImgUpload"
+                  setValue={setValue}
+                />
+              )}
             />
           </div>
           <div className="mt-5">
@@ -115,24 +173,26 @@ export default function Posting() {
                 label="Họ và tên"
                 placeholder="Nhập họ và tên của bạn"
                 isRequire
-                register={register}
-                error={errors.text?.message}
+                register={register('fname')}
+                error={errors.fname?.message}
               />
+
               <TextField
                 id="email"
                 label="Email"
                 placeholder="Email của bạn"
                 isRequire
-                register={register}
-                error={errors.text?.message}
+                register={register('email')}
+                error={errors.email?.message}
               />
+
               <TextField
                 id="phone-number"
                 label="Số điện thoại"
                 placeholder="Số điện thoại của bạn"
                 isRequire
-                register={register}
-                error={errors.text?.message}
+                register={register('phone')}
+                error={errors.phone?.message}
               />
             </div>
           </div>

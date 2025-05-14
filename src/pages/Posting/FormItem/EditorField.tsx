@@ -1,54 +1,55 @@
-import { useQuill } from 'react-quilljs';
+import ReactQuill from 'react-quill-new';
 import { IPostForm } from '~/common/types';
+import 'react-quill-new/dist/quill.snow.css';
 
 import 'quill/dist/quill.snow.css';
 
+interface IEditorField extends IPostForm {
+  value: string;
+  setValue: (value: string) => void;
+}
+
 export default function EditorField({
   label,
-  placeholder: placeH,
+  value,
+  setValue,
+  placeholder = 'Nhập nội dung...',
   isRequire,
-}: IPostForm) {
-  const theme = 'snow';
-
+}: IEditorField) {
   const modules = {
     toolbar: [
+      [{ font: [] }, { size: [] }],
+      [{ header: [1, 2, 3, false] }],
       ['bold', 'italic', 'underline', 'strike'],
-      [{ align: [] }],
-
+      [{ color: [] }, { background: [] }],
+      [{ script: 'sub' }, { script: 'super' }],
       [{ list: 'ordered' }, { list: 'bullet' }],
       [{ indent: '-1' }, { indent: '+1' }],
-
-      [{ size: ['small', false, 'large', 'huge'] }],
-      [{ header: [1, 2, 3, 4, 5, 6, false] }],
+      [{ align: [] }],
       ['link', 'image', 'video'],
-      [{ color: [] }, { background: [] }],
+      ['clean'],
     ],
-
-    clipboard: {
-      matchVisual: false,
-    },
   };
 
-  const placeholder = placeH;
-
   const formats = [
+    'header',
+    'font',
+    'size',
     'bold',
     'italic',
     'underline',
     'strike',
-    'align',
+    'color',
+    'background',
+    'script',
     'list',
     'indent',
-    'size',
-    'header',
+    'align',
+    'direction',
     'link',
     'image',
     'video',
-    'color',
-    'background',
   ];
-
-  const { quillRef } = useQuill({ theme, modules, formats, placeholder });
 
   return (
     <div className="flex flex-col gap-3">
@@ -56,8 +57,16 @@ export default function EditorField({
         {label}
         {isRequire && <span className="text-red-500"> *</span>}
       </label>
-      <div className="h-[300px] w-full overflow-hidden bg-white">
-        <div ref={quillRef} />
+      <div className="overflow-hidden rounded-xl bg-white drop-shadow-xl">
+        <ReactQuill
+          theme="snow"
+          modules={modules}
+          formats={formats}
+          value={value}
+          onChange={setValue}
+          placeholder={placeholder}
+          className="h-[300px]"
+        />
       </div>
     </div>
   );

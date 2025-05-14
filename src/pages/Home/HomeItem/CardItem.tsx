@@ -30,7 +30,7 @@ export default function CardItem({
         </div>
         <img
           src={imageUrl}
-          alt="dragonfruit"
+          alt="imageUrl"
           className="h-[210px] w-full rounded-[5px]"
         />
       </div>
@@ -49,7 +49,7 @@ export default function CardItem({
                 {author}
               </div>
             ) : (
-              <div className="line-clamp-1 text-sm font-bold">{price} $</div>
+              <div className="line-clamp-1 text-sm font-bold">{price} VND</div>
             )}
           </div>
           <div className="flex items-center justify-end gap-2 pr-2">

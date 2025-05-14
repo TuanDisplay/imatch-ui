@@ -1,10 +1,9 @@
-import { UseFormRegister } from 'react-hook-form';
+import { UseFormRegisterReturn } from 'react-hook-form';
 import { IPostForm } from '~/common/types';
-import { TSelectedSchema } from '~/common/schema';
 
 interface ISelectInput extends IPostForm {
   optionData: IOptionData[];
-  register: UseFormRegister<TSelectedSchema>;
+  register: UseFormRegisterReturn;
   error: string | undefined;
 }
 
@@ -28,8 +27,8 @@ export default function SelectInput({
         {isRequire && <span className="text-red-500"> *</span>}
       </label>
       <div className="rounded-xl bg-white px-4 py-2.5 drop-shadow-xl">
-        <select id={id} {...register('selected')} className="w-full outline-0">
-          <option value={''} disabled selected>
+        <select id={id} {...register} className="w-full outline-0">
+          <option value="" hidden>
             --- Chọn danh mục ---
           </option>
           {optionData.map((option, index) => {
