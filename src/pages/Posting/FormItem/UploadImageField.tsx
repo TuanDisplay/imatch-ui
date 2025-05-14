@@ -1,7 +1,9 @@
 import { UploadCloud } from 'lucide-react';
 import { useState } from 'react';
 import { UseFormRegisterReturn, UseFormSetValue } from 'react-hook-form';
+
 import { IPostForm } from '~/common/types';
+import { convertToBase64 } from '~/utils/files';
 
 interface IUploadImageField extends IPostForm {
   id: string;
@@ -48,14 +50,6 @@ const UploadImage = ({
     }
   };
 
-  const convertToBase64 = (file: File): Promise<string> => {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => resolve(reader.result as string);
-      reader.onerror = (error) => reject(error);
-    });
-  };
   return (
     <div className="w-[250px] rounded-xl bg-white px-5 py-4">
       <div className="rounded-xl border-1 border-dashed p-2">

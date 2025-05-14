@@ -101,6 +101,7 @@ export const bookingFormSchema = z.object({
 });
 
 export const profileSchema = z.object({
+  avatar: z.string().optional(),
   fname: z
     .string()
     .trim()

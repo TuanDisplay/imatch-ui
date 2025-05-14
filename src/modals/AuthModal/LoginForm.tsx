@@ -7,7 +7,7 @@ import { TSetState } from '~/common/types';
 import { TLoginSchema, loginSchema } from '~/common/schema';
 import { Modal } from '~/components/Popup';
 import { useAuthModal } from '~/hooks/useModalStore';
-// import { login } from '~/services/auth.service';
+import * as authService from '~/services/auth.service';
 import Button from '~/components/Button';
 
 const classInput = 'w-full rounded-lg bg-white p-1.5 text-sm';
@@ -23,11 +23,11 @@ export default function LoginForm({ setState }: TSetState) {
     resolver: zodResolver(loginSchema),
   });
 
-  const onSubmit = async () => {
+  const onSubmit = async (data: TLoginSchema) => {
     try {
-      // const token = await login(data);
+      const token = await authService.login(data);
       toast.success('Đăng nhập thành công! 🎉');
-      // localStorage.setItem('accessToken', token);
+      localStorage.setItem('accessToken', token);
       closeAuthModal();
       setIsAuthenticated(true);
     } catch (err) {

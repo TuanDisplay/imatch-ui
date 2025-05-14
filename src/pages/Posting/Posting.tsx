@@ -154,7 +154,7 @@ export default function Posting() {
                 <UploadImageField
                   id={field.name}
                   label="Hình Ảnh"
-                  subtitle="Vui lòng cung cấp 2 hình ảnh liên quan đến ý tưởng."
+                  subtitle="Vui lòng cung cấp 3 hình ảnh liên quan đến ý tưởng."
                   isRequire
                   imgError={errors.relatedImgUpload?.message}
                   name="relatedImgUpload"

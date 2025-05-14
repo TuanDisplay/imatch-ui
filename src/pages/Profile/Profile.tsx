@@ -1,5 +1,5 @@
 import Button from '~/components/Button';
-import { Pen } from 'lucide-react';
+import { Pen, UploadCloud } from 'lucide-react';
 import { useState } from 'react';
 import clsx from 'clsx';
 import { IdeaItem } from '../Exchange/ExchangeItems';
@@ -7,6 +7,7 @@ import { IdeaCard } from '~/common/data';
 import { WrapperContent } from '~/components/Content';
 import { useForm } from 'react-hook-form';
 import { TProfileSchema } from '~/common/schema';
+import { convertToBase64 } from '~/utils/files';
 
 const profileUser: TProfileSchema = {
   fname: 'Lê Viết Tuấn',
@@ -25,11 +26,13 @@ export default function Profile() {
   const [selectedValue, setSelectedValue] = useState<string>('postedIdea');
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [userInfo, setUserInfo] = useState<TProfileSchema>(profileUser);
+  const [image, setImage] = useState<string | null>(null);
 
   const {
     register,
     handleSubmit,
     reset,
+    setValue,
     formState: { errors },
   } = useForm<TProfileSchema>({
     defaultValues: userInfo,
@@ -38,11 +41,20 @@ export default function Profile() {
   const onSubmit = (data: TProfileSchema) => {
     setUserInfo(data);
     setIsEditing(false);
+    if (image) setValue('avatar', image);
   };
 
   const handleCancel = () => {
     reset(userInfo);
     setIsEditing(false);
+  };
+
+  const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const base64 = await convertToBase64(file);
+      setImage(base64);
+    }
   };
 
   return (
@@ -54,21 +66,44 @@ export default function Profile() {
           className="h-full w-full object-cover"
         />
         <div className="absolute top-1/2 container flex translate-y-[-50%] flex-col items-center text-center max-md:hidden">
-          <h2 className="text-shadow bg-primary w-fit p-2 text-4xl font-bold text-white uppercase max-md:text-3xl">
+          <div className="text-shadow bg-primary w-fit p-2 text-4xl font-bold text-white uppercase max-md:text-3xl">
             Thông tin cá nhân
-          </h2>
+          </div>
         </div>
       </div>
       <div className="mx-auto max-w-5xl py-6">
         <div className="grid grid-cols-1 gap-6 rounded-2xl bg-white px-6 py-10 shadow-xl md:grid-cols-3">
           <div className="col-span-1 flex flex-col items-center">
-            <img
-              src="/AvtTuan.jpg"
-              alt="avatar"
-              className="h-60 w-48 rounded-xl object-cover shadow-md"
-            />
+            <div className="relative h-60 w-48 overflow-hidden rounded-xl shadow-md">
+              <img
+                src={image || '/AvtTuan.jpg'}
+                alt="avatar"
+                className={clsx('object-cover', {
+                  'opacity-40': isEditing,
+                })}
+              />
+              {isEditing && (
+                <label
+                  htmlFor="avatar-profile"
+                  className="absolute top-0 flex h-full w-full cursor-pointer flex-col items-center justify-center"
+                >
+                  <input
+                    id="avatar-profile"
+                    type="file"
+                    accept="image/*"
+                    onChange={handleImageChange}
+                    className="hidden"
+                  />
+                  <>
+                    <UploadCloud className="h-6 w-6 text-gray-500" />
+                    <span className="text-sm font-medium text-gray-600">
+                      Tải lên
+                    </span>
+                  </>
+                </label>
+              )}
+            </div>
           </div>
-
           <form
             onSubmit={handleSubmit(onSubmit)}
             className="col-span-2 space-y-5"

@@ -17,11 +17,12 @@ import {
   LogOut,
   Heart,
 } from 'lucide-react';
+import clsx from 'clsx';
 
 import Button from '~/components/Button';
 import { useAuthModal } from '~/hooks/useModalStore';
 import { useHasScrolledBeyond } from '~/hooks/useHasScrolledBeyond';
-import clsx from 'clsx';
+import * as authService from '~/services/auth.service';
 
 const links = [
   {
@@ -47,18 +48,8 @@ export default function Header() {
 
   const logoutHandle = async () => {
     try {
-      // const token = localStorage.getItem('accessToken')?.trim();
-
-      // await httpRequest.post(
-      //   '/logout',
-      //   {},
-      //   {
-      //     headers: {
-      //       'x-token': token,
-      //     },
-      //   },
-      // );
-
+      const token = localStorage.getItem('accessToken')?.trim();
+      await authService.logout(token);
       localStorage.removeItem('accessToken');
       setIsAuthenticated(false);
       toast.success('Đăng xuất thành công! 🎉');
@@ -77,7 +68,7 @@ export default function Header() {
         },
       )}
     >
-      <div className="ml-10 flex items-center justify-between px-10 py-2">
+      <div className="ml-20 flex items-center justify-between px-10 py-2">
         <Link to="/">
           <img src="/logo_rm.png" alt="logo" className="h-10" />
         </Link>
@@ -163,7 +154,11 @@ export default function Header() {
 
             <div className="h-10 w-10 overflow-hidden rounded-full border-2 border-amber-300">
               <Link to="/profile">
-                <img src="/AvtTuan.jpg" alt="avatar" className="bg-cover" />
+                <img
+                  src="/AvtTuan.jpg"
+                  alt="avatar"
+                  className="object-cover hover:opacity-50"
+                />
               </Link>
             </div>
             <div className="border-l-[1px] py-2 pl-5">

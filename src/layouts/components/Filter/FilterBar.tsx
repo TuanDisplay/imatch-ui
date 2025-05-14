@@ -74,8 +74,8 @@ export default function FilterBar<T>({ data, onFiltered }: FilterProps<T>) {
         onChange={handlePriceChange}
         className="w-full rounded-lg border border-gray-300 px-4 py-2 text-gray-700 md:w-[220px]"
       >
-        <option value="" selected disabled>
-          Lọc theo giá tiền
+        <option value="" hidden>
+          --- Lọc theo giá tiền ---
         </option>
         {priceRangeList.map((priceRange) => {
           return (
@@ -90,8 +90,8 @@ export default function FilterBar<T>({ data, onFiltered }: FilterProps<T>) {
         onChange={handlePriceChange}
         className="w-full rounded-lg border border-gray-300 px-4 py-2 text-gray-700 md:w-[220px]"
       >
-        <option value="" selected disabled>
-          Lọc theo ngày
+        <option value="" hidden>
+          --- Lọc theo ngày ---
         </option>
         {dayRangeList.map((dayRange) => {
           return (

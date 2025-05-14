@@ -17,7 +17,6 @@ export default function Home() {
   return (
     <div className="wrapper">
       <Swiper
-        // install Swiper modules
         modules={[Navigation, Pagination, Scrollbar, Autoplay]}
         spaceBetween={1}
         autoplay={{
@@ -85,7 +84,7 @@ export default function Home() {
                 </Link>
               </h2>
               <p className="font-montserrat line-clamp-6 leading-7 font-normal tracking-[3%]">
-                Chào mừng bạn đến với Idea Exchange – nơi trải nghiệm các ý
+                Chào mừng bạn đến với I-Match nơi trải nghiệm các ý
                 tưởng độc đáo và sáng tạo. Chúng tôi cung cấp không gian kết
                 nối, tư vấn và phát triển ý tưởng, giúp bạn biến sáng kiến thành
                 hiện thực với sự hỗ trợ từ các chuyên gia hàng đầu. Dù bạn đang
