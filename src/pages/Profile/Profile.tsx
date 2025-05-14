@@ -205,7 +205,6 @@ export default function Profile() {
                         author={item.author}
                         views={item.views}
                         publishDate={item.publishDate}
-                        type="idea"
                       />
                     );
                   })
