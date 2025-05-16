@@ -27,11 +27,11 @@ export default function CatBar({ CatItems, data, setData }: ICatBar) {
     setSelected('');
     setData(data);
   };
-  
+
   return (
     <aside className="h-fit w-64 rounded-xl bg-white p-4 shadow-lg">
       <div
-        className="bg-primary mb-4 rounded-md py-2 text-center font-semibold text-white"
+        className="bg-primary mb-4 cursor-pointer rounded-md py-2 text-center font-semibold text-white"
         onClick={filterAllHandle}
       >
         Danh Mục

@@ -41,7 +41,7 @@ export default function Expert() {
             setData={setData}
           />
           <div className="flex flex-1 flex-col px-4">
-            <WrapperContent currentItems={currentItems}>
+            {/* <WrapperContent currentItems={currentItems}> */}
               {data.length === 0 ? (
                 <div className="">Không có dữ liệu</div>
               ) : (
@@ -51,7 +51,7 @@ export default function Expert() {
                       key={item.id}
                       id={item.id}
                       imageUrl={item.imageUrl}
-                      category={item.category}
+                      catValue={item.catValue}
                       author={item.author}
                       desc={item.desc}
                       views={item.views}
@@ -61,7 +61,7 @@ export default function Expert() {
                   );
                 })
               )}
-            </WrapperContent>
+            {/* </WrapperContent> */}
             {data.length > 0 && (
               <PaginationBar
                 currentPage={currentPage}

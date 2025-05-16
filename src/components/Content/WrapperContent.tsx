@@ -1,29 +1,37 @@
-import { ReactNode, useEffect, useState } from 'react';
+import { ReactNode } from 'react';
+import { useIdeas } from '~/hooks/useApiQuery';
+import Button from '~/components/Button';
+import LoadingAni from '../Animation/LoadingAni';
 
 interface IWrapperContent {
-  currentItems: object[];
   children: ReactNode;
+  queryResultObject: ReturnType<typeof useIdeas>;
 }
 
 export default function WrapperContent({
-  currentItems,
   children,
+  queryResultObject,
 }: IWrapperContent) {
-  const [isLoading, setLoading] = useState<boolean>(false);
-
-  useEffect(() => {
-    setLoading(true);
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 1000);
-    return () => clearTimeout(timer);
-  }, [currentItems]);
+  const { isLoading, refetch, error } = queryResultObject;
 
   return (
     <div className="relative h-[95vh] w-full overflow-hidden overflow-y-auto py-2">
       {isLoading ? (
         <div className="absolute top-1/2 w-full translate-y-[-50%] text-center">
-          Đang tải dữ liệu...
+          <LoadingAni>
+            <span className="ml-4 text-sm text-gray-500">
+              Đang tải dữ liệu...
+            </span>
+          </LoadingAni>
+        </div>
+      ) : error ? (
+        <div className="absolute top-1/2 flex w-full translate-y-[-50%] flex-col items-center text-center">
+          
+            <div>Có lỗi xảy ra: {(error as Error).message}</div>
+            <Button className="px-3 py-2" primary onClick={refetch}>
+              Tải lại
+            </Button>
+          
         </div>
       ) : (
         <div className="space-y-6">{children}</div>

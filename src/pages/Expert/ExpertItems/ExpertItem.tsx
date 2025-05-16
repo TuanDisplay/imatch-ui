@@ -8,19 +8,21 @@ import {
 } from 'lucide-react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ICard } from '~/common/types';
+import {  IExpertCard } from '~/common/types';
+import { convertCategoryName } from '~/utils/files';
 
 export default function ExpertItem({
   id,
   imageUrl,
-  category,
+  catValue,
   desc,
   author,
   views,
   consultCount,
   rate,
-}: ICard) {
+}: IExpertCard) {
   const [isFavorate, setFavorate] = useState<boolean>(false);
+  
 
   return (
     <div className="hover:shadow-primary relative mx-auto flex max-w-4xl cursor-pointer gap-6 rounded-2xl bg-white p-6 shadow-md transition-shadow duration-300">
@@ -68,7 +70,7 @@ export default function ExpertItem({
             </div>
             <div className="flex items-center gap-1">
               <Settings size={16} />
-              <span>{category}</span>
+              <span>{convertCategoryName(catValue)}</span>
             </div>
           </div>
 

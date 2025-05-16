@@ -32,11 +32,22 @@ export default function RegisterForm({ setState }: TSetState) {
   const displayName = watch('fname');
   const email = watch('email');
   const password = watch('password');
+  const code = watch('code');
 
   const isSendCodeDisabled =
     displayName &&
     email &&
     password &&
+    !errors.email &&
+    !errors.password &&
+    !errors.fname;
+
+  const isSignUpDisabled =
+    displayName &&
+    email &&
+    password &&
+    code &&
+    !errors.code &&
     !errors.email &&
     !errors.password &&
     !errors.fname;
@@ -73,7 +84,7 @@ export default function RegisterForm({ setState }: TSetState) {
   }, [timeLeft]);
 
   return (
-    <Modal>
+    <Modal className="min-h-[100px] max-w-sm bg-gradient-to-r from-[#f3e9e8] to-[#96b9d9]">
       <div className="px-5 py-2">
         <div className="flex flex-col items-center gap-1">
           <h1 className="text-xl font-bold">Đăng ký tài khoản I-Match</h1>
@@ -153,8 +164,13 @@ export default function RegisterForm({ setState }: TSetState) {
               <p className="text-xs text-red-500">{errors.code.message}</p>
             )}
 
-            <Button type="submit" className="mt-3 w-full p-1 font-bold" primary>
-              {isSubmitting ? 'Đang đăng ký...' : 'Đăng ký'}
+            <Button
+              type="submit"
+              className="mt-3 w-full p-1 font-bold"
+              primary
+              disable={!isSignUpDisabled || isSubmitting}
+            >
+              {isSubmitting ? 'Đang xử lý...' : 'Đăng ký'}
             </Button>
           </div>
 

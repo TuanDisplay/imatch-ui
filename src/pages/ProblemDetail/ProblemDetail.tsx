@@ -5,6 +5,7 @@ import Link from '~/components/Icons/Link';
 import Mail from '~/components/Icons/Mail';
 import { ProblemCard } from '~/common/data';
 import Overview from './PDItem';
+import { convertCategoryName } from '~/utils/files';
 
 export default function ExchangeDetail() {
   const { problemId } = useParams();
@@ -15,7 +16,7 @@ export default function ExchangeDetail() {
     { icon: <Lightbulb />, data: data?.submission, name: 'Đề xuất' },
     { icon: <User />, data: data?.author },
     { icon: <CalendarDays />, data: data?.publishDate },
-    { icon: <Settings />, data: data?.category },
+    { icon: <Settings />, data: convertCategoryName(data?.catValue) },
   ];
 
   return (

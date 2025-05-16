@@ -8,11 +8,12 @@ import {
 import { Link } from 'react-router-dom';
 
 import { ICard } from '~/common/types';
+import { convertCategoryName } from '~/utils/files';
 
 export default function ProblemItem({
   id,
   imageUrl,
-  category,
+  catValue,
   title,
   desc,
   price,
@@ -54,7 +55,7 @@ export default function ProblemItem({
             </div>
             <div className="flex items-center gap-1">
               <Settings size={16} />
-              <span>{category}</span>
+              <span>{convertCategoryName(catValue)}</span>
             </div>
           </div>
 

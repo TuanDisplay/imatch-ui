@@ -3,11 +3,11 @@ import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { AxiosError } from 'axios';
 
+import * as authService from '~/services/auth.service';
 import { TSetState } from '~/common/types';
 import { TLoginSchema, loginSchema } from '~/common/schema';
 import { Modal } from '~/components/Popup';
 import { useAuthModal } from '~/hooks/useModalStore';
-import * as authService from '~/services/auth.service';
 import Button from '~/components/Button';
 
 const classInput = 'w-full rounded-lg bg-white p-1.5 text-sm';
@@ -18,10 +18,18 @@ export default function LoginForm({ setState }: TSetState) {
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors, isSubmitting },
   } = useForm<TLoginSchema>({
     resolver: zodResolver(loginSchema),
+    mode: 'onChange',
   });
+
+  const email = watch('email');
+  const password = watch('password');
+
+  const isSignInDisabled =
+    email && password && !errors.email && !errors.password;
 
   const onSubmit = async (data: TLoginSchema) => {
     try {
@@ -37,7 +45,7 @@ export default function LoginForm({ setState }: TSetState) {
   };
 
   return (
-    <Modal>
+    <Modal className="min-h-[100px] max-w-sm bg-gradient-to-r from-[#f3e9e8] to-[#96b9d9]">
       <div className="px-5 py-2">
         <div className="flex flex-col items-center gap-1">
           <h1 className="text-xl font-bold">Đăng nhập tài khoản I-Match</h1>
@@ -52,7 +60,7 @@ export default function LoginForm({ setState }: TSetState) {
         >
           <div className="flex flex-col gap-2">
             <label htmlFor="email" className="font-bold">
-              Tên đăng nhập
+              Email của bạn
             </label>
             <input
               type="text"
@@ -74,13 +82,13 @@ export default function LoginForm({ setState }: TSetState) {
               <p className="text-xs text-red-500">{errors.password.message}</p>
             )}
           </div>
-
-          {/* <label className="flex items-center">
-            <input type="checkbox" />
-            <span className="ml-2 text-sm">Ghi nhớ đăng nhập</span>
-          </label> */}
-          <Button type="submit" className="mt-3 w-full p-1 font-bold" primary>
-            {isSubmitting ? 'Đang đăng nhập...' : 'Đăng nhập'}
+          <Button
+            type="submit"
+            className="mt-3 w-full p-1 font-bold"
+            primary
+            disable={!isSignInDisabled}
+          >
+            {isSubmitting ? 'Đang xử lý...' : 'Đăng nhập'}
           </Button>
         </form>
 

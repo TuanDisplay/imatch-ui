@@ -3,18 +3,20 @@ import { useParams } from 'react-router-dom';
 import Button from '~/components/Button';
 import { ExpertCard, CommentCard } from '~/common/data';
 import Comment from '~/components/Comment';
-import BookingModal from '~/modals/BookingModal';
-import { useBookingModal } from '~/hooks/useModalStore';
+import { BookingModal, MessageModal } from '~/modals';
+import { useBookingModal, useMessageModal } from '~/hooks/useModalStore';
 
 export default function ExpertDetail() {
   const { expertId } = useParams();
   const { isBookingOpen, setIsBookingModal } = useBookingModal();
+  const { isMessageOpen, setIsMessageModal } = useMessageModal();
 
   const data = ExpertCard.find((item) => item.id.toString() === expertId);
 
   return (
     <>
       {isBookingOpen && <BookingModal />}
+      {isMessageOpen && <MessageModal />}
       <div className="relative flex justify-center">
         <img
           src="/banner/about-banner.jpg"
@@ -64,7 +66,13 @@ export default function ExpertDetail() {
                 </div>
               </div>
               <div className="flex gap-3">
-                <Button className="px-4 py-2 font-semibold" primary>
+                <Button
+                  className="px-4 py-2 font-semibold"
+                  primary
+                  onClick={() => {
+                    setIsMessageModal(true);
+                  }}
+                >
                   Liên hệ
                 </Button>
                 <Button

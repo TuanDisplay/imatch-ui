@@ -7,6 +7,7 @@ import 'quill/dist/quill.snow.css';
 interface IEditorField extends IPostForm {
   value: string;
   setValue: (value: string) => void;
+  error: string | undefined;
 }
 
 export default function EditorField({
@@ -15,6 +16,7 @@ export default function EditorField({
   setValue,
   placeholder = 'Nhập nội dung...',
   isRequire,
+  error,
 }: IEditorField) {
   const modules = {
     toolbar: [
@@ -68,6 +70,7 @@ export default function EditorField({
           className="h-[300px]"
         />
       </div>
+      {error && <p className="text-xs text-red-500">{error}</p>}
     </div>
   );
 }

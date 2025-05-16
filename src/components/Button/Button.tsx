@@ -58,7 +58,7 @@ export default function Button({
           'bg-primary rounded-lg text-white hover:bg-orange-600 hover:shadow-2xl':
             primary,
           'text-skyBlue-700 underline outline-0': outline,
-          'opacity-30': disable,
+          '!cursor-not-allowed opacity-30': disable,
         },
         className,
       )}

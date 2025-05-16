@@ -84,12 +84,12 @@ export default function Home() {
                 </Link>
               </h2>
               <p className="font-montserrat line-clamp-6 leading-7 font-normal tracking-[3%]">
-                Chào mừng bạn đến với I-Match nơi trải nghiệm các ý
-                tưởng độc đáo và sáng tạo. Chúng tôi cung cấp không gian kết
-                nối, tư vấn và phát triển ý tưởng, giúp bạn biến sáng kiến thành
-                hiện thực với sự hỗ trợ từ các chuyên gia hàng đầu. Dù bạn đang
-                tìm kiếm giải pháp kinh doanh, đổi mới công nghệ hay sáng tạo
-                nghệ thuật...
+                Chào mừng bạn đến với I-Match nơi trải nghiệm các ý tưởng độc
+                đáo và sáng tạo. Chúng tôi cung cấp không gian kết nối, tư vấn
+                và phát triển ý tưởng, giúp bạn biến sáng kiến thành hiện thực
+                với sự hỗ trợ từ các chuyên gia hàng đầu. Dù bạn đang tìm kiếm
+                giải pháp kinh doanh, đổi mới công nghệ hay sáng tạo nghệ
+                thuật...
               </p>
               <Button
                 to="/about"
@@ -141,8 +141,8 @@ export default function Home() {
                   <CardItem
                     key={item.id}
                     id={item.id}
-                    imageUrl={item.imageUrl}
-                    category={item.category}
+                    imageUrl={item.imageUrl[0]}
+                    catValue={item.catValue}
                     title={item.title}
                     desc={item.desc}
                     author={item.author}
@@ -193,8 +193,8 @@ export default function Home() {
                   <CardItem
                     key={item.id}
                     id={item.id}
-                    imageUrl={item.imageUrl}
-                    category={item.category}
+                    imageUrl={item.imageUrl[0]}
+                    catValue={item.catValue}
                     title={item.title}
                     desc={item.desc}
                     price={item.price}

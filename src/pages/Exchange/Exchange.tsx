@@ -1,34 +1,27 @@
-import { useEffect, useState } from 'react';
+import { useMemo, useState } from 'react';
 
 import { usePagination } from '~/hooks/usePagination';
-import { IdeaCard, MajorCat } from '~/common/data';
+import { MajorCat } from '~/common/data';
 import { IdeaItem } from './ExchangeItems';
 import { WrapperContent } from '~/components/Content';
-import { IIdeaCard } from '~/common/types';
+import { IIdeaDetail } from '~/common/types';
 import PaginationBar from '~/components/PaginationBar';
 import CatBar from '~/components/CatBar';
 import FilterBar from '~/layouts/components/Filter';
-import * as ideaService from '~/services/idea.service';
+
+import { useIdeas } from '~/hooks/useApiQuery';
 
 export default function Exchange() {
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [data, setData] = useState([...IdeaCard]);
-  const [dataFilter, setDataFilter] = useState<IIdeaCard[]>([]);
-  const [realData, setRealData] = useState();
+  const [dataFilter, setDataFilter] = useState<IIdeaDetail[]>([]);
 
   const itemsPerPage = 3;
   const currentItems = usePagination(dataFilter, currentPage, itemsPerPage);
 
-  useEffect(() => {
-    const fetchApi = async () => {
-      // const token = localStorage.getItem('accessToken')?.trim();
-      const result = await ideaService.ideas();
-      setRealData(result);
-    };
-    fetchApi();
-  }, [setRealData]);
+  const { data } = useIdeas();
+  const ideasQuery = useIdeas();
 
-  console.log('RealData: ' + realData);
+  const dataReal = useMemo(() => (Array.isArray(data) ? data : []), [data]);
 
   return (
     <>
@@ -51,22 +44,23 @@ export default function Exchange() {
       </div>
       <div className="container mx-auto py-5">
         <div className="flex gap-6">
-          <CatBar CatItems={MajorCat} data={[...IdeaCard]} setData={setData} />
+          <CatBar CatItems={MajorCat} data={dataReal} setData={setDataFilter} />
           <div className="flex flex-1 flex-col px-4">
             <div className="px-7">
-              <FilterBar<IIdeaCard> data={data} onFiltered={setDataFilter} />
+              <FilterBar dataReal={dataReal} setDataFilter={setDataFilter} />
             </div>
-            <WrapperContent currentItems={currentItems}>
-              {data.length === 0 ? (
+            <WrapperContent queryResultObject={ideasQuery}>
+              {dataFilter.length === 0 ? (
                 <div className="">Không có dữ liệu</div>
               ) : (
-                currentItems.map((item) => {
+                currentItems.map((item, index) => {
+
                   return (
                     <IdeaItem
-                      key={item.id}
+                      key={index}
                       id={item.id}
                       imageUrl={item.imageUrl}
-                      category={item.category}
+                      catValue={item.catValue}
                       title={item.title}
                       desc={item.desc}
                       author={item.author}
@@ -77,11 +71,11 @@ export default function Exchange() {
                 })
               )}
             </WrapperContent>
-            {data.length > 0 && (
+            {dataFilter.length > 0 && (
               <PaginationBar
                 currentPage={currentPage}
                 setCurrentPage={setCurrentPage}
-                totalItems={data.length}
+                totalItems={dataFilter.length}
                 itemsPerPage={itemsPerPage}
               />
             )}

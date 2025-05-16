@@ -224,7 +224,7 @@ export default function Profile() {
               })}
             </div>
             <div className="py-5">
-              <WrapperContent currentItems={IdeaCard}>
+              {/* <WrapperContent currentItems={IdeaCard}> */}
                 {IdeaCard.length === 0 ? (
                   <div className="">Không có dữ liệu</div>
                 ) : (
@@ -234,7 +234,7 @@ export default function Profile() {
                         key={item.id}
                         id={item.id}
                         imageUrl={item.imageUrl}
-                        category={item.category}
+                        catValue={item.catValue}
                         title={item.title}
                         desc={item.desc}
                         author={item.author}
@@ -244,7 +244,7 @@ export default function Profile() {
                     );
                   })
                 )}
-              </WrapperContent>
+              {/* </WrapperContent> */}
             </div>
           </div>
         )}

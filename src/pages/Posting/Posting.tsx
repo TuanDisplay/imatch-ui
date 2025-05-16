@@ -11,6 +11,7 @@ import {
 import { MajorCat } from '~/common/data';
 import { TPostFormSchema, postFormSchema } from '~/common/schema';
 import toast from 'react-hot-toast';
+import * as ideaService from '~/services/idea.service';
 
 const methodO = [
   { value: 'posting-idea', name: 'Mua - Bán ý tưởng' },
@@ -23,27 +24,19 @@ export default function Posting() {
     handleSubmit,
     control,
     setValue,
-    formState: { errors },
-  } = useForm<TPostFormSchema>({ resolver: zodResolver(postFormSchema) });
+    reset,
+    formState: { errors, isSubmitting },
+  } = useForm<TPostFormSchema>({
+    resolver: zodResolver(postFormSchema),
+    mode: 'onChange',
+  });
 
-  const onSubmit = (data: TPostFormSchema) => {
+  const onSubmit = async (data: TPostFormSchema) => {
     try {
-      const dataInput = {
-        title: data.title,
-        majorValue: data.majorSelect,
-        methodValue: data.methodSelect,
-        descTxtArea: data.descTxtEdit,
-        valueTextArea: data.valueTxtEdit,
-        isIP: data.ipRadio,
-        fname: data.fname,
-        email: data.email,
-        phone: data.phone,
-        ipImg: data.ipImgUpload,
-        relatedImg: data.relatedImgUpload,
-        relatedImg2: data.relatedImgUpload2,
-        relatedImg3: data.relatedImgUpload3,
-      };
-      console.log('Data: ' + JSON.stringify(dataInput));
+      if (data.methodSelect === 'posting-idea') {
+        await ideaService.postIdeas(data);
+      }
+      reset();
       toast.success('Đăng thành công');
     } catch (err) {
       toast.error('Lỗi đăng');
@@ -75,11 +68,21 @@ export default function Posting() {
           <div className="mt-10 space-y-10">
             <TextField
               id="topic-name"
-              label="Tên ý tưởng"
+              label="Tên sản phẩm"
               placeholder="Vui lòng tóm tắt tiêu đề ngắn gọn, dễ hiểu"
               isRequire
               register={register('title')}
               error={errors.title?.message}
+            />
+
+            <TextField
+              id="price"
+              label="Giá sản phẩm (VND)"
+              placeholder="Vui lòng nhập số tiền sản phẩm"
+              type="number"
+              isRequire
+              register={register('price', { valueAsNumber: true })}
+              error={errors.price?.message}
             />
 
             <SelectField
@@ -110,6 +113,7 @@ export default function Posting() {
                   setValue={field.onChange}
                   placeholder="Giới thiệu về sản phẩm, từ những vấn đề nào để dẫn đến ý tưởng này..."
                   isRequire
+                  error={errors.descTxtEdit?.message}
                 />
               )}
             />
@@ -124,6 +128,7 @@ export default function Posting() {
                   setValue={field.onChange}
                   placeholder="Trình bày các lợi ích mang lại từ sản phẩm để thu hút người dùng..."
                   isRequire
+                  error={errors.valueTxtEdit?.message}
                 />
               )}
             />
@@ -163,45 +168,13 @@ export default function Posting() {
               )}
             />
           </div>
-          <div className="mt-5">
-            <h3 className="text-skyBlue-900 text-3xl font-bold">
-              Thông tin liên hệ
-            </h3>
-            <div className="mt-10 space-y-10">
-              <TextField
-                id="full-name"
-                label="Họ và tên"
-                placeholder="Nhập họ và tên của bạn"
-                isRequire
-                register={register('fname')}
-                error={errors.fname?.message}
-              />
-
-              <TextField
-                id="email"
-                label="Email"
-                placeholder="Email của bạn"
-                isRequire
-                register={register('email')}
-                error={errors.email?.message}
-              />
-
-              <TextField
-                id="phone-number"
-                label="Số điện thoại"
-                placeholder="Số điện thoại của bạn"
-                isRequire
-                register={register('phone')}
-                error={errors.phone?.message}
-              />
-            </div>
-          </div>
           <Button
-            className="px-3 py-2 font-bold uppercase"
+            className="py-2 font-bold uppercase"
             type="submit"
             primary
+            disable={isSubmitting}
           >
-            Đăng ý tưởng
+            {isSubmitting ? 'Đang đăng...' : 'Đăng sản phẩm'}
           </Button>
         </form>
       </div>

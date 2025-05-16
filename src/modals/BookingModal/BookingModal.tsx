@@ -24,7 +24,7 @@ export default function BookingModal() {
   };
 
   return (
-    <Modal>
+    <Modal className="min-h-[100px] max-w-sm bg-white">
       <div className="max-w-md space-y-4 px-8 py-6">
         <h2 className="text-center text-2xl font-bold text-gray-800">
           Đặt Lịch

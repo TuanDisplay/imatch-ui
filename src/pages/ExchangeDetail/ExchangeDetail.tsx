@@ -5,17 +5,20 @@ import Link from '~/components/Icons/Link';
 import Mail from '~/components/Icons/Mail';
 import { IdeaCard } from '~/common/data';
 import Overview from './EDItem';
+import { convertCategoryName } from '~/utils/files';
 
 export default function ExchangeDetail() {
   const { exchangeId } = useParams();
 
-  const data = IdeaCard.find((item) => item.id.toString() === exchangeId);
+  const data = IdeaCard.find(
+    (item) => item.id.toString() === exchangeId,
+  );
 
   const glancing = [
     { icon: <Eye />, data: data?.views, name: 'Lượt xem' },
     { icon: <User />, data: data?.author },
     { icon: <CalendarDays />, data: data?.publishDate },
-    { icon: <Settings />, data: data?.category },
+    { icon: <Settings />, data: convertCategoryName(data?.catValue) },
   ];
 
   return (

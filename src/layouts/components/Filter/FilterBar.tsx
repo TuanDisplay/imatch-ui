@@ -1,58 +1,67 @@
-import React, { useEffect, useState } from 'react';
 import { Search } from 'lucide-react';
-import useDebounce from '~/hooks/useDebounce';
+import { useEffect, useState } from 'react';
+import { useDebounce } from '~/hooks/useDebounce';
 
-type FilterProps<T> = {
-  data: T[];
-  onFiltered: (filtered: T[]) => void;
+type FilterProps = {
+  dataReal: object[];
+  setDataFilter: any;
 };
 
 const priceRangeList = [
+  { id: 5, priceRange: 'Tất cả mức giá', value: 'tier0' },
   { id: 1, priceRange: 'Dưới 1 triệu', value: 'tier1' },
   { id: 2, priceRange: 'Từ 1 - 3 triệu', value: 'tier2' },
   { id: 3, priceRange: 'Từ 3 - 5 triệu', value: 'tier3' },
   { id: 4, priceRange: 'Trên 5 triệu', value: 'tier4' },
 ];
 
-const dayRangeList = [
-  { id: 1, dayRange: 'Hôm nay', value: 'tierd1' },
-  { id: 2, dayRange: 'Sau một ngày', value: 'tierd2' },
-  { id: 3, dayRange: 'Sau một tuần', value: 'tierd3' },
-  { id: 4, dayRange: 'Sau một tháng', value: 'tierd4' },
-];
-
-export default function FilterBar<T>({ data, onFiltered }: FilterProps<T>) {
+export default function FilterBar({ dataReal, setDataFilter }: FilterProps) {
   const [searchValue, setSearchValue] = useState('');
-  const [priceRange, setPriceRange] = useState('');
+  const [priceRange, setPriceRange] = useState('tier0');
 
-  const deboundcedValue = useDebounce(searchValue, 500);
-
-  useEffect(() => {
-    const dataFilter = data.filter((item: any) => {
-      const matchesKeyword = item.title
-        .toLowerCase()
-        .includes(deboundcedValue.toLowerCase());
-
-      let matchesPrice = true;
-      if (priceRange === 'tier1') matchesPrice = item.price <= 1000000;
-      else if (priceRange === 'tier2')
-        matchesPrice = item.price > 1000000 && item.price <= 3000000;
-      else if (priceRange === 'tier3')
-        matchesPrice = item.price > 3000000 && item.price <= 5000000;
-
-      return matchesKeyword && matchesPrice;
-    });
-    onFiltered(dataFilter);
-  }, [deboundcedValue, data, priceRange, onFiltered]);
+  const debouncedSearch = useDebounce(searchValue, 500);
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchValue(e.target.value);
+    const value = e.target.value;
+    setSearchValue(value);
   };
 
   const handlePriceChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const value = e.target.value;
     setPriceRange(value);
   };
+
+  useEffect(() => {
+    const filtered = dataReal.filter((item: any) => {
+      const matchesKeyword = item.title
+        .toLowerCase()
+        .includes(debouncedSearch.toLowerCase());
+
+      let matchesPrice = true;
+      switch (priceRange) {
+        case 'tier1':
+          matchesPrice = item.price <= 1000000;
+          break;
+        case 'tier2':
+          matchesPrice = item.price > 1000000 && item.price <= 3000000;
+          break;
+        case 'tier3':
+          matchesPrice = item.price > 3000000 && item.price <= 5000000;
+          break;
+        case 'tier4':
+          matchesPrice = item.price > 5000000;
+          break;
+        case 'tier0':
+        default:
+          matchesPrice = true;
+          break;
+      }
+
+      return matchesKeyword && matchesPrice;
+    });
+
+    setDataFilter(filtered);
+  }, [dataReal, debouncedSearch, priceRange, setDataFilter]);
 
   return (
     <div className="mb-4 flex flex-col items-start gap-4 rounded-xl bg-white p-2 shadow-sm md:flex-row md:items-center">
@@ -74,29 +83,10 @@ export default function FilterBar<T>({ data, onFiltered }: FilterProps<T>) {
         onChange={handlePriceChange}
         className="w-full rounded-lg border border-gray-300 px-4 py-2 text-gray-700 md:w-[220px]"
       >
-        <option value="" hidden>
-          --- Lọc theo giá tiền ---
-        </option>
         {priceRangeList.map((priceRange) => {
           return (
             <option key={priceRange.id} value={priceRange.value}>
-              {priceRange.priceRange} (VND)
-            </option>
-          );
-        })}
-      </select>
-      <select
-        value={priceRange}
-        onChange={handlePriceChange}
-        className="w-full rounded-lg border border-gray-300 px-4 py-2 text-gray-700 md:w-[220px]"
-      >
-        <option value="" hidden>
-          --- Lọc theo ngày ---
-        </option>
-        {dayRangeList.map((dayRange) => {
-          return (
-            <option key={dayRange.id} value={dayRange.value}>
-              {dayRange.dayRange}
+              {priceRange.priceRange}
             </option>
           );
         })}

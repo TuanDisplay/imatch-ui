@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router';
 import { Toaster } from 'react-hot-toast';
 
 import MainLayout from '~/layouts';
-import AuthModal from './modals';
+import { AuthModal } from './modals';
 
 import { privateRoutes, publicRoutes } from '~/routes';
 import PrivateRoute from './utils/PrivateRoute';

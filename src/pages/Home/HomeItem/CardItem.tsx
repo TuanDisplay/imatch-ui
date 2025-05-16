@@ -8,12 +8,13 @@ import {
 } from 'lucide-react';
 import Button from '~/components/Button';
 import { ICard } from '~/common/types';
+import { convertCategoryName } from '~/utils/files';
 
 export default function CardItem({
   id,
   type,
   imageUrl,
-  category,
+  catValue,
   title,
   desc,
   author,
@@ -22,14 +23,15 @@ export default function CardItem({
   price,
   submission,
 }: ICard) {
+
   return (
     <section className="font-montserrat overflow-hidden rounded-[10px] border-[#E8E5E5] bg-white p-1">
       <div className="relative overflow-hidden rounded-xl p-[14px]">
         <div className="text-LGreen-500 font-VNPro absolute top-6 left-6 inline-flex items-center justify-center rounded-[3px] bg-white px-2.5 py-1.5 text-sm font-semibold">
-          {category}
+          {convertCategoryName(catValue)}
         </div>
         <img
-          src={imageUrl}
+          src={imageUrl[0]}
           alt="imageUrl"
           className="h-[210px] w-full rounded-[5px]"
         />

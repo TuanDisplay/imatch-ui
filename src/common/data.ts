@@ -17,9 +17,8 @@ export const MajorCat = [
 
 export const IdeaCard = [
   {
-    id: 1,
+    id: '1',
     imageUrl: '/thumbnail/climate-change.jpg',
-    category: 'Môi trường',
     catValue: 'environment',
     title: 'Chế tạo kệ bằng nhạc cụ từ các nhạc phẩm tái chế',
     desc: 'Bạn có thể tái chế, trang trí cây đàn ghita, piano thành những chiếc kệ gỗ, kệ sách trưng bày ấn tượng.',
@@ -37,9 +36,8 @@ export const IdeaCard = [
   },
 
   {
-    id: 2,
+    id: '2',
     imageUrl: '/thumbnail/dragon-fruit.jpg',
-    category: 'Nông nghiệp',
     catValue: 'agriculture',
     title: 'Phương pháp giảm sâu bọ cho cây trồng ban đêm',
     desc: 'Giải pháp hiệu quả giúp bảo vệ cây trồng khỏi sâu bọ vào ban đêm một cách an toàn và bền vững.',
@@ -56,9 +54,8 @@ export const IdeaCard = [
     ],
   },
   {
-    id: 3,
+    id: '3',
     imageUrl: '/thumbnail/start-up.jpg',
-    category: 'Kinh doanh',
     catValue: 'business',
     title: 'Phương pháp giảm sâu bọ cho cây trồng ban đêm',
     desc: 'Giải pháp hiệu quả giúp bảo vệ cây trồng khỏi sâu bọ vào ban đêm một cách an toàn và bền vững.',
@@ -76,9 +73,8 @@ export const IdeaCard = [
   },
 
   {
-    id: 4,
+    id: '4',
     imageUrl: '/thumbnail/climate-change.jpg',
-    category: 'Môi trường',
     catValue: 'environment',
     title: 'Chế tạo kệ bằng nhạc cụ từ các nhạc phẩm tái chế',
     desc: 'Bạn có thể tái chế, trang trí cây đàn ghita, piano thành những chiếc kệ gỗ, kệ sách trưng bày ấn tượng.',
@@ -96,9 +92,8 @@ export const IdeaCard = [
   },
 
   {
-    id: 5,
+    id: '5',
     imageUrl: '/thumbnail/dragon-fruit.jpg',
-    category: 'Nông nghiệp',
     catValue: 'agriculture',
     title: 'Phương pháp giảm sâu bọ cho cây trồng ban đêm',
     desc: 'Giải pháp hiệu quả giúp bảo vệ cây trồng khỏi sâu bọ vào ban đêm một cách an toàn và bền vững.',
@@ -115,9 +110,8 @@ export const IdeaCard = [
     ],
   },
   {
-    id: 6,
+    id: '6',
     imageUrl: '/thumbnail/start-up.jpg',
-    category: 'Kinh doanh',
     catValue: 'business',
     title: 'Phương pháp giảm sâu bọ cho cây trồng ban đêm',
     desc: 'Giải pháp hiệu quả giúp bảo vệ cây trồng khỏi sâu bọ vào ban đêm một cách an toàn và bền vững.',
@@ -137,9 +131,8 @@ export const IdeaCard = [
 
 export const ProblemCard = [
   {
-    id: 1,
+    id: '1',
     imageUrl: '/thumbnail/digital-transformation.jpg',
-    category: 'Công nghệ',
     catValue: 'technology',
     author: 'Lê Viết Tuấn',
     title: 'Thách thức khi chuyển đổi số trong doanh nghiệp nhỏ',
@@ -158,9 +151,8 @@ export const ProblemCard = [
   },
 
   {
-    id: 2,
+    id: '2',
     imageUrl: '/thumbnail/start-up.jpg',
-    category: 'Kinh doanh',
     catValue: 'business',
     author: 'Lê Viết Tuấn',
     title: 'Làm sao để một startup cạnh tranh với các tập đoàn lớn?',
@@ -179,9 +171,8 @@ export const ProblemCard = [
   },
 
   {
-    id: 3,
+    id: '3',
     imageUrl: '/thumbnail/climate-change.jpg',
-    category: 'Môi trường',
     catValue: 'environment',
     author: 'Lê Viết Tuấn',
     benefitValue:
@@ -201,9 +192,8 @@ export const ProblemCard = [
   },
 
   {
-    id: 1,
+    id: '1',
     imageUrl: '/thumbnail/digital-transformation.jpg',
-    category: 'Công nghệ',
     catValue: 'technology',
     author: 'Lê Viết Tuấn',
     title: 'Thách thức khi chuyển đổi số trong doanh nghiệp nhỏ',
@@ -222,9 +212,8 @@ export const ProblemCard = [
   },
 
   {
-    id: 2,
+    id: '2',
     imageUrl: '/thumbnail/start-up.jpg',
-    category: 'Kinh doanh',
     catValue: 'business',
     author: 'Lê Viết Tuấn',
     title: 'Làm sao để một startup cạnh tranh với các tập đoàn lớn?',
@@ -243,9 +232,8 @@ export const ProblemCard = [
   },
 
   {
-    id: 3,
+    id: '3',
     imageUrl: '/thumbnail/climate-change.jpg',
-    category: 'Môi trường',
     catValue: 'environment',
     author: 'Lê Viết Tuấn',
     benefitValue:
@@ -267,10 +255,9 @@ export const ProblemCard = [
 
 export const ExpertCard = [
   {
-    id: 1,
+    id: '1',
     imageUrl: 'AvtTuan.jpg',
     author: 'Lê Viết Tuấn',
-    category: 'Công nghệ',
     catValue: 'technology',
     desc: 'Xin chào! Tôi là một chuyên gia công nghệ thông tin, với nền tảng vững chắc trong phát triển phần mềm, kiến trúc hệ thống, bảo mật và trí tuệ nhân tạo. Tôi có kinh nghiệm chuyên sâu trong việc thiết kế và triển khai hệ thống backend sử dụng GoLang, xây dựng API RESTful, tích hợp gRPC và tối ưu hóa hiệu suất hệ thống. Ngoài ra, tôi cũng có chuyên môn về cơ sở dữ liệu NoSQL như MongoDB, quản lý hệ thống Linux và bảo mật thông tin.',
 
@@ -286,10 +273,9 @@ export const ExpertCard = [
   },
 
   {
-    id: 2,
+    id: '2',
     imageUrl: 'AvtHuy.png',
     author: 'Nguyễn Bảo Anh Huy',
-    category: 'Môi trường',
     catValue: 'environment',
     desc: 'Xin chào! Tôi là một chuyên gia công nghệ thông tin, với nền tảng vững chắc trong phát triển phần mềm, kiến trúc hệ thống, bảo mật và trí tuệ nhân tạo. Tôi có kinh nghiệm chuyên sâu trong việc thiết kế và triển khai hệ thống backend sử dụng GoLang, xây dựng API RESTful, tích hợp gRPC và tối ưu hóa hiệu suất hệ thống. Ngoài ra, tôi cũng có chuyên môn về cơ sở dữ liệu NoSQL như MongoDB, quản lý hệ thống Linux và bảo mật thông tin.',
 
@@ -307,7 +293,7 @@ export const ExpertCard = [
 
 export const CommentCard = [
   {
-    id: 1,
+    id: '1',
     imageUrl: 'AvtTuan.jpg',
     author: 'Lê Viết Tuấn',
     rate: 4,

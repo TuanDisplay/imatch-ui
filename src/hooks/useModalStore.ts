@@ -6,6 +6,11 @@ type TBookingModal = {
   setIsBookingModal: (value: boolean) => void;
 };
 
+type TMessageModal = {
+  isMessageOpen: boolean;
+  setIsMessageModal: (value: boolean) => void;
+};
+
 type TAuthModal = {
   isAuthOpen: boolean;
   isAuthenticated: boolean;
@@ -25,6 +30,13 @@ export const useBookingModal = create<TBookingModal>((set) => ({
   isBookingOpen: false,
   setIsBookingModal(value) {
     set({ isBookingOpen: value });
+  },
+}));
+
+export const useMessageModal = create<TMessageModal>((set) => ({
+  isMessageOpen: false,
+  setIsMessageModal(value) {
+    set({ isMessageOpen: value });
   },
 }));
 

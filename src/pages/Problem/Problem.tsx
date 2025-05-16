@@ -40,8 +40,8 @@ export default function Solving() {
         <div className="flex gap-6">
           <CatBar CatItems={MajorCat} data={[...ProblemCard]} setData={setData} />
           <div className="flex flex-1 flex-col px-4">
-            <FilterBar<IProblemCard> data={data} onFiltered={setFilter}></FilterBar>
-            <WrapperContent currentItems={currentItems}>
+            <FilterBar dataReal={data} setDataFilter={setFilter}></FilterBar>
+            {/* <WrapperContent currentItems={currentItems}> */}
               {data.length === 0 ? (
                 <div className="">Không có dữ liệu</div>
               ) : (
@@ -51,7 +51,7 @@ export default function Solving() {
                       key={item.id}
                       id={item.id}
                       imageUrl={item.imageUrl}
-                      category={item.category}
+                      catValue={item.catValue}
                       title={item.title}
                       desc={item.desc}
                       price={item.price}
@@ -61,7 +61,7 @@ export default function Solving() {
                   );
                 })
               )}
-            </WrapperContent>
+            {/* </WrapperContent> */}
 
             {data.length > 0 && (
               <PaginationBar

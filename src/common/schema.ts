@@ -10,6 +10,7 @@ export type TLoginSchema = z.infer<typeof loginSchema>;
 export type TRegisterSchema = z.infer<typeof registerSchema>;
 export type TPostFormSchema = z.infer<typeof postFormSchema>;
 export type TBookingSchema = z.infer<typeof bookingFormSchema>;
+export type TMessageSchema = z.infer<typeof messageFormSchema>;
 export type TProfileSchema = z.infer<typeof profileSchema>;
 
 export const loginSchema = z.object({
@@ -62,27 +63,43 @@ export const registerSchema = z.object({
   // }),
 });
 
-export const postFormSchema = z.object({
-  title: reqText('Không được để trống'),
-  fname: reqText('Không được để trống'),
-  email: reqText('Không được để trống'),
-  phone: reqText('Không được để trống'),
+export const postFormSchema = z
+  .object({
+    title: reqText('Không được để trống'),
+    price: z
+      .number({
+        required_error: 'Vui lòng nhập số tiền',
+        invalid_type_error: 'Số tiền không hợp lệ',
+      })
+      .min(0, { message: 'Số tiền phải lớn hơn hoặc bằng 0' }),
 
-  descTxtEdit: reqTextArea('Không được để trống'),
-  valueTxtEdit: reqTextArea('Không được để trống'),
+    descTxtEdit: reqTextArea('Không được để trống'),
+    valueTxtEdit: reqTextArea('Không được để trống'),
 
-  majorSelect: reqSelect('Vui lòng chọn danh mục'),
-  methodSelect: reqSelect('Vui lòng chọn danh mục'),
+    majorSelect: reqSelect('Vui lòng chọn danh mục'),
+    methodSelect: reqSelect('Vui lòng chọn danh mục'),
 
-  ipRadio: z.enum(['yes', 'no'], {
-    required_error: 'Vui lòng chọn một tùy chọn.',
-  }),
+    ipRadio: z.enum(['0', '1'], {
+      required_error: 'Vui lòng chọn một tùy chọn.',
+    }),
 
-  ipImgUpload: reqImgUpload('Không được để trống ảnh'),
-  relatedImgUpload: reqImgUpload('Không được để trống ảnh'),
-  relatedImgUpload2: reqImgUpload('Không được để trống ảnh'),
-  relatedImgUpload3: reqImgUpload('Không được để trống ảnh'),
-});
+    ipImgUpload: z.any(),
+    relatedImgUpload: reqImgUpload('Không được để trống ảnh'),
+    relatedImgUpload2: reqImgUpload('Không được để trống ảnh'),
+    relatedImgUpload3: reqImgUpload('Không được để trống ảnh'),
+  })
+  .superRefine((data, ctx) => {
+    if (
+      data.ipRadio === '0' &&
+      (!data.ipImgUpload || data.ipImgUpload.length === 0)
+    ) {
+      ctx.addIssue({
+        path: ['ipImgUpload'],
+        code: z.ZodIssueCode.custom,
+        message: 'Không được để trống ảnh',
+      });
+    }
+  });
 
 export const bookingFormSchema = z.object({
   fname: z
@@ -97,6 +114,11 @@ export const bookingFormSchema = z.object({
     .string()
     .min(1, 'Vui lòng chọn thời gian')
     .regex(/^([0-1][0-9]|2[0-3]):[0-5][0-9]$/, 'Định dạng giờ không hợp lệ'),
+});
+
+export const messageFormSchema = z.object({
+  title: z.string().trim().nonempty('Không được để trống'),
+  content: z.string().trim().nonempty('Không được để trống'),
 });
 
 export const profileSchema = z.object({

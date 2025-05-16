@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Menu } from '~/components/Popup';
 import toast from 'react-hot-toast';
 import { AxiosError } from 'axios';
@@ -44,12 +44,12 @@ const links = [
 
 export default function Header() {
   const { openAuthModal, isAuthenticated, setIsAuthenticated } = useAuthModal();
+  const location = useLocation();
   const hasPassedBanner = useHasScrolledBeyond(300);
 
   const logoutHandle = async () => {
     try {
-      const token = localStorage.getItem('accessToken')?.trim();
-      await authService.logout(token);
+      await authService.logout();
       localStorage.removeItem('accessToken');
       setIsAuthenticated(false);
       toast.success('Đăng xuất thành công! 🎉');
@@ -64,7 +64,10 @@ export default function Header() {
       className={clsx(
         'fixed top-0 right-0 left-0 z-50 bg-[rgba(10,18,26,.1)] text-[#FFFFFF] duration-300',
         {
-          'text-skyBlue-700 bg-white': hasPassedBanner,
+          'text-skyBlue-700 bg-white':
+            location.pathname.includes('/exchange/') ||
+            location.pathname.includes('/problem/') ||
+            hasPassedBanner,
         },
       )}
     >

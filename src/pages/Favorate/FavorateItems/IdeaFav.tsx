@@ -4,8 +4,8 @@ import { IdeaItem } from '~/pages/Exchange/ExchangeItems';
 
 export default function IdeaFav() {
   return (
-    <WrapperContent currentItems={IdeaCard}>
-      {IdeaCard.length === 0 ? (
+    // <WrapperContent currentItems={IdeaCard}>
+      IdeaCard.length === 0 ? (
         <div className="">Không có dữ liệu</div>
       ) : (
         IdeaCard.map((item) => {
@@ -14,7 +14,7 @@ export default function IdeaFav() {
               key={item.id}
               id={item.id}
               imageUrl={item.imageUrl}
-              category={item.category}
+              catValue={item.catValue}
               title={item.title}
               desc={item.desc}
               author={item.author}
@@ -23,7 +23,7 @@ export default function IdeaFav() {
             />
           );
         })
-      )}
-    </WrapperContent>
+      )
+    // </WrapperContent>
   );
 }

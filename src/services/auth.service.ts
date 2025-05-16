@@ -21,14 +21,8 @@ export const sendCode = async (data: TRegisterSchema) => {
   });
 };
 
-export const logout = async (token?: string) => {
+export const logout = async () => {
   await httpRequest.post(
     '/customer/logout',
-    {},
-    {
-      headers: {
-        'x-token': token,
-      },
-    },
   );
 };

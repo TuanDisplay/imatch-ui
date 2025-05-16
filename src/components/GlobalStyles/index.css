@@ -22,6 +22,11 @@
   --default-layout-header-height: 80px;
 }
 
+html[style*='overflow: hidden'] {
+  padding-right: 0px !important;
+  overflow: auto !important;
+}
+
 body {
   font-family: var(--font-VNPro);
   font-size: 1rem;
@@ -34,56 +39,46 @@ input[type='number']::-webkit-outer-spin-button {
   margin: 0;
 }
 
-input[type='number'] {
-  -moz-appearance: textfield; /* Firefox */
-}
-
 /* Fonts emmbeded */
 @font-face {
   font-family: VNPro;
-  src: url('/src/assets/fonts/BeVietnamPro-Thin.ttf');
+  src: url('fonts/BeVietnamPro-Thin.ttf');
   font-weight: 100;
 }
 
 @font-face {
   font-family: VNPro;
-  src: url('/src/assets/fonts/BeVietnamPro-ExtraLight.ttf');
+  src: url('fonts/BeVietnamPro-ExtraLight.ttf');
   font-weight: 200;
 }
 
 @font-face {
   font-family: VNPro;
-  src: url('/src/assets/fonts/BeVietnamPro-Light.ttf');
+  src: url('fonts/BeVietnamPro-Light.ttf');
   font-weight: 300;
 }
 
 @font-face {
   font-family: VNPro;
-  src: url('/src/assets/fonts/BeVietnamPro-Regular.ttf');
+  src: url('fonts/BeVietnamPro-Regular.ttf');
   font-weight: 400;
 }
 
-/* @font-face {
-  font-family: VNPro;
-  src: url('/src/assets/fonts/BeVietnamPro-Medium.ttf');
-  font-weight: 500;
-} */
-
 @font-face {
   font-family: VNPro;
-  src: url('/src/assets/fonts/BeVietnamPro-Bold.ttf');
+  src: url('fonts/BeVietnamPro-Bold.ttf');
   font-weight: 700;
 }
 
 @font-face {
   font-family: Montserrat;
-  src: url('/src/assets/fonts/Montserrat-Regular.ttf');
+  src: url('fonts/Montserrat-Regular.ttf');
   font-weight: 400;
 }
 
 @font-face {
   font-family: Montserrat;
-  src: url('/src/assets/fonts/Montserrat-Bold.ttf');
+  src: url('fonts/Montserrat-Bold.ttf');
   font-weight: 700;
 }
 

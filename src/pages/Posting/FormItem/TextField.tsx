@@ -10,6 +10,7 @@ export default function TextInput({
   id,
   label,
   placeholder,
+  type = 'text',
   isRequire = false,
   register,
   error,
@@ -23,7 +24,7 @@ export default function TextInput({
       <input
         id={id}
         {...register}
-        type="text"
+        type={type}
         placeholder={placeholder}
         className="rounded-xl bg-white px-4 py-2.5 drop-shadow-xl"
       />
