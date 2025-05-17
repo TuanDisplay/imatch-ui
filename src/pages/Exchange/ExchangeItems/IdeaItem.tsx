@@ -1,3 +1,4 @@
+import { AxiosError } from 'axios';
 import {
   CalendarDays,
   Eye,
@@ -6,11 +7,12 @@ import {
   Settings,
   Heart,
 } from 'lucide-react';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 import { IIdeaCard } from '~/common/types';
-import { useDebounce } from '~/hooks/useDebounce';
+import { useFavList } from '~/hooks/useApiQuery';
+import * as favService from '~/services/myfavorite.service';
 import {
   convertCategoryName,
   convertHtmlToText,
@@ -28,17 +30,31 @@ export default function IdeaItem({
   views,
   publishDate,
 }: IIdeaCard) {
-  const [isFavorate, setFavorate] = useState<boolean>(false);
+  const [loading, setLoading] = useState(false);
 
-  const debouncedFav = useDebounce(isFavorate, 500);
+  const { data: favList, refetch } = useFavList();
+  const favoriteSet = useMemo(() => {
+    return new Set(favList?.map((fav) => fav.post_uuid));
+  }, [favList]);
 
-  const handleAddFav = () => {
-    if (debouncedFav === false) {
-      setFavorate(true);
-      toast.success('Đã thêm vào yêu thích!');
-    } else {
-      setFavorate(false);
-      toast.error('Đã xóa khỏi yêu thích!');
+  const handleApiAddFav = async () => {
+    if (loading) return;
+    setLoading(true);
+    try {
+      if (!favoriteSet.has(id)) {
+        await favService.addFav(id, 'ideas');
+        await refetch();
+        toast.success('Đã thêm vào yêu thích!');
+      } else {
+        await favService.deleteFav(id);
+        await refetch();
+        toast.error('Đã xóa khỏi yêu thích!');
+      }
+    } catch (err) {
+      const error = err as AxiosError<{ message: string }>;
+      toast.error(error.response?.data.message || 'Có lỗi xảy ra');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -46,9 +62,9 @@ export default function IdeaItem({
     <div className="hover:shadow-primary relative mx-auto flex max-w-4xl cursor-pointer gap-6 rounded-2xl bg-white p-6 shadow-md transition-shadow duration-300">
       <div
         className="group absolute top-0 right-0 mt-4 mr-4"
-        onClick={handleAddFav}
+        onClick={handleApiAddFav}
       >
-        {debouncedFav ? (
+        {favoriteSet.has(id) ? (
           <Heart size={18} fill="#ff6e00" stroke="#ff6e00" />
         ) : (
           <Heart size={18} className="hover:text-primary" />

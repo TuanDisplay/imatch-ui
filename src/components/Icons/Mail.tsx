@@ -8,9 +8,6 @@ export default function Mail() {
       viewBox="0 -3.5 32 32"
       version="1.1"
     >
-      <title>mail</title>
-      <desc>Created with Sketch Beta.</desc>
-      <defs />
       <g
         id="Page-1"
         stroke="none"

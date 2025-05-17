@@ -4,7 +4,7 @@ import PaginationBar from '~/components/PaginationBar';
 import { usePagination } from '~/hooks/usePagination';
 import { MajorCat, ProblemCard } from '~/common/data';
 import { ProblemItem } from './ProblemItems';
-import { WrapperContent } from '~/components/Content';
+// import { WrapperContent } from '~/components/Content';
 import CatBar from '~/components/CatBar';
 import FilterBar from '~/layouts/components/Filter';
 import { IProblemCard } from '~/common/types';
@@ -12,7 +12,7 @@ import { IProblemCard } from '~/common/types';
 export default function Solving() {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [data, setData] = useState([...ProblemCard]);
-  const [filter, setFilter] = useState<IProblemCard[]>([])
+  const [filter, setFilter] = useState<IProblemCard[]>([]);
 
   const itemsPerPage = 3;
   const currentItems = usePagination(filter, currentPage, itemsPerPage);
@@ -38,29 +38,33 @@ export default function Solving() {
       </div>
       <div className="container mx-auto py-5">
         <div className="flex gap-6">
-          <CatBar CatItems={MajorCat} data={[...ProblemCard]} setData={setData} />
+          <CatBar
+            CatItems={MajorCat}
+            data={[...ProblemCard]}
+            setData={setData}
+          />
           <div className="flex flex-1 flex-col px-4">
             <FilterBar dataReal={data} setDataFilter={setFilter}></FilterBar>
             {/* <WrapperContent currentItems={currentItems}> */}
-              {data.length === 0 ? (
-                <div className="">Không có dữ liệu</div>
-              ) : (
-                currentItems.map((item) => {
-                  return (
-                    <ProblemItem
-                      key={item.id}
-                      id={item.id}
-                      imageUrl={item.imageUrl}
-                      catValue={item.catValue}
-                      title={item.title}
-                      desc={item.desc}
-                      price={item.price}
-                      submission={item.submission}
-                      publishDate={item.publishDate}
-                    />
-                  );
-                })
-              )}
+            {data.length === 0 ? (
+              <div className="text-center">Không có dữ liệu</div>
+            ) : (
+              currentItems.map((item) => {
+                return (
+                  <ProblemItem
+                    key={item.id}
+                    id={item.id}
+                    imageUrl={item.imageUrl}
+                    catValue={item.catValue}
+                    title={item.title}
+                    desc={item.desc}
+                    price={item.price}
+                    submission={item.submission}
+                    publishDate={item.publishDate}
+                  />
+                );
+              })
+            )}
             {/* </WrapperContent> */}
 
             {data.length > 0 && (

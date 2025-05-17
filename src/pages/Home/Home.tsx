@@ -141,7 +141,7 @@ export default function Home() {
                   <CardItem
                     key={item.id}
                     id={item.id}
-                    imageUrl={item.imageUrl[0]}
+                    imageUrl={item.imageUrl}
                     catValue={item.catValue}
                     title={item.title}
                     desc={item.desc}
@@ -193,7 +193,7 @@ export default function Home() {
                   <CardItem
                     key={item.id}
                     id={item.id}
-                    imageUrl={item.imageUrl[0]}
+                    imageUrl={item.imageUrl}
                     catValue={item.catValue}
                     title={item.title}
                     desc={item.desc}

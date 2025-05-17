@@ -4,7 +4,7 @@ import { useState } from 'react';
 import clsx from 'clsx';
 import { IdeaItem } from '../Exchange/ExchangeItems';
 import { IdeaCard } from '~/common/data';
-import { WrapperContent } from '~/components/Content';
+// import { WrapperContent } from '~/components/Content';
 import { useForm } from 'react-hook-form';
 import { TProfileSchema } from '~/common/schema';
 import { convertToBase64 } from '~/utils/files';

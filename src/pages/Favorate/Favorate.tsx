@@ -1,16 +1,17 @@
 import { useState } from 'react';
 import clsx from 'clsx';
 
-import { ExpertFav, IdeaFav, ProblemFav } from './FavorateItems';
+import { IdeaFav, ProblemFav } from './FavorateItems';
+
 
 const list = [
   { id: 1, name: 'Mua - bán ý tưởng', value: 'exchange-idea' },
   { id: 2, name: 'Giải quyết vấn đề', value: 'solving-problem' },
-  { id: 3, name: 'Chuyên gia tư vấn', value: 'expert-consult' },
 ];
 
 export default function Favorate() {
   const [selectedValue, setSelectedValue] = useState<string>('exchange-idea');
+
 
   return (
     <>
@@ -34,10 +35,10 @@ export default function Favorate() {
       <div className="mx-auto max-w-6xl py-5">
         <div className="mt-5 rounded-xl bg-white shadow-xl">
           <div className="flex items-center justify-between gap-10 p-3 font-bold shadow-xl">
-            {list.map((item) => {
+            {list.map((item, index) => {
               return (
                 <div
-                  key={item.id}
+                  key={index}
                   className={clsx(
                     'flex-1 cursor-pointer rounded-sm p-1 text-center text-gray-700 transition-colors duration-300 hover:bg-orange-100 hover:text-orange-600',
                     {
@@ -55,7 +56,6 @@ export default function Favorate() {
           <div className="py-5">
             {selectedValue === 'exchange-idea' && <IdeaFav />}
             {selectedValue === 'solving-problem' && <ProblemFav />}
-            {selectedValue === 'expert-consult' && <ExpertFav />}
           </div>
         </div>
       </div>

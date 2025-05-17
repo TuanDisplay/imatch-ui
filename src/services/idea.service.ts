@@ -1,18 +1,9 @@
 import { TPostFormSchema } from '~/common/schema';
-import httpRequest from '~/utils/httpRequest';
+import {productRequest} from '~/lib/axios';
 
-export const ideas = async () => {
-  const res = await httpRequest.get(
-    '/ideas',
-    //   , {
-    //   headers: { 'x-token': token },
-    // }
-  );
-  return res.data;
-};
 
 export const postIdeas = async (data: TPostFormSchema) => {
-  const res = await httpRequest.post(
+  const res = await productRequest.post(
     '/ideas',
     {
       ideasname: data.title,
@@ -32,7 +23,14 @@ export const postIdeas = async (data: TPostFormSchema) => {
   return res.data;
 };
 
-export const ideaDetail = async () => {
-  const res = await httpRequest.get('/ideas/:uuid');
+export const ideas = async () => {
+  const res = await productRequest.get(
+    '/ideas',
+  );
+  return res.data;
+};
+
+export const ideaDetail = async (id: string) => {
+  const res = await productRequest.get(`/ideas/${id}`);
   return res.data;
 };

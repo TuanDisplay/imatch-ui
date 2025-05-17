@@ -123,8 +123,7 @@ export default function Header() {
                     Thông báo
                   </p>
                 </div>
-
-                {/* Danh sách thông báo */}
+                
                 <div className="max-h-60 overflow-y-auto">
                   {[
                     'Bạn có một tin nhắn mới.',
@@ -148,7 +147,6 @@ export default function Header() {
                   ))}
                 </div>
 
-                {/* Xem tất cả */}
                 <div className="cursor-pointer px-4 py-3 text-center text-sm text-blue-600 hover:underline">
                   Xem tất cả
                 </div>

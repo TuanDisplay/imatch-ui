@@ -95,3 +95,25 @@ export interface IIdeaListApi {
   post_day: string;
   view: number;
 }
+
+export interface IIdeaListDetailApi {
+  customer_name: string;
+  customer_email: string;
+  ideasname: string;
+  industry: string;
+  is_procedure: string;
+  image: string[];
+  image_intellect: string;
+  content_detail: string;
+  value_benefits: string;
+  is_intellect: number;
+  price: number;
+  view: number;
+}
+
+type TPostType = 'ideas' | 'problem';
+export interface IFavoriteListApi {
+  uuid: string;
+  post_uuid: string;
+  post_type: TPostType;
+}

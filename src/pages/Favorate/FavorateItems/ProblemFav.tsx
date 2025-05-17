@@ -1,5 +1,5 @@
 import { ProblemCard } from '~/common/data';
-import { WrapperContent } from '~/components/Content';
+// import { WrapperContent } from '~/components/Content';
 import { ProblemItem } from '~/pages/Problem/ProblemItems';
 
 export default function ProFav() {

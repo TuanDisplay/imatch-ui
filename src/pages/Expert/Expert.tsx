@@ -3,7 +3,7 @@ import { useState } from 'react';
 import PaginationBar from '~/components/PaginationBar';
 import { usePagination } from '~/hooks/usePagination';
 import { ExpertCard, MajorCat } from '~/common/data';
-import { WrapperContent } from '~/components/Content';
+// import { WrapperContent } from '~/components/Content';
 import ExpertItem from './ExpertItems';
 import CatBar from '~/components/CatBar';
 
@@ -42,25 +42,25 @@ export default function Expert() {
           />
           <div className="flex flex-1 flex-col px-4">
             {/* <WrapperContent currentItems={currentItems}> */}
-              {data.length === 0 ? (
-                <div className="">Không có dữ liệu</div>
-              ) : (
-                currentItems.map((item) => {
-                  return (
-                    <ExpertItem
-                      key={item.id}
-                      id={item.id}
-                      imageUrl={item.imageUrl}
-                      catValue={item.catValue}
-                      author={item.author}
-                      desc={item.desc}
-                      views={item.views}
-                      consultCount={item.consultCount}
-                      rate={item.rate}
-                    />
-                  );
-                })
-              )}
+            {data.length === 0 ? (
+              <div className="text-center">Không có dữ liệu</div>
+            ) : (
+              currentItems.map((item) => {
+                return (
+                  <ExpertItem
+                    key={item.id}
+                    id={item.id}
+                    imageUrl={item.imageUrl}
+                    catValue={item.catValue}
+                    author={item.author}
+                    desc={item.desc}
+                    views={item.views}
+                    consultCount={item.consultCount}
+                    rate={item.rate}
+                  />
+                );
+              })
+            )}
             {/* </WrapperContent> */}
             {data.length > 0 && (
               <PaginationBar

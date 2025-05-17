@@ -140,7 +140,6 @@ export const ProblemCard = [
     price: 2500000,
     benefitValue:
       'Đèn ánh sáng tím hoặc xanh dương có khả năng thu hút côn trùng vào ban đêm.Kết hợp với lưới điện hoặc bẫy dính sẽ tiêu diệt côn trùng hiệu quả mà không ảnh hưởng đến cây trồng. Lưu ý không nên dùng ánh sáng trắng mạnh quá, có thể làm rối loạn sinh học cây.',
-
     submission: 20,
     publishDate: '03/01/2025',
     image: [

@@ -20,10 +20,9 @@ type TAuthModal = {
   closeAuthModal: () => void;
 };
 
-type TDropdownModal = {
-  isDropdownOpen: boolean;
-  openDropdownModal: () => void;
-  closeDropdownModal: () => void;
+type TLoadingScreen = {
+  isLoadingScreen: boolean;
+  setLoadingSreen: (value: boolean) => void;
 };
 
 export const useBookingModal = create<TBookingModal>((set) => ({
@@ -57,8 +56,7 @@ export const useAuthModal = create<TAuthModal>()(
   ),
 );
 
-export const useDropdownModal = create<TDropdownModal>((set) => ({
-  isDropdownOpen: false,
-  openDropdownModal: () => set({ isDropdownOpen: true }),
-  closeDropdownModal: () => set({ isDropdownOpen: false }),
+export const useLoadingSreen = create<TLoadingScreen>((set) => ({
+  isLoadingScreen: false,
+  setLoadingSreen: (value) => set({ isLoadingScreen: value }),
 }));

@@ -34,8 +34,8 @@ export default function LoginForm({ setState }: TSetState) {
   const onSubmit = async (data: TLoginSchema) => {
     try {
       const token = await authService.login(data);
-      toast.success('Đăng nhập thành công! 🎉');
       localStorage.setItem('accessToken', token);
+      toast.success('Đăng nhập thành công! 🎉');
       closeAuthModal();
       setIsAuthenticated(true);
     } catch (err) {

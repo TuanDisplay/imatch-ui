@@ -23,7 +23,6 @@ export default function CardItem({
   price,
   submission,
 }: ICard) {
-
   return (
     <section className="font-montserrat overflow-hidden rounded-[10px] border-[#E8E5E5] bg-white p-1">
       <div className="relative overflow-hidden rounded-xl p-[14px]">
@@ -31,7 +30,7 @@ export default function CardItem({
           {convertCategoryName(catValue)}
         </div>
         <img
-          src={imageUrl[0]}
+          src={imageUrl}
           alt="imageUrl"
           className="h-[210px] w-full rounded-[5px]"
         />

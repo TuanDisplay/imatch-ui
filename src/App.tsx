@@ -2,11 +2,12 @@ import { BrowserRouter, Routes, Route } from 'react-router';
 import { Toaster } from 'react-hot-toast';
 
 import MainLayout from '~/layouts';
-import { AuthModal } from './modals';
+import { AuthModal } from '~/modals';
 
 import { privateRoutes, publicRoutes } from '~/routes';
-import PrivateRoute from './utils/PrivateRoute';
-import { useAuthModal } from './hooks/useModalStore';
+import PrivateRoute from '~/utils/PrivateRoute';
+import { useAuthModal } from '~/hooks/useModalStore';
+import NotFound from '~/pages/NotFound';
 
 function App() {
   const { isAuthOpen } = useAuthModal();
@@ -17,14 +18,11 @@ function App() {
       {isAuthOpen && <AuthModal />}
       <BrowserRouter>
         <Routes>
+          <Route path="*" element={<NotFound />} />
           {publicRoutes.map((route, index) => {
             const Page = route.component;
 
             const Layout = MainLayout;
-
-            // if (route.layout) {
-            //   Layout = route.layout;
-            // }
 
             return (
               <Route

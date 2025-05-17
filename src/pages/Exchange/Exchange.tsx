@@ -51,10 +51,9 @@ export default function Exchange() {
             </div>
             <WrapperContent queryResultObject={ideasQuery}>
               {dataFilter.length === 0 ? (
-                <div className="">Không có dữ liệu</div>
+                <div className="text-center">Không có dữ liệu</div>
               ) : (
                 currentItems.map((item, index) => {
-
                   return (
                     <IdeaItem
                       key={index}

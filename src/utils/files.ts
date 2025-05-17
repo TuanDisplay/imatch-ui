@@ -1,4 +1,5 @@
 import { MajorCat } from '~/common/data';
+import DOMPurify from 'dompurify';
 
 export const convertToBase64 = (file: File): Promise<string> => {
   return new Promise((resolve, reject) => {
@@ -24,6 +25,14 @@ export const convertIsoDate = (isoDate: string) => {
   return formatted;
 };
 
+export const convertCurrencyVN = (price?: number) => {
+  const formatted = price?.toLocaleString('vi-VN', {
+    style: 'currency',
+    currency: 'VND',
+  });
+  return formatted;
+};
+
 export const convertPartName = (words: string) => {
   const wordArr = words.trim().split(/\s+/);
   if (wordArr.length >= 2) return wordArr.slice(-2).join(' ');
@@ -34,4 +43,10 @@ export const convertHtmlToText = (htmlString: string) => {
   const parsed = new DOMParser().parseFromString(htmlString, 'text/html');
   const plainText = parsed.body.textContent || '';
   return plainText;
+};
+
+export const convertStringToHtml = (htmlString?: string) => {
+  if (!htmlString) return;
+  const cleanHtml = DOMPurify.sanitize(htmlString);
+  return { __html: cleanHtml };
 };
