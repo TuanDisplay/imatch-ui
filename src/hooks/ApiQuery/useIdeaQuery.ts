@@ -1,10 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { IFavoriteListApi, IIdeaCard } from '~/common/types';
+import {  IIdeaCard } from '~/common/types/idea';
 import * as ideaService from '~/services/idea.service';
-import * as favService from '~/services/myfavorite.service';
-import { mapIdeaDetailList, mapIdeaList } from '~/utils/mapList';
+import {
+  mapIdeaDetailList,
+  mapIdeaList,
+} from '~/utils/map/idea';
 
 export function useIdeas() {
   return useQuery({
@@ -42,18 +44,4 @@ export function useIdeasDetail(id: string) {
   }, [query.isError, query.error, navigate]);
 
   return query;
-}
-
-// my-favorite
-
-export function useFavList() {
-  return useQuery({
-    queryKey: ['favorite-ideas'],
-    queryFn: async ():Promise<IFavoriteListApi[]> => {
-      const res = await favService.favList();
-      return res.items;
-    },
-    staleTime: 1000 * 60 * 5,
-    retry: 2,
-  });
 }

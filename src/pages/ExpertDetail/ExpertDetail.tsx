@@ -1,8 +1,8 @@
 import { useParams } from 'react-router-dom';
 
 import Button from '~/components/Button';
-import { ExpertCard, CommentCard } from '~/common/data';
 import Comment from '~/components/Comment';
+import { ExpertCard, CommentCard } from '~/common/data';
 import { BookingModal, MessageModal } from '~/modals';
 import { useBookingModal, useMessageModal } from '~/hooks/useModalStore';
 

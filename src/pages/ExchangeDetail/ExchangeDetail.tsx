@@ -3,9 +3,9 @@ import { CalendarDays, Eye, User, Settings } from 'lucide-react';
 import Button from '~/components/Button';
 import Link from '~/components/Icons/Link';
 import Mail from '~/components/Icons/Mail';
-import Overview from './EDItem';
+import Overview from '~/components/Overview';
 import { convertCategoryName, convertCurrencyVN } from '~/utils/files';
-import { useIdeasDetail } from '~/hooks/useApiQuery';
+import { useIdeasDetail } from '~/hooks/ApiQuery/useIdeaQuery';
 import LoadingScreen from '~/layouts/components/LoadingScreen';
 import { convertStringToHtml } from '~/utils/files';
 
@@ -138,7 +138,10 @@ function IdeaDetailContent({ id }: { id: string }) {
                       title="Quyền sở hữu trí tuệ (Đã đăng ký)"
                     >
                       <div className="overflow-hidden rounded-xl shadow-md">
-                        <img src={data?.imageUrl} className="object-cover" />
+                        <img
+                          src={data?.imageUrl}
+                          className="w-full object-cover"
+                        />
                       </div>
                     </Overview>
                   </div>

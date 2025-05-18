@@ -4,16 +4,16 @@ import { usePagination } from '~/hooks/usePagination';
 import { MajorCat } from '~/common/data';
 import { IdeaItem } from './ExchangeItems';
 import { WrapperContent } from '~/components/Content';
-import { IIdeaDetail } from '~/common/types';
+import { IIdeaDe } from '~/common/types/idea';
 import PaginationBar from '~/components/PaginationBar';
 import CatBar from '~/components/CatBar';
 import FilterBar from '~/layouts/components/Filter';
 
-import { useIdeas } from '~/hooks/useApiQuery';
+import { useIdeas } from '~/hooks/ApiQuery/useIdeaQuery';
 
 export default function Exchange() {
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [dataFilter, setDataFilter] = useState<IIdeaDetail[]>([]);
+  const [dataFilter, setDataFilter] = useState<IIdeaDe[]>([]);
 
   const itemsPerPage = 3;
   const currentItems = usePagination(dataFilter, currentPage, itemsPerPage);

@@ -1,11 +1,14 @@
 import { ReactNode } from 'react';
-import { useIdeas } from '~/hooks/useApiQuery';
+import { useIdeas } from '~/hooks/ApiQuery/useIdeaQuery';
+import { useProblem } from '~/hooks/ApiQuery/useProblemQuery';
 import Button from '~/components/Button';
 import LoadingAni from '../Animation/LoadingAni';
 
 interface IWrapperContent {
   children: ReactNode;
-  queryResultObject: ReturnType<typeof useIdeas>;
+  queryResultObject:
+    | ReturnType<typeof useIdeas>
+    | ReturnType<typeof useProblem>;
 }
 
 export default function WrapperContent({
@@ -26,12 +29,10 @@ export default function WrapperContent({
         </div>
       ) : error ? (
         <div className="absolute top-1/2 flex w-full translate-y-[-50%] flex-col items-center text-center">
-          
-            <div>Có lỗi xảy ra: {(error as Error).message}</div>
-            <Button className="px-3 py-2" primary onClick={refetch}>
-              Tải lại
-            </Button>
-          
+          <div>Có lỗi xảy ra: {(error as Error).message}</div>
+          <Button className="px-3 py-2" primary onClick={refetch}>
+            Tải lại
+          </Button>
         </div>
       ) : (
         <div className="space-y-6">{children}</div>

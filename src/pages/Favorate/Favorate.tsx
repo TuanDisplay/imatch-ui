@@ -3,7 +3,6 @@ import clsx from 'clsx';
 
 import { IdeaFav, ProblemFav } from './FavorateItems';
 
-
 const list = [
   { id: 1, name: 'Mua - bán ý tưởng', value: 'exchange-idea' },
   { id: 2, name: 'Giải quyết vấn đề', value: 'solving-problem' },
@@ -11,7 +10,6 @@ const list = [
 
 export default function Favorate() {
   const [selectedValue, setSelectedValue] = useState<string>('exchange-idea');
-
 
   return (
     <>

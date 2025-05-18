@@ -8,7 +8,7 @@ import {
 } from 'lucide-react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import {  IExpertCard } from '~/common/types';
+import {  IExpCard } from '~/common/types/expert';
 import { convertCategoryName } from '~/utils/files';
 
 export default function ExpertItem({
@@ -20,7 +20,7 @@ export default function ExpertItem({
   views,
   consultCount,
   rate,
-}: IExpertCard) {
+}: IExpCard) {
   const [isFavorate, setFavorate] = useState<boolean>(false);
   
 

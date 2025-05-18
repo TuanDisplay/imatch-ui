@@ -8,10 +8,12 @@ import {
   EditorField,
   UploadImageField,
 } from './FormItem';
+import toast from 'react-hot-toast';
+
+import * as ideaService from '~/services/idea.service';
+import * as problemService from '~/services/problem.service';
 import { MajorCat } from '~/common/data';
 import { TPostFormSchema, postFormSchema } from '~/common/schema';
-import toast from 'react-hot-toast';
-import * as ideaService from '~/services/idea.service';
 
 const methodO = [
   { value: 'posting-idea', name: 'Mua - Bán ý tưởng' },
@@ -35,6 +37,8 @@ export default function Posting() {
     try {
       if (data.methodSelect === 'posting-idea') {
         await ideaService.postIdeas(data);
+      }else {
+        await problemService.postProblem(data)
       }
       reset();
       toast.success('Đăng thành công');

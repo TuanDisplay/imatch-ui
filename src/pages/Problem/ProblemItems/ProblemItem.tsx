@@ -7,8 +7,8 @@ import {
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
-import { ICard } from '~/common/types';
-import { convertCategoryName } from '~/utils/files';
+import { IProCard } from '~/common/types/problem';
+import { convertCategoryName, convertCurrencyVN, convertHtmlToText, convertIsoDate } from '~/utils/files';
 
 export default function ProblemItem({
   id,
@@ -19,7 +19,7 @@ export default function ProblemItem({
   price,
   submission,
   publishDate,
-}: ICard) {
+}: IProCard) {
   return (
     <div className="hover:shadow-primary mx-auto flex max-w-4xl cursor-pointer gap-6 rounded-2xl bg-white p-6 shadow-md transition-shadow duration-300">
       <img
@@ -36,18 +36,18 @@ export default function ProblemItem({
           <h4 className="text-primary mt-4 text-sm font-semibold">
             Mô Tả Ý Tưởng
           </h4>
-          <p className="line-clamp-3 font-medium text-gray-700">{desc}</p>
+          <p className="line-clamp-3 font-medium text-gray-700">{convertHtmlToText(desc)}</p>
         </div>
 
         <div className="mt-4 flex items-center justify-between text-sm text-gray-500">
           <div className="flex items-center gap-3">
             <div className="flex items-center gap-1">
               <CalendarDays size={16} />
-              <span>{publishDate}</span>
+              <span>{convertIsoDate(publishDate)}</span>
             </div>
             <div className="flex items-center gap-1">
               <CircleDollarSign size={16} />
-              <span>{price} $</span>
+              <span>{convertCurrencyVN(price)}</span>
             </div>
             <div className="flex items-center gap-1">
               <Lightbulb size={16} />

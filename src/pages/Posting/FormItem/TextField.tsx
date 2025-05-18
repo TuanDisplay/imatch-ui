@@ -1,5 +1,5 @@
 import { UseFormRegisterReturn } from 'react-hook-form';
-import { IPostForm } from '~/common/types';
+import { IPostForm } from '~/common/types/';
 
 interface TextInput extends IPostForm {
   register: UseFormRegisterReturn;

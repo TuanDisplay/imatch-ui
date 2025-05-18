@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { WrapperContent } from '~/components/Content';
-import { useFavList } from '~/hooks/useApiQuery';
-import { useIdeas } from '~/hooks/useApiQuery';
+import { useFavList } from '~/hooks/ApiQuery/useFavQuery';
+import { useIdeas } from '~/hooks/ApiQuery/useIdeaQuery';
 import { IdeaItem } from '~/pages/Exchange/ExchangeItems';
 
 export default function IdeaFav() {

@@ -1,6 +1,6 @@
-import { IIdeaListApi, IIdeaListDetailApi } from '~/common/types';
+import { IIdeaApi, IIdeaDeApi } from "~/common/types/idea";
 
-export const mapIdeaList = (raw: IIdeaListApi) => {
+export const mapIdeaList = (raw: IIdeaApi) => {
   return {
     id: raw.uuid,
     author: raw.customer_name,
@@ -14,7 +14,7 @@ export const mapIdeaList = (raw: IIdeaListApi) => {
   };
 };
 
-export const mapIdeaDetailList = (raw: IIdeaListDetailApi) => {
+export const mapIdeaDetailList = (raw: IIdeaDeApi) => {
   return {
     author: raw.customer_name,
     title: raw.ideasname,

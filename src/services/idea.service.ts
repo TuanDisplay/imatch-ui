@@ -1,9 +1,9 @@
 import { TPostFormSchema } from '~/common/schema';
-import {productRequest} from '~/lib/axios';
+import {ideaRequest} from '~/lib/axios';
 
 
 export const postIdeas = async (data: TPostFormSchema) => {
-  const res = await productRequest.post(
+  const res = await ideaRequest.post(
     '/ideas',
     {
       ideasname: data.title,
@@ -24,13 +24,13 @@ export const postIdeas = async (data: TPostFormSchema) => {
 };
 
 export const ideas = async () => {
-  const res = await productRequest.get(
+  const res = await ideaRequest.get(
     '/ideas',
   );
   return res.data;
 };
 
 export const ideaDetail = async (id: string) => {
-  const res = await productRequest.get(`/ideas/${id}`);
+  const res = await ideaRequest.get(`/ideas/${id}`);
   return res.data;
 };

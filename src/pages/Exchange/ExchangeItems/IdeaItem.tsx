@@ -10,8 +10,8 @@ import {
 import { useMemo, useState } from 'react';
 import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
-import { IIdeaCard } from '~/common/types';
-import { useFavList } from '~/hooks/useApiQuery';
+import { IIdeaCard } from '~/common/types/idea';
+import { useFavList } from '~/hooks/ApiQuery/useFavQuery';
 import * as favService from '~/services/myfavorite.service';
 import {
   convertCategoryName,

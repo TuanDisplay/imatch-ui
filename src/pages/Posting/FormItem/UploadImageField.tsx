@@ -2,7 +2,7 @@ import { UploadCloud } from 'lucide-react';
 import { useState } from 'react';
 import { UseFormRegisterReturn, UseFormSetValue } from 'react-hook-form';
 
-import { IPostForm } from '~/common/types';
+import { IPostForm } from '~/common/types/';
 import { convertToBase64 } from '~/utils/files';
 
 interface IUploadImageField extends IPostForm {

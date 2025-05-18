@@ -1,5 +1,5 @@
 import ReactQuill from 'react-quill-new';
-import { IPostForm } from '~/common/types';
+import { IPostForm } from '~/common/types/';
 import 'react-quill-new/dist/quill.snow.css';
 
 import 'quill/dist/quill.snow.css';
