@@ -10,7 +10,7 @@ import Button from '~/components/Button';
 import Link from '~/components/Icons/Link';
 import Mail from '~/components/Icons/Mail';
 import Overview from '~/components/Overview';
-import { useProblemDetail } from '~/hooks/';
+import { useProblemDetail } from '~/hooks/ApiQuery/useProblemQuery';
 import LoadingScreen from '~/layouts/components/LoadingScreen';
 
 export function ProDeContent({ id }: { id: string }) {

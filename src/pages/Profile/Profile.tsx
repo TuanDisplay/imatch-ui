@@ -1,13 +1,12 @@
-import Button from '~/components/Button';
-import { Pen, UploadCloud } from 'lucide-react';
 import { useState } from 'react';
-import clsx from 'clsx';
-import { IdeaItem } from '../Exchange/ExchangeItems';
-import { IdeaCard } from '~/common/data';
-// import { WrapperContent } from '~/components/Content';
 import { useForm } from 'react-hook-form';
+import { Pen, UploadCloud } from 'lucide-react';
+import clsx from 'clsx';
+
 import { TProfileSchema } from '~/common/schema';
 import { convertToBase64 } from '~/utils/files';
+import Button from '~/components/Button';
+import MyProduct from './MyProduct/MyProduct';
 
 const profileUser: TProfileSchema = {
   fname: 'Lê Viết Tuấn',
@@ -224,27 +223,7 @@ export default function Profile() {
               })}
             </div>
             <div className="py-5">
-              {/* <WrapperContent currentItems={IdeaCard}> */}
-                {IdeaCard.length === 0 ? (
-                  <div className="">Không có dữ liệu</div>
-                ) : (
-                  IdeaCard.map((item) => {
-                    return (
-                      <IdeaItem
-                        key={item.id}
-                        id={item.id}
-                        imageUrl={item.imageUrl}
-                        catValue={item.catValue}
-                        title={item.title}
-                        desc={item.desc}
-                        author={item.author}
-                        views={item.views}
-                        publishDate={item.publishDate}
-                      />
-                    );
-                  })
-                )}
-              {/* </WrapperContent> */}
+              <MyProduct selectedValue = {selectedValue}/>
             </div>
           </div>
         )}

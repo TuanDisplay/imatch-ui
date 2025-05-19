@@ -33,3 +33,8 @@ export const problemDetail = async (id: string) => {
   const res = await problemRequest.get(`/problem/${id}`);
   return res.data;
 };
+
+export const myProblem = async () => {
+  const res = await problemRequest.get('/problem/my-list');
+  return res.data;
+};

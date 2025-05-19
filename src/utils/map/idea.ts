@@ -1,6 +1,6 @@
 import { IIdeaApi, IIdeaDeApi } from "~/common/types/idea";
 
-export const mapIdeaList = (raw: IIdeaApi) => {
+export const mapIdea = (raw: IIdeaApi) => {
   return {
     id: raw.uuid,
     author: raw.customer_name,
@@ -14,7 +14,7 @@ export const mapIdeaList = (raw: IIdeaApi) => {
   };
 };
 
-export const mapIdeaDetailList = (raw: IIdeaDeApi) => {
+export const mapIdeaDe = (raw: IIdeaDeApi) => {
   return {
     author: raw.customer_name,
     title: raw.ideasname,

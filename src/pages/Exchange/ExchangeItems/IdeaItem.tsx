@@ -1,18 +1,9 @@
-import { AxiosError } from 'axios';
-import {
-  CalendarDays,
-  Eye,
-  User,
-  ArrowRight,
-  Settings,
-  Heart,
-} from 'lucide-react';
-import { useMemo, useState } from 'react';
-import toast from 'react-hot-toast';
+import { CalendarDays, Eye, User, ArrowRight, Settings } from 'lucide-react';
+
 import { Link } from 'react-router-dom';
 import { IIdeaCard } from '~/common/types/idea';
-import { useFavList } from '~/hooks/ApiQuery/useFavQuery';
-import * as favService from '~/services/myfavorite.service';
+import FavToggle from '~/components/FavToggle';
+
 import {
   convertCategoryName,
   convertHtmlToText,
@@ -30,46 +21,9 @@ export default function IdeaItem({
   views,
   publishDate,
 }: IIdeaCard) {
-  const [loading, setLoading] = useState(false);
-
-  const { data: favList, refetch } = useFavList();
-  const favoriteSet = useMemo(() => {
-    return new Set(favList?.map((fav) => fav.post_uuid));
-  }, [favList]);
-
-  const handleApiAddFav = async () => {
-    if (loading) return;
-    setLoading(true);
-    try {
-      if (!favoriteSet.has(id)) {
-        await favService.addFav(id, 'ideas');
-        await refetch();
-        toast.success('Đã thêm vào yêu thích!');
-      } else {
-        await favService.deleteFav(id);
-        await refetch();
-        toast.error('Đã xóa khỏi yêu thích!');
-      }
-    } catch (err) {
-      const error = err as AxiosError<{ message: string }>;
-      toast.error(error.response?.data.message || 'Có lỗi xảy ra');
-    } finally {
-      setLoading(false);
-    }
-  };
-
   return (
     <div className="hover:shadow-primary relative mx-auto flex max-w-4xl cursor-pointer gap-6 rounded-2xl bg-white p-6 shadow-md transition-shadow duration-300">
-      <div
-        className="group absolute top-0 right-0 mt-4 mr-4"
-        onClick={handleApiAddFav}
-      >
-        {favoriteSet.has(id) ? (
-          <Heart size={18} fill="#ff6e00" stroke="#ff6e00" />
-        ) : (
-          <Heart size={18} className="hover:text-primary" />
-        )}
-      </div>
+      <FavToggle id={id} />
       <img
         src={imageUrl}
         alt="idea-item"

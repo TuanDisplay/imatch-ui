@@ -1,6 +1,6 @@
 import { IProApi, IProDeApi } from "~/common/types/problem";
 
-export const mapProblemList = (raw: IProApi) => {
+export const mapPro = (raw: IProApi) => {
   return {
     id: raw.uuid,
     author: raw.customer_name,
@@ -14,7 +14,7 @@ export const mapProblemList = (raw: IProApi) => {
   };
 };
 
-export const mapProblemDetailList = (raw: IProDeApi) => {
+export const mapProDe = (raw: IProDeApi) => {
   return {
     author: raw.customer_name,
     title: raw.problemname,

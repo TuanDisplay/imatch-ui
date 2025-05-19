@@ -4,8 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import {  IIdeaCard } from '~/common/types/idea';
 import * as ideaService from '~/services/idea.service';
 import {
-  mapIdeaDetailList,
-  mapIdeaList,
+  mapIdea,
+  mapIdeaDe,
 } from '~/utils/map/idea';
 
 export function useIdeas() {
@@ -13,7 +13,7 @@ export function useIdeas() {
     queryKey: ['ideas'],
     queryFn: async (): Promise<IIdeaCard[]> => {
       const res = await ideaService.ideas();
-      return res.items.map(mapIdeaList);
+      return res.items.map(mapIdea);
     },
     staleTime: 1000 * 60 * 5,
     retry: 2,
@@ -27,7 +27,7 @@ export function useIdeasDetail(id: string) {
     queryKey: ['ideaDetail', id],
     queryFn: async () => {
       const res = await ideaService.ideaDetail(id);
-      const data = mapIdeaDetailList(res.data);
+      const data = mapIdeaDe(res.data);
       return data;
     },
     staleTime: 1000 * 60 * 5,
@@ -44,4 +44,16 @@ export function useIdeasDetail(id: string) {
   }, [query.isError, query.error, navigate]);
 
   return query;
+}
+
+export function useMyIdeas() {
+  return useQuery({
+    queryKey: ['ideas'],
+    queryFn: async (): Promise<IIdeaCard[]> => {
+      const res = await ideaService.myIdeas();
+      return res.items.map(mapIdea);
+    },
+    staleTime: 1000 * 60 * 5,
+    retry: 2,
+  });
 }
