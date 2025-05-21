@@ -1,12 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import {  IIdeaCard } from '~/common/types/idea';
+import { IIdeaCard } from '~/common/types/idea';
 import * as ideaService from '~/services/idea.service';
-import {
-  mapIdea,
-  mapIdeaDe,
-} from '~/utils/map/idea';
+import { mapIdea, mapIdeaDe } from '~/utils/map/idea';
 
 export function useIdeas() {
   return useQuery({

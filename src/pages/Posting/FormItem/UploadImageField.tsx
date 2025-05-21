@@ -29,7 +29,7 @@ const YesNoRadio = ({
         <input
           type="radio"
           id="yes"
-          value="0"
+          value="1"
           onClick={() => setIsCheckRadio(true)}
           {...register}
         />
@@ -39,7 +39,7 @@ const YesNoRadio = ({
         <input
           type="radio"
           id="no"
-          value="1"
+          value="0"
           onClick={() => setIsCheckRadio(false)}
           {...register}
         />

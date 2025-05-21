@@ -1,4 +1,4 @@
-import { IIdeaApi, IIdeaDeApi } from "~/common/types/idea";
+import { IIdeaApi, IIdeaDeApi } from '~/common/types/idea';
 
 export const mapIdea = (raw: IIdeaApi) => {
   return {
@@ -21,9 +21,11 @@ export const mapIdeaDe = (raw: IIdeaDeApi) => {
     catValue: raw.industry,
     imageUrl: raw.image[0],
     desc: raw.content_detail,
+    benefitValue: raw.value_benefits,
     views: raw.view,
     price: raw.price,
-    benefitValue: raw.value_benefits,
     image: raw.image,
+    imageIP: raw.image_intellect,
+    isIP: raw.is_intellect,
   };
 };

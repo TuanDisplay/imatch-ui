@@ -13,12 +13,13 @@ export interface IIdeaDe extends IIdeaCard {
   price: number;
   benefitValue: string;
   image: string[];
+  imageIP: string;
+  isIP: number; 
 }
 
 export interface IIdeaApi {
   uuid: string;
   customer_name: string;
-  
   ideasname: string;
   industry: string;
   image: string[];

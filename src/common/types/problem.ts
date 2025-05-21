@@ -13,6 +13,8 @@ export interface IProDetail extends IProCard {
   author: string;
   benefitValue: string;
   image: string[];
+  imageIP: string;
+  isIP: number;
 }
 
 export interface IProApi {
@@ -26,7 +28,7 @@ export interface IProApi {
   post_day: string;
   view: number;
 }
-export interface IProDeApi extends IProApi{
+export interface IProDeApi extends IProApi {
   customer_email: string;
   is_procedure: string;
   image_intellect: string;

@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import { CalendarDays, User, Settings, Lightbulb } from 'lucide-react';
 
 import {
@@ -7,14 +7,18 @@ import {
   convertStringToHtml,
 } from '~/utils/files';
 import Button from '~/components/Button';
-import Link from '~/components/Icons/Link';
 import Mail from '~/components/Icons/Mail';
 import Overview from '~/components/Overview';
 import { useProblemDetail } from '~/hooks/ApiQuery/useProblemQuery';
 import LoadingScreen from '~/layouts/components/LoadingScreen';
+import { useMessageModal } from '~/hooks/useModalStore';
+import { MessageModal } from '~/modals';
+import CopyLink from '~/components/CopyLink';
 
 export function ProDeContent({ id }: { id: string }) {
   const { data, isLoading } = useProblemDetail(id);
+  const { isMessageOpen, setIsMessageModal } = useMessageModal();
+  const location = useLocation();
 
   const glancing = [
     { icon: <Lightbulb />, data: data?.views, name: 'Đề xuất' },
@@ -29,6 +33,8 @@ export function ProDeContent({ id }: { id: string }) {
         <LoadingScreen />
       ) : (
         <div className="bg-white">
+          {isMessageOpen && <MessageModal />}
+
           <div className="container mx-auto">
             <div className="relative isolate overflow-hidden pt-40 pb-25">
               <div className="px-15">
@@ -68,12 +74,14 @@ export function ProDeContent({ id }: { id: string }) {
                         Đưa giải pháp
                       </Button>
                       <div className="flex h-fit gap-2">
-                        <div className="rounded-sm bg-gray-500 p-1">
+                        <div
+                          className="rounded-sm bg-gray-500 p-1"
+                          onClick={() => setIsMessageModal(true)}
+                        >
                           <Mail />
                         </div>
-                        <div className="w-fit rounded-sm bg-gray-500 p-1">
-                          <Link />
-                        </div>
+
+                        <CopyLink link={location.pathname} />
                       </div>
                       <div className="justify-end">
                         <div className="border-b-primary border-b-2 font-semibold">
@@ -131,17 +139,19 @@ export function ProDeContent({ id }: { id: string }) {
                         })}
                       </div>
                     </Overview>
-                    <Overview
-                      icon="🧠"
-                      title="Quyền sở hữu trí tuệ (Đã đăng ký)"
-                    >
-                      <div className="overflow-hidden rounded-xl shadow-md">
-                        <img
-                          src={data?.imageUrl}
-                          className="w-full object-cover"
-                        />
-                      </div>
-                    </Overview>
+                    {data?.isIP === 1 && (
+                      <Overview
+                        icon="🧠"
+                        title="Quyền sở hữu trí tuệ (Đã đăng ký)"
+                      >
+                        <div className="overflow-hidden rounded-xl shadow-md">
+                          <img
+                            src={data.imageIP}
+                            className="w-full object-cover"
+                          />
+                        </div>
+                      </Overview>
+                    )}
                   </div>
                 </div>
               </div>

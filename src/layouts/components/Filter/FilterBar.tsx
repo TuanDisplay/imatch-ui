@@ -5,6 +5,7 @@ import { useDebounce } from '~/hooks/useDebounce';
 type FilterProps = {
   dataReal: object[];
   setDataFilter: any;
+  placeholder: string;
 };
 
 const priceRangeList = [
@@ -15,7 +16,7 @@ const priceRangeList = [
   { id: 4, priceRange: 'Trên 5 triệu', value: 'tier4' },
 ];
 
-export default function FilterBar({ dataReal, setDataFilter }: FilterProps) {
+export default function FilterBar({ dataReal, setDataFilter, placeholder }: FilterProps) {
   const [searchValue, setSearchValue] = useState('');
   const [priceRange, setPriceRange] = useState('tier0');
 
@@ -68,7 +69,7 @@ export default function FilterBar({ dataReal, setDataFilter }: FilterProps) {
       <div className="flex w-full items-center rounded-lg border border-gray-300 md:w-1/2">
         <input
           type="text"
-          placeholder="Tìm kiếm ý tưởng..."
+          placeholder={placeholder}
           value={searchValue}
           onChange={handleSearch}
           className="flex-1 px-3 outline-0"

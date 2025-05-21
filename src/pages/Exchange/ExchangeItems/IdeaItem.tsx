@@ -1,7 +1,8 @@
 import { CalendarDays, Eye, User, ArrowRight, Settings } from 'lucide-react';
 
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { IIdeaCard } from '~/common/types/idea';
+import DelMyProduct from '~/components/DelMyProduct';
 import FavToggle from '~/components/FavToggle';
 
 import {
@@ -21,15 +22,20 @@ export default function IdeaItem({
   views,
   publishDate,
 }: IIdeaCard) {
+  const location = useLocation();
+
   return (
-    <div className="hover:shadow-primary relative mx-auto flex max-w-4xl cursor-pointer gap-6 rounded-2xl bg-white p-6 shadow-md transition-shadow duration-300">
-      <FavToggle id={id} />
+    <div className="hover:shadow-primary relative mx-auto flex max-w-4xl gap-6 rounded-2xl bg-white p-6 shadow-md transition-shadow duration-300">
+      {!location.pathname.includes('/profile') ? (
+        <FavToggle id={id} />
+      ) : (
+        <DelMyProduct id={id} type="idea" />
+      )}
       <img
         src={imageUrl}
         alt="idea-item"
         className="h-48 w-48 rounded-xl object-cover shadow-sm"
       />
-
       <div className="flex flex-1 flex-col justify-between">
         <div className="space-y-1">
           <h3 className="text-primary text-sm font-semibold">Tên Ý Tưởng</h3>

@@ -1,16 +1,28 @@
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import { CalendarDays, Eye, User, Settings } from 'lucide-react';
+
 import Button from '~/components/Button';
-import Link from '~/components/Icons/Link';
 import Mail from '~/components/Icons/Mail';
 import Overview from '~/components/Overview';
-import { convertCategoryName, convertCurrencyVN } from '~/utils/files';
-import { useIdeasDetail } from '~/hooks/ApiQuery/useIdeaQuery';
 import LoadingScreen from '~/layouts/components/LoadingScreen';
+import CopyLink from '~/components/CopyLink';
+import { useIdeasDetail } from '~/hooks/ApiQuery/useIdeaQuery';
 import { convertStringToHtml } from '~/utils/files';
+import { MessageModal } from '~/modals';
+import { useMessageModal } from '~/hooks/useModalStore';
+import { convertCategoryName, convertCurrencyVN } from '~/utils/files';
+import { useEffect } from 'react';
+import { useQueryClient } from '@tanstack/react-query';
 
 function IdeaDetailContent({ id }: { id: string }) {
   const { data, isLoading } = useIdeasDetail(id);
+  const { isMessageOpen, setIsMessageModal } = useMessageModal();
+  const location = useLocation();
+  const queryClient = useQueryClient();
+
+  useEffect(() => {
+    queryClient.invalidateQueries({ queryKey: ['ideas'] });
+  }, [queryClient]);
 
   const glancing = [
     { icon: <Eye />, data: data?.views, name: 'Lượt xem' },
@@ -25,6 +37,7 @@ function IdeaDetailContent({ id }: { id: string }) {
         <LoadingScreen />
       ) : (
         <div className="bg-white">
+          {isMessageOpen && <MessageModal />}
           <div className="container mx-auto">
             <div className="relative isolate overflow-hidden pt-40 pb-25">
               <div className="px-15">
@@ -67,15 +80,11 @@ function IdeaDetailContent({ id }: { id: string }) {
                         <div
                           className="cursor-pointer rounded-sm bg-gray-500 p-1"
                           title="send-mail"
+                          onClick={() => setIsMessageModal(true)}
                         >
                           <Mail />
                         </div>
-                        <div
-                          className="w-fit cursor-pointer rounded-sm bg-gray-500 p-1"
-                          title="copy-link"
-                        >
-                          <Link />
-                        </div>
+                        <CopyLink link={location.pathname} />
                       </div>
                       <div className="justify-end">
                         <div className="border-b-primary border-b-2 font-semibold">
@@ -133,17 +142,19 @@ function IdeaDetailContent({ id }: { id: string }) {
                         })}
                       </div>
                     </Overview>
-                    <Overview
-                      icon="🧠"
-                      title="Quyền sở hữu trí tuệ (Đã đăng ký)"
-                    >
-                      <div className="overflow-hidden rounded-xl shadow-md">
-                        <img
-                          src={data?.imageUrl}
-                          className="w-full object-cover"
-                        />
-                      </div>
-                    </Overview>
+                    {data?.isIP === 1 && (
+                      <Overview
+                        icon="🧠"
+                        title="Quyền sở hữu trí tuệ (Đã đăng ký)"
+                      >
+                        <div className="overflow-hidden rounded-xl shadow-md">
+                          <img
+                            src={data.imageIP}
+                            className="w-full object-cover"
+                          />
+                        </div>
+                      </Overview>
+                    )}
                   </div>
                 </div>
               </div>

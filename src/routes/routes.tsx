@@ -12,6 +12,7 @@ import ExchangeDetail from '~/pages/ExchangeDetail';
 import ProblemDetail from '~/pages/ProblemDetail';
 import ExpertDetail from '~/pages/ExpertDetail';
 import Favorate from '~/pages/Favorate';
+import Message from '~/pages/Message';
 
 const publicRoutes = [
   { path: config.routes.home, component: Home },
@@ -28,6 +29,7 @@ const privateRoutes = [
   { path: config.routes.exchangeDetail, component: ExchangeDetail },
   { path: config.routes.problemDetail, component: ProblemDetail },
   { path: config.routes.expertDetail, component: ExpertDetail },
+  {path: config.routes.myMessage, component: Message}
 ];
 
 export { publicRoutes, privateRoutes };

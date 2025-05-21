@@ -48,6 +48,7 @@ export default function Solving() {
             <FilterBar
               dataReal={dataReal}
               setDataFilter={setDataFilter}
+              placeholder='Tìm kiểm vấn đề...'
             ></FilterBar>
             <WrapperContent queryResultObject={problemQuery}>
               {dataFilter.length === 0 ? (

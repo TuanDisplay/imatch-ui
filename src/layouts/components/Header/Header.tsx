@@ -16,6 +16,7 @@ import {
   Bell,
   LogOut,
   Heart,
+  Mail,
 } from 'lucide-react';
 import clsx from 'clsx';
 
@@ -103,14 +104,22 @@ export default function Header() {
             </div>
           </div>
         ) : (
-          <div className="flex gap-5">
-            <Link to="/my-favorate">
+          <div className="flex gap-4">
+            <Link to="/my-favorate" title="Danh sách yêu thích">
               <div className="cursor-pointer rounded-full bg-amber-200 p-2 duration-300 hover:bg-amber-100">
                 <Heart className="text-black" />
               </div>
             </Link>
+            <Link to="/my-message" title="Tin nhắn">
+              <div className="cursor-pointer rounded-full bg-amber-200 p-2 duration-300 hover:bg-amber-100">
+                <Mail className="text-black" />
+              </div>
+            </Link>
             <Wrapper>
-              <MenuButton className="cursor-pointer rounded-full bg-amber-200 p-2 duration-300 hover:bg-amber-100">
+              <MenuButton
+                className="cursor-pointer rounded-full bg-amber-200 p-2 duration-300 hover:bg-amber-100"
+                title="Thông báo"
+              >
                 <Bell className="text-black" />
               </MenuButton>
 
@@ -123,7 +132,7 @@ export default function Header() {
                     Thông báo
                   </p>
                 </div>
-                
+
                 <div className="max-h-60 overflow-y-auto">
                   {[
                     'Bạn có một tin nhắn mới.',
@@ -162,7 +171,7 @@ export default function Header() {
                 />
               </Link>
             </div>
-            <div className="border-l-[1px] py-2 pl-5">
+            <div className="border-l-[1px] py-2 pl-5" title="Đăng xuất">
               <LogOut
                 className="hover:text-primary cursor-pointer duration-300"
                 onClick={logoutHandle}

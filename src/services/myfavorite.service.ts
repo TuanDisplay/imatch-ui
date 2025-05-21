@@ -18,15 +18,15 @@ export const deleteFav = async (id: string) => {
   await customerRequest.delete(`/favorite/${id}/delete`);
 };
 
-export const favProList = async (post_type: string) => {
-  try {
-    const res = await customerRequest.get('/customer/add-favorite', {
-      params: {
-        post_type,
-      },
-    });
-    return res.data;
-  } catch (err: any) {
-    console.log(err.response?.data);
-  }
-};
+// export const favProList = async (post_type: string) => {
+//   try {
+//     const res = await customerRequest.get('/customer/add-favorite', {
+//       params: {
+//         post_type,
+//       },
+//     });
+//     return res.data;
+//   } catch (err: any) {
+//     console.log(err.response?.data);
+//   }
+// };

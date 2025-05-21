@@ -90,7 +90,7 @@ export const postFormSchema = z
   })
   .superRefine((data, ctx) => {
     if (
-      data.ipRadio === '0' &&
+      data.ipRadio === '1' &&
       (!data.ipImgUpload || data.ipImgUpload.length === 0)
     ) {
       ctx.addIssue({

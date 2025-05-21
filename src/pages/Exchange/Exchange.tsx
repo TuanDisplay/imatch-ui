@@ -8,7 +8,6 @@ import { IIdeaDe } from '~/common/types/idea';
 import PaginationBar from '~/components/PaginationBar';
 import CatBar from '~/components/CatBar';
 import FilterBar from '~/layouts/components/Filter';
-
 import { useIdeas } from '~/hooks/ApiQuery/useIdeaQuery';
 
 export default function Exchange() {
@@ -47,7 +46,11 @@ export default function Exchange() {
           <CatBar CatItems={MajorCat} data={dataReal} setData={setDataFilter} />
           <div className="flex flex-1 flex-col px-4">
             <div className="px-7">
-              <FilterBar dataReal={dataReal} setDataFilter={setDataFilter} />
+              <FilterBar
+                dataReal={dataReal}
+                setDataFilter={setDataFilter}
+                placeholder="Tìm kiểm ý tưởng..."
+              />
             </div>
             <WrapperContent queryResultObject={ideasQuery}>
               {dataFilter.length === 0 ? (

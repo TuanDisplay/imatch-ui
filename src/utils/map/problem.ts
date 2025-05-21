@@ -1,4 +1,4 @@
-import { IProApi, IProDeApi } from "~/common/types/problem";
+import { IProApi, IProDeApi } from '~/common/types/problem';
 
 export const mapPro = (raw: IProApi) => {
   return {
@@ -21,9 +21,11 @@ export const mapProDe = (raw: IProDeApi) => {
     catValue: raw.industry,
     imageUrl: raw.image[0],
     desc: raw.content_detail,
+    benefitValue: raw.value_benefits,
     views: raw.view,
     price: raw.price,
-    benefitValue: raw.value_benefits,
     image: raw.image,
+    imageIP: raw.image_intellect,
+    isIP: raw.is_intellect,
   };
 };

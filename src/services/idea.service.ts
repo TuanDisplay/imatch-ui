@@ -33,3 +33,8 @@ export const myIdeas = async () => {
   const res = await ideaRequest.get('/ideas/my-list');
   return res.data;
 };
+
+export const deleteMyIdeas = async (id: string) => {
+  const res = await ideaRequest.delete(`/ideas/${id}/delete-myidea`);
+  return res.data;
+};

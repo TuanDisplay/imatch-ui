@@ -5,9 +5,10 @@ import {
   CircleDollarSign,
   Lightbulb,
 } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 import { IProCard } from '~/common/types/problem';
+import DelMyProduct from '~/components/DelMyProduct';
 import FavToggle from '~/components/FavToggle';
 import {
   convertCategoryName,
@@ -26,9 +27,15 @@ export default function ProblemItem({
   submission,
   publishDate,
 }: IProCard) {
+  const location = useLocation();
+
   return (
-    <div className="hover:shadow-primary relative mx-auto flex max-w-4xl cursor-pointer gap-6 rounded-2xl bg-white p-6 shadow-md transition-shadow duration-300">
-      <FavToggle id={id} />
+    <div className="hover:shadow-primary relative mx-auto flex max-w-4xl gap-6 rounded-2xl bg-white p-6 shadow-md transition-shadow duration-300">
+      {!location.pathname.includes('/profile') ? (
+        <FavToggle id={id} />
+      ) : (
+        <DelMyProduct id={id} type="problem" />
+      )}
       <img
         src={imageUrl}
         alt="idea-item"
@@ -37,11 +44,11 @@ export default function ProblemItem({
 
       <div className="flex flex-1 flex-col justify-between">
         <div className="space-y-1">
-          <h3 className="text-primary text-sm font-semibold">Tên Ý Tưởng</h3>
+          <h3 className="text-primary text-sm font-semibold">Tên Vấn Đề</h3>
           <p className="font-medium text-gray-800">{title}</p>
 
           <h4 className="text-primary mt-4 text-sm font-semibold">
-            Mô Tả Ý Tưởng
+            Mô Tả Vấn Đề
           </h4>
           <p className="line-clamp-3 font-medium text-gray-700">
             {convertHtmlToText(desc)}

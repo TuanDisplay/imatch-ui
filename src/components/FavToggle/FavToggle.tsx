@@ -5,7 +5,7 @@ import toast from 'react-hot-toast';
 
 import * as favService from '~/services/myfavorite.service';
 import { useFavList } from '~/hooks/ApiQuery/useFavQuery';
-import { useLocation } from 'react-router-dom';
+
 
 interface IFavToggle {
   id: string;
@@ -13,7 +13,6 @@ interface IFavToggle {
 
 export default function FavToggle({ id }: IFavToggle) {
   const [loading, setLoading] = useState(false);
-  const location = useLocation();
 
   const { data: favList, refetch } = useFavList();
   const favoriteSet = useMemo(() => {
@@ -42,18 +41,16 @@ export default function FavToggle({ id }: IFavToggle) {
   };
   return (
     <>
-      {!location.pathname.includes('/profile') && (
-        <div
-          className="group absolute top-0 right-0 mt-4 mr-4"
-          onClick={handleApiAddFav}
-        >
-          {favoriteSet.has(id) ? (
-            <Heart size={18} fill="#ff6e00" stroke="#ff6e00" />
-          ) : (
-            <Heart size={18} className="hover:text-primary" />
-          )}
-        </div>
-      )}
+      <div
+        className="group absolute top-0 right-0 mt-4 mr-4 cursor-pointer"
+        onClick={handleApiAddFav}
+      >
+        {favoriteSet.has(id) ? (
+          <Heart size={18} fill="#ff6e00" stroke="#ff6e00" />
+        ) : (
+          <Heart size={18} className="hover:text-primary" />
+        )}
+      </div>
     </>
   );
 }
