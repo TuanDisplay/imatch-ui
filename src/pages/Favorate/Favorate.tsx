@@ -15,7 +15,7 @@ export default function Favorate() {
     <>
       <div className="relative flex justify-center">
         <img
-          src="/banner/exchange-banner.jpg"
+          src="/banner/motcot-banner.jpg"
           alt="exchange-banner"
           className="h-full w-full object-cover"
         />

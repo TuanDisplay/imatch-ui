@@ -6,11 +6,18 @@ import * as problemService from '~/services/problem.service';
 import { IProCard } from '~/common/types/problem';
 import { mapPro, mapProDe } from '~/utils/map/problem';
 
-export function useProblem() {
+interface UseArticlesParams {
+  top_view_only?: boolean;
+  category?: string;
+  limit?: number;
+  [key: string]: any;
+}
+
+export function useProblem(params: UseArticlesParams = {}) {
   return useQuery({
     queryKey: ['problem'],
     queryFn: async (): Promise<IProCard[]> => {
-      const res = await problemService.problem();
+      const res = await problemService.problem(params);
       return res.items.map(mapPro);
     },
     staleTime: 1000 * 60 * 5,

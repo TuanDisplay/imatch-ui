@@ -1,18 +1,17 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Pen, UploadCloud } from 'lucide-react';
 import clsx from 'clsx';
+import toast from 'react-hot-toast';
+import { AxiosError } from 'axios';
 
+import * as userService from '~/services/user.service';
 import { TProfileSchema } from '~/common/schema';
 import { convertToBase64 } from '~/utils/files';
 import Button from '~/components/Button';
 import MyProduct from './MyProduct/MyProduct';
-
-const profileUser: TProfileSchema = {
-  fname: 'Lê Viết Tuấn',
-  birthDate: '14/03/2000',
-  bio: 'Trong thời gian học đại học, tôi không dễ dàng kết bạn vì tôi nhút nhát và ít nói. Tôi thường cảm thấy không thoải mái khi giao tiếp với người lạ, và điều đó khiến tôi bỏ lỡ nhiều cơ hội để kết nối với bạn bè xung quanh. Mãi cho đến sau khi tốt nghiệp đại học, khi tôi bắt đầu làm việc tại Ebiz, mối quan hệ của tôi với những người khác mới thay đổi theo hướng tốt hơn.',
-};
+import { useUProfile } from '~/hooks/ApiQuery/useUserQuery';
+import LoadingScreen from '~/layouts/components/LoadingScreen';
 
 const list = [
   { id: 1, name: 'Ý tưởng đã đăng', value: 'postedIdea' },
@@ -24,27 +23,49 @@ const list = [
 export default function Profile() {
   const [selectedValue, setSelectedValue] = useState<string>('postedIdea');
   const [isEditing, setIsEditing] = useState<boolean>(false);
-  const [userInfo, setUserInfo] = useState<TProfileSchema>(profileUser);
   const [image, setImage] = useState<string | null>(null);
+
+  const { data, isLoading, refetch } = useUProfile();
 
   const {
     register,
     handleSubmit,
     reset,
+    watch,
     setValue,
     formState: { errors },
   } = useForm<TProfileSchema>({
-    defaultValues: userInfo,
+    defaultValues: {
+      fname: '',
+      email: '',
+      bio: '',
+      avatar: '',
+    },
   });
 
-  const onSubmit = (data: TProfileSchema) => {
-    setUserInfo(data);
-    setIsEditing(false);
-    if (image) setValue('avatar', image);
+  const onSubmit = async (data: TProfileSchema) => {
+    try {
+      if (data) {
+        console.log('image: ' + data.avatar);
+        const avatar = watch('avatar');
+
+        await userService.updateProfile(
+          { ...data, avatar },
+        );
+        refetch();
+        setIsEditing(false);
+        toast.success('Lưu thành công');
+      }
+    } catch (err) {
+      const error = err as AxiosError<{ message: string }>;
+      toast.error(
+        error.response?.data.message || error.message || 'Có lỗi xảy ra',
+      );
+    }
   };
 
   const handleCancel = () => {
-    reset(userInfo);
+    reset(data);
     setIsEditing(false);
   };
 
@@ -53,14 +74,22 @@ export default function Profile() {
     if (file) {
       const base64 = await convertToBase64(file);
       setImage(base64);
+      setValue('avatar', base64);
     }
   };
+
+  useEffect(() => {
+    if (data)
+      reset({
+        ...data,
+      });
+  }, [data, reset]);
 
   return (
     <>
       <div className="relative flex justify-center">
         <img
-          src="/banner/about-banner.jpg"
+          src="/banner/mucangchai-banner.jpg"
           alt="exchange-banner"
           className="h-full w-full object-cover"
         />
@@ -70,164 +99,167 @@ export default function Profile() {
           </div>
         </div>
       </div>
-      <div className="mx-auto max-w-5xl py-6">
-        <div className="grid grid-cols-1 gap-6 rounded-2xl bg-white px-6 py-10 shadow-xl md:grid-cols-3">
-          <div className="col-span-1 flex flex-col items-center">
-            <div className="relative h-60 w-48 overflow-hidden rounded-xl shadow-md">
-              <img
-                src={image || '/AvtTuan.jpg'}
-                alt="avatar"
-                className={clsx('object-cover', {
-                  'opacity-40': isEditing,
-                })}
-              />
-              {isEditing && (
-                <label
-                  htmlFor="avatar-profile"
-                  className="absolute top-0 flex h-full w-full cursor-pointer flex-col items-center justify-center"
-                >
-                  <input
-                    id="avatar-profile"
-                    type="file"
-                    accept="image/*"
-                    onChange={handleImageChange}
-                    className="hidden"
+      {isLoading ? (
+        <LoadingScreen />
+      ) : (
+        <div className="mx-auto max-w-5xl py-6">
+          <>
+            <div className="grid grid-cols-1 gap-6 rounded-2xl bg-white px-6 py-10 shadow-xl md:grid-cols-3">
+              <div className="col-span-1 flex flex-col items-center">
+                <div className="relative h-60 w-48 overflow-hidden rounded-xl shadow-md">
+                  <img
+                    src={image || data?.avatar || '/no-user.png'}
+                    alt="avatar"
+                    className={clsx('h-full object-cover', {
+                      'opacity-40': isEditing,
+                    })}
                   />
-                  <>
-                    <UploadCloud className="h-6 w-6 text-gray-500" />
-                    <span className="text-sm font-medium text-gray-600">
-                      Tải lên
-                    </span>
-                  </>
-                </label>
-              )}
-            </div>
-          </div>
-          <form
-            onSubmit={handleSubmit(onSubmit)}
-            className="col-span-2 space-y-5"
-          >
-            <div className="flex items-start justify-between">
-              <div className="grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-30">
-                <div>
-                  <h2 className="text-primary text-lg font-semibold">
-                    Họ và tên
-                  </h2>
-                  {isEditing ? (
-                    <input
-                      {...register('fname', { required: true })}
-                      className="mt-1 w-[80%] rounded border"
-                    />
-                  ) : (
-                    <p className="mt-1 text-gray-600">{userInfo.fname}</p>
-                  )}
-                  {errors.fname && (
-                    <p className="text-xs text-red-500">
-                      {errors.fname.message}
-                    </p>
-                  )}
-                </div>
-                <div>
-                  <h2 className="text-primary text-lg font-semibold">
-                    Ngày sinh
-                  </h2>
-                  {isEditing ? (
-                    <input
-                      type="date"
-                      {...register('birthDate', { required: true })}
-                      className="mt-1 w-[80%] rounded border"
-                    />
-                  ) : (
-                    <p className="mt-1 text-gray-600">{userInfo.birthDate}</p>
-                  )}
-                  {errors.birthDate && (
-                    <p className="text-xs text-red-500">
-                      {errors.birthDate.message}
-                    </p>
+                  {isEditing && (
+                    <label
+                      htmlFor="avatar-profile"
+                      className="absolute top-0 flex h-full w-full cursor-pointer flex-col items-center justify-center"
+                    >
+                      <input
+                        id="avatar-profile"
+                        type="file"
+                        accept="image/*"
+                        onChange={handleImageChange}
+                        className="hidden"
+                      />
+                      <>
+                        <UploadCloud className="h-6 w-6 text-gray-500" />
+                        <span className="text-sm font-medium text-gray-600">
+                          Tải lên
+                        </span>
+                      </>
+                    </label>
                   )}
                 </div>
               </div>
-              <div className="flex gap-3">
-                {!isEditing ? (
-                  <Button
-                    className="px-4 py-2 font-semibold"
-                    primary
-                    leftIcon={<Pen size={16} />}
-                    onClick={() => {
-                      setIsEditing(true);
-                    }}
-                  >
-                    Chỉnh sửa
-                  </Button>
-                ) : (
-                  <div className="flex space-x-4">
-                    <Button
-                      type="submit"
-                      className="px-4 py-2 font-semibold"
-                      primary
-                    >
-                      Lưu
-                    </Button>
-                    <Button
-                      type="button"
-                      className="px-4 py-2 font-semibold"
-                      primary
-                      onClick={handleCancel}
-                    >
-                      Hủy
-                    </Button>
+              <form
+                onSubmit={handleSubmit(onSubmit)}
+                className="col-span-2 space-y-5"
+              >
+                <div className="flex items-start justify-between">
+                  <div className="grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-30">
+                    <div>
+                      <h2 className="text-primary text-lg font-semibold">
+                        Họ và tên
+                      </h2>
+                      {isEditing ? (
+                        <input
+                          {...register('fname')}
+                          className="mt-1 w-4/5 rounded border"
+                        />
+                      ) : (
+                        <p className="mt-1 text-gray-600">{data?.fname}</p>
+                      )}
+                      {errors.fname && (
+                        <p className="text-xs text-red-500">
+                          {errors.fname.message}
+                        </p>
+                      )}
+                    </div>
                   </div>
-                )}
-              </div>
-            </div>
-
-            <div className="pr-10">
-              <h3 className="text-primary text-lg font-semibold">
-                Giới thiệu bản thân
-              </h3>
-              {isEditing ? (
-                <textarea
-                  {...register('bio', { required: true })}
-                  className="h-32 w-full rounded border px-2 py-1"
-                />
-              ) : (
-                <p className="mt-1 line-clamp-5 text-gray-700">
-                  {userInfo.bio}
-                </p>
-              )}
-              {errors.bio && (
-                <p className="text-xs text-red-500">{errors.bio.message}</p>
-              )}
-            </div>
-          </form>
-        </div>
-        {!isEditing && (
-          <div className="mt-10 rounded-xl bg-white shadow-xl">
-            <div className="flex items-center justify-between gap-5 p-3 font-bold shadow-xl">
-              {list.map((item) => {
-                return (
-                  <div
-                    key={item.id}
-                    className={clsx(
-                      'flex-1 cursor-pointer rounded-sm p-1 text-center text-gray-700 transition-colors duration-300 hover:bg-orange-100 hover:text-orange-600',
-                      {
-                        'bg-orange-100 text-orange-600':
-                          selectedValue === item.value,
-                      },
+                  <div className="flex gap-3">
+                    {!isEditing ? (
+                      <Button
+                        className="px-4 py-2 font-semibold"
+                        primary
+                        leftIcon={<Pen size={16} />}
+                        onClick={() => {
+                          setIsEditing(true);
+                        }}
+                      >
+                        Chỉnh sửa
+                      </Button>
+                    ) : (
+                      <div className="flex space-x-4">
+                        <Button
+                          type="submit"
+                          className="px-4 py-2 font-semibold"
+                          primary
+                        >
+                          Lưu
+                        </Button>
+                        <Button
+                          type="button"
+                          className="px-4 py-2 font-semibold"
+                          primary
+                          onClick={handleCancel}
+                        >
+                          Hủy
+                        </Button>
+                      </div>
                     )}
-                    onClick={() => setSelectedValue(item.value)}
-                  >
-                    {item.name}
                   </div>
-                );
-              })}
+                </div>
+                <div>
+                  <h2 className="text-primary text-lg font-semibold">Email</h2>
+                  {isEditing ? (
+                    <input
+                      type="email"
+                      {...register('email')}
+                      className="mt-1 w-4/5 rounded border disabled:bg-gray-300"
+                      disabled
+                    />
+                  ) : (
+                    <p className="mt-1 text-gray-600">{data?.email}</p>
+                  )}
+                </div>
+
+                <div className="">
+                  <h3 className="text-primary text-lg font-semibold">
+                    Giới thiệu bản thân
+                  </h3>
+                  {isEditing ? (
+                    <textarea
+                      {...register('bio')}
+                      className="h-32 w-full rounded border px-2 py-1"
+                      placeholder="Hãy nói về bạn ở đây!"
+                    />
+                  ) : (
+                    <p className="mt-1 line-clamp-3 text-gray-700">
+                      {data?.bio !== ''
+                        ? data?.bio
+                        : 'Chưa có thông tin về bạn'}
+                    </p>
+                  )}
+                  {errors.bio && (
+                    <p className="text-xs text-red-500">{errors.bio.message}</p>
+                  )}
+                </div>
+              </form>
             </div>
-            <div className="py-5">
-              <MyProduct selectedValue = {selectedValue}/>
-            </div>
-          </div>
-        )}
-      </div>
+            {!isEditing && (
+              <div className="mt-10 rounded-xl bg-white shadow-xl">
+                <div className="flex items-center justify-between gap-5 p-3 font-bold shadow-xl">
+                  {list.map((item) => {
+                    return (
+                      <div
+                        key={item.id}
+                        className={clsx(
+                          'flex-1 cursor-pointer rounded-sm p-1 text-center text-gray-700 transition-colors duration-300 hover:bg-orange-100 hover:text-orange-600',
+                          {
+                            'bg-orange-100 text-orange-600':
+                              selectedValue === item.value,
+                          },
+                        )}
+                        onClick={() => setSelectedValue(item.value)}
+                      >
+                        {item.name}
+                      </div>
+                    );
+                  })}
+                </div>
+                <div className="py-5">
+                  <MyProduct selectedValue={selectedValue} />
+                </div>
+              </div>
+            )}
+          </>
+        </div>
+      )}
     </>
   );
 }

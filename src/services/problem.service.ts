@@ -19,8 +19,10 @@ export const postProblem = async (data: TPostFormSchema) => {
   return res.data;
 };
 
-export const problem = async () => {
-  const res = await problemRequest.get('/problem');
+export const problem = async (params: any) => {
+  const res = await problemRequest.get('/problem', {
+    params: params,
+  });
   return res.data;
 };
 

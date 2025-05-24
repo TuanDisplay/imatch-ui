@@ -11,6 +11,7 @@ export const mapPro = (raw: IProApi) => {
     publishDate: raw.post_day,
     views: raw.view,
     price: raw.price,
+    submission: raw.solution,
   };
 };
 
@@ -23,6 +24,7 @@ export const mapProDe = (raw: IProDeApi) => {
     desc: raw.content_detail,
     benefitValue: raw.value_benefits,
     views: raw.view,
+    submission: raw.solution,
     price: raw.price,
     image: raw.image,
     imageIP: raw.image_intellect,

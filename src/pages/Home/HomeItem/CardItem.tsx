@@ -8,7 +8,12 @@ import {
 } from 'lucide-react';
 import Button from '~/components/Button';
 import { ICard } from '~/common/types';
-import { convertCategoryName } from '~/utils/files';
+import {
+  convertCategoryName,
+  convertCurrencyVN,
+  convertHtmlToText,
+  convertIsoDate,
+} from '~/utils/files';
 
 export default function CardItem({
   id,
@@ -40,28 +45,40 @@ export default function CardItem({
           <Link to={`/${type}/${id}`}>{title}</Link>
         </h2>
 
-        <p className="line-clamp-3 text-sm font-light">{desc}</p>
+        <p className="line-clamp-3 text-sm font-light">
+          {desc && convertHtmlToText(desc)}
+        </p>
 
         <div className="mt-2 grid grid-cols-2 gap-y-2">
           <div className="flex items-center gap-2">
-            {author ? <User size={20} /> : <CircleDollarSign size={20} />}
-            {author ? (
+            {type === 'exchange' ? (
+              <User size={20} />
+            ) : (
+              <CircleDollarSign size={20} />
+            )}
+            {type === 'exchange' ? (
               <div title={author} className="line-clamp-1 text-sm">
                 {author}
               </div>
             ) : (
-              <div className="line-clamp-1 text-sm font-bold">{price} VND</div>
+              <div className="line-clamp-1 text-sm font-bold">
+                {convertCurrencyVN(price)}
+              </div>
             )}
           </div>
           <div className="flex items-center justify-end gap-2 pr-2">
-            {views ? <Eye size={20} /> : <Lightbulb size={20} />}
+            {type === 'exchange' ? <Eye size={20} /> : <Lightbulb size={20} />}
             <div className="line-clamp-1 text-sm">
-              {views ? views + ' lượt xem' : submission + ' đề xuất'}
+              {type === 'exchange'
+                ? views + ' lượt xem'
+                : submission + ' đề xuất'}
             </div>
           </div>
           <div className="flex items-center gap-2">
             <CalendarDays size={20} />
-            <div className="line-clamp-1 text-sm">{publishDate}</div>
+            <div className="line-clamp-1 text-sm">
+              {publishDate && convertIsoDate(publishDate)}
+            </div>
           </div>
         </div>
         <div className="flex justify-center">

@@ -22,7 +22,7 @@ export default function MyProblems() {
                 title={item.title}
                 desc={item.desc}
                 price={item.price}
-                submission={20}
+                submission={item.submission}
                 publishDate={item.publishDate}
               />
             );

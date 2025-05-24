@@ -22,5 +22,10 @@ export const post = async (path: string, data = {}, options = {}) => {
   return response.data;
 };
 
+export const put = async (path: string, data = {}, options = {}) => {
+  const response = await customerRequest.put(path, data, options);
+  return response.data;
+};
+
 
 export default customerRequest;

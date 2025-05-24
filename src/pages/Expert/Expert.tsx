@@ -18,8 +18,8 @@ export default function Expert() {
     <>
       <div className="relative flex justify-center">
         <img
-          src="/banner/exchange-banner.jpg"
-          alt="exchange-banner"
+          src="/banner/mucangchai2-banner.jpg"
+          alt="expert-banner"
           className="h-full w-full object-cover"
         />
         <div className="absolute top-1/2 container flex translate-y-[-50%] flex-col items-center text-center max-md:hidden">

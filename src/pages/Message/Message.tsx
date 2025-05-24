@@ -27,8 +27,8 @@ export default function Message() {
       {isMessageOpen && <MessageModal />}
       <div className="relative flex justify-center">
         <img
-          src="/banner/exchange-banner.jpg"
-          alt="exchange-banner"
+          src="/banner/message-banner.jpg"
+          alt="message-banner"
           className="h-full w-full object-cover"
         />
         <div className="absolute top-1/2 container flex translate-y-[-50%] flex-col items-center text-center max-md:hidden">

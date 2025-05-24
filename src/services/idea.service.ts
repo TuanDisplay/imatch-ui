@@ -19,8 +19,10 @@ export const postIdeas = async (data: TPostFormSchema) => {
   return res.data;
 };
 
-export const ideas = async () => {
-  const res = await ideaRequest.get('/ideas');
+export const ideas = async (params?: any) => {
+  const res = await ideaRequest.get('/ideas', {
+    params: params,
+  });
   return res.data;
 };
 

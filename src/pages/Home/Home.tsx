@@ -10,10 +10,19 @@ import Button from '~/components/Button';
 import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { SlideItem, CardItem } from './HomeItem';
-import { IdeaCard, ProblemCard } from '~/common/data';
 import { ChevronCircleIcon } from '~/components/Icons/';
+import { useIdeas } from '~/hooks/ApiQuery/useIdeaQuery';
+import { useProblem } from '~/hooks/ApiQuery/useProblemQuery';
+import LoadingScreen from '~/layouts/components/LoadingScreen';
 
 export default function Home() {
+  const { data: ideaList, isLoading: ideaLoading } = useIdeas({
+    top_view_only: true,
+  });
+  const { data: problemList, isLoading: problemLoading } = useProblem({
+    top_view_only: true,
+  });
+
   return (
     <div className="wrapper">
       <Swiper
@@ -114,47 +123,51 @@ export default function Home() {
             từ cộng đồng chuyên gia và nhà sáng tạo.
           </p>
         </div>
-        <div className="flex justify-between px-[70px]">
-          <Swiper
-            slidesPerView={3}
-            spaceBetween={40}
-            loop={true}
-            pagination={{
-              clickable: true,
-            }}
-            navigation={{
-              nextEl: '.swiper-button-next-custom',
-              prevEl: '.swiper-button-prev-custom',
-            }}
-            modules={[Pagination, Navigation]}
-            className="idea-pagination px-5! pb-15!"
-          >
-            <button className="swiper-button-prev-custom absolute top-1/2 left-1 z-10 -translate-y-1/2 text-black">
-              <ChevronCircleIcon type="left" />
-            </button>
-            <button className="swiper-button-next-custom absolute top-1/2 right-1 z-10 -translate-y-1/2 text-black">
-              <ChevronCircleIcon type="right" />
-            </button>
-            {IdeaCard.map((item) => {
-              return (
-                <SwiperSlide>
-                  <CardItem
-                    key={item.id}
-                    id={item.id}
-                    imageUrl={item.imageUrl}
-                    catValue={item.catValue}
-                    title={item.title}
-                    desc={item.desc}
-                    author={item.author}
-                    views={item.views}
-                    publishDate={item.publishDate}
-                    type="exchange"
-                  />
-                </SwiperSlide>
-              );
-            })}
-          </Swiper>
-        </div>
+        {ideaLoading ? (
+          <LoadingScreen className="!h-[300px]" />
+        ) : (
+          <div className="flex justify-between px-[70px]">
+            <Swiper
+              slidesPerView={3}
+              spaceBetween={40}
+              loop={true}
+              pagination={{
+                clickable: true,
+              }}
+              navigation={{
+                nextEl: '.swiper-button-next-custom',
+                prevEl: '.swiper-button-prev-custom',
+              }}
+              modules={[Pagination, Navigation]}
+              className="idea-pagination px-5! pb-15!"
+            >
+              <button className="swiper-button-prev-custom absolute top-1/2 left-1 z-10 -translate-y-1/2 text-black">
+                <ChevronCircleIcon type="left" />
+              </button>
+              <button className="swiper-button-next-custom absolute top-1/2 right-1 z-10 -translate-y-1/2 text-black">
+                <ChevronCircleIcon type="right" />
+              </button>
+              {ideaList?.map((item) => {
+                return (
+                  <SwiperSlide>
+                    <CardItem
+                      key={item.id}
+                      id={item.id}
+                      imageUrl={item.imageUrl}
+                      catValue={item.catValue}
+                      title={item.title}
+                      desc={item.desc}
+                      author={item.author}
+                      views={item.views}
+                      publishDate={item.publishDate}
+                      type="exchange"
+                    />
+                  </SwiperSlide>
+                );
+              })}
+            </Swiper>
+          </div>
+        )}
       </div>
       <div className="container mx-auto py-10 max-md:py-5">
         <div className="mx-auto mb-10 w-full max-w-[807px] text-center max-lg:mb-5">
@@ -166,47 +179,51 @@ export default function Home() {
             – liệu bạn có thể tìm ra giải pháp?
           </p>
         </div>
-        <div className="flex justify-between px-[70px]">
-          <Swiper
-            slidesPerView={3}
-            spaceBetween={40}
-            loop={true}
-            pagination={{
-              clickable: true,
-            }}
-            navigation={{
-              nextEl: '.swiper-button-next-custom',
-              prevEl: '.swiper-button-prev-custom',
-            }}
-            modules={[Pagination, Navigation]}
-            className="idea-pagination px-5! pb-15!"
-          >
-            <button className="swiper-button-prev-custom absolute top-1/2 left-1 z-10 -translate-y-1/2 text-black">
-              <ChevronCircleIcon type="left" />
-            </button>
-            <button className="swiper-button-next-custom absolute top-1/2 right-1 z-10 -translate-y-1/2 text-black">
-              <ChevronCircleIcon type="right" />
-            </button>
-            {ProblemCard.map((item) => {
-              return (
-                <SwiperSlide>
-                  <CardItem
-                    key={item.id}
-                    id={item.id}
-                    imageUrl={item.imageUrl}
-                    catValue={item.catValue}
-                    title={item.title}
-                    desc={item.desc}
-                    price={item.price}
-                    submission={item.submission}
-                    publishDate={item.publishDate}
-                    type="problem"
-                  />
-                </SwiperSlide>
-              );
-            })}
-          </Swiper>
-        </div>
+        {problemLoading ? (
+          <LoadingScreen className="!h-[300px]" />
+        ) : (
+          <div className="flex justify-between px-[70px]">
+            <Swiper
+              slidesPerView={3}
+              spaceBetween={40}
+              loop={true}
+              pagination={{
+                clickable: true,
+              }}
+              navigation={{
+                nextEl: '.swiper-button-next-custom',
+                prevEl: '.swiper-button-prev-custom',
+              }}
+              modules={[Pagination, Navigation]}
+              className="idea-pagination px-5! pb-15!"
+            >
+              <button className="swiper-button-prev-custom absolute top-1/2 left-1 z-10 -translate-y-1/2 text-black">
+                <ChevronCircleIcon type="left" />
+              </button>
+              <button className="swiper-button-next-custom absolute top-1/2 right-1 z-10 -translate-y-1/2 text-black">
+                <ChevronCircleIcon type="right" />
+              </button>
+              {problemList?.map((item) => {
+                return (
+                  <SwiperSlide>
+                    <CardItem
+                      key={item.id}
+                      id={item.id}
+                      imageUrl={item.imageUrl}
+                      catValue={item.catValue}
+                      title={item.title}
+                      desc={item.desc}
+                      price={item.price}
+                      submission={item.submission}
+                      publishDate={item.publishDate}
+                      type="problem"
+                    />
+                  </SwiperSlide>
+                );
+              })}
+            </Swiper>
+          </div>
+        )}
       </div>
     </div>
   );

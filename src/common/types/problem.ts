@@ -27,6 +27,7 @@ export interface IProApi {
   price: number;
   post_day: string;
   view: number;
+  solution: number;
 }
 export interface IProDeApi extends IProApi {
   customer_email: string;

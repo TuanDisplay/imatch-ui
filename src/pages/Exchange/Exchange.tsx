@@ -22,6 +22,13 @@ export default function Exchange() {
 
   const dataReal = useMemo(() => (Array.isArray(data) ? data : []), [data]);
 
+  //   const { data: allData } = useIdeas();
+  // const ideasQuery = useIdeas();
+
+  // const data = useMemo(() => {
+  //   return allData?.items.map(mapIdea);
+  // }, [allData?.items]);
+
   return (
     <>
       <div className="relative flex justify-center">

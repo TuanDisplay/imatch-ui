@@ -122,7 +122,7 @@ export const messageFormSchema = z.object({
 });
 
 export const profileSchema = z.object({
-  avatar: z.string().optional(),
+  id: z.string(),
   fname: z
     .string()
     .trim()
@@ -130,9 +130,15 @@ export const profileSchema = z.object({
     .refine((val) => /^[a-zA-ZÀ-ỹ\s]+$/.test(val), {
       message: 'Họ và tên không được chứa ký tự đặc biệt hoặc số',
     }),
-
-  birthDate: z.string().nonempty('Không được để trống trường này'),
+  email: z
+    .string()
+    .nonempty('Email không được để trống')
+    .email('Email không đúng định dạng')
+    .refine((val) => !val.includes(' '), {
+      message: 'Email không được chứa khoảng trắng',
+    }),
   bio: z.string().nonempty('Không được để trống trường này'),
+  avatar: z.string().optional(),
 });
 
 // preprocess(

@@ -14,7 +14,7 @@ export interface IIdeaDe extends IIdeaCard {
   benefitValue: string;
   image: string[];
   imageIP: string;
-  isIP: number; 
+  isIP: number;
 }
 
 export interface IIdeaApi {
@@ -36,3 +36,12 @@ export interface IIdeaDeApi extends IIdeaApi {
   value_benefits: string;
   is_intellect: number;
 }
+
+export interface IIdeaPageApi {
+  limit: number;
+  page: number;
+  pages: number;
+  total: number;
+  items: IIdeaApi[];
+}
+

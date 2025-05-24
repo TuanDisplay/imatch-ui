@@ -5,11 +5,18 @@ import { IIdeaCard } from '~/common/types/idea';
 import * as ideaService from '~/services/idea.service';
 import { mapIdea, mapIdeaDe } from '~/utils/map/idea';
 
-export function useIdeas() {
+interface UseArticlesParams {
+  top_view_only?: boolean;
+  category?: string;
+  limit?: number;
+  [key: string]: any;
+}
+
+export function useIdeas(params:  UseArticlesParams = {}) {
   return useQuery({
-    queryKey: ['ideas'],
+    queryKey: ['ideas', params],
     queryFn: async (): Promise<IIdeaCard[]> => {
-      const res = await ideaService.ideas();
+      const res = await ideaService.ideas(params);
       return res.items.map(mapIdea);
     },
     staleTime: 1000 * 60 * 5,

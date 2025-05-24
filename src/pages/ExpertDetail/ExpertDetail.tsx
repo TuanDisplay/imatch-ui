@@ -19,7 +19,7 @@ export default function ExpertDetail() {
       {isMessageOpen && <MessageModal />}
       <div className="relative flex justify-center">
         <img
-          src="/banner/about-banner.jpg"
+          src="/banner/uminh-banner.jpg"
           alt="exchange-banner"
           className="h-full w-full object-cover"
         />
@@ -51,7 +51,7 @@ export default function ExpertDetail() {
 
           <div className="col-span-2 space-y-5">
             <div className="flex items-start justify-between">
-              <div className="grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-30">
+              <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
                 <div>
                   <h2 className="text-primary text-lg font-semibold">
                     Họ và tên
@@ -59,10 +59,8 @@ export default function ExpertDetail() {
                   <p className="mt-1 text-gray-600">{data?.author}</p>
                 </div>
                 <div>
-                  <h2 className="text-primary text-lg font-semibold">
-                    Ngày sinh
-                  </h2>
-                  <p className="mt-1 text-gray-600">14/03/1879</p>
+                  <h2 className="text-primary text-lg font-semibold">Email</h2>
+                  <p className="mt-1 text-gray-600">leviettuan2380@gmail.com</p>
                 </div>
               </div>
               <div className="flex gap-3">
