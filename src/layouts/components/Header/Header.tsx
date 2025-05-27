@@ -24,6 +24,7 @@ import Button from '~/components/Button';
 import { useAuthModal } from '~/hooks/useModalStore';
 import { useHasScrolledBeyond } from '~/hooks/useHasScrolledBeyond';
 import * as authService from '~/services/auth.service';
+import { useUProfile } from '~/hooks/ApiQuery/useUserQuery';
 
 const links = [
   {
@@ -47,6 +48,8 @@ export default function Header() {
   const { openAuthModal, isAuthenticated, setIsAuthenticated } = useAuthModal();
   const location = useLocation();
   const hasPassedBanner = useHasScrolledBeyond(300);
+
+  const { data, isLoading } = useUProfile();
 
   const logoutHandle = async () => {
     try {
@@ -165,7 +168,11 @@ export default function Header() {
             <div className="h-10 w-10 overflow-hidden rounded-full border-2 border-amber-300">
               <Link to="/profile">
                 <img
-                  src="/AvtTuan.jpg"
+                  src={
+                    isLoading
+                      ? '/no-user.png'
+                      : (data?.avatar !== '' && data?.avatar) || '/no-user.png'
+                  }
                   alt="avatar"
                   className="object-cover hover:opacity-50"
                 />

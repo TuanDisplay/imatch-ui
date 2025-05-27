@@ -14,9 +14,9 @@ export const addFav = async (id: string, postType: postType) => {
   });
 };
 
-export const deleteFav = async (id: string) => {
-  await customerRequest.delete(`/favorite/${id}/delete`);
-};
+// export const deleteFav = async (id: string) => {
+//   await customerRequest.delete(`/favorite/${id}/delete`);
+// };
 
 // export const favProList = async (post_type: string) => {
 //   try {

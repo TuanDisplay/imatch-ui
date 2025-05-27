@@ -1,34 +1,59 @@
+import { useEffect } from 'react';
+import { useInView } from 'react-intersection-observer';
+import { IProCard } from '~/common/types/problem';
+import LoadingAni from '~/components/Animation/LoadingAni';
 import { WrapperContent } from '~/components/Content';
-import { useMyProblem } from '~/hooks/ApiQuery/useProblemQuery';
+import { useMyProScroll } from '~/hooks/ApiQuery/useProblemQuery';
 import { ProblemItem } from '~/pages/Problem/ProblemItems';
 
 export default function MyProblems() {
-  const { data } = useMyProblem();
-  const myProQuery = useMyProblem();
+  const { ref, inView } = useInView();
+  const { data, isLoading, isFetchingNextPage, fetchNextPage, hasNextPage } =
+    useMyProScroll();
+  const myProQuery = useMyProScroll();
+
+  useEffect(() => {
+    if (inView && hasNextPage && !isFetchingNextPage) {
+      fetchNextPage();
+    }
+  }, [inView, hasNextPage, isFetchingNextPage, fetchNextPage]);
 
   return (
-    <div>
-      <WrapperContent queryResultObject={myProQuery}>
-        {data?.length === 0 ? (
-          <div className="text-center">Không có dữ liệu</div>
-        ) : (
-          data?.map((item) => {
-            return (
-              <ProblemItem
-                key={item.id}
-                id={item.id}
-                imageUrl={item.imageUrl}
-                catValue={item.catValue}
-                title={item.title}
-                desc={item.desc}
-                price={item.price}
-                submission={item.submission}
-                publishDate={item.publishDate}
-              />
-            );
-          })
-        )}
-      </WrapperContent>
-    </div>
+    <WrapperContent queryResultObject={myProQuery} isLoading={isLoading}>
+      {data?.pages.every((page) => Array.isArray(page) && page.length === 0) ? (
+        <div className="text-center">Không có dữ liệu</div>
+      ) : (
+        <>
+          {data?.pages.map((page: IProCard[]) => {
+            return page?.map((item: IProCard, index) => {
+              const isLast = page.length === index + 1;
+              return (
+                <ProblemItem
+                  key={item.id}
+                  id={item.id}
+                  imageUrl={item.imageUrl}
+                  catValue={item.catValue}
+                  title={item.title}
+                  desc={item.desc}
+                  price={item.price}
+                  submission={item.submission}
+                  publishDate={item.publishDate}
+                  innerRef={isLast ? ref : null}
+                />
+              );
+            });
+          })}
+          {isFetchingNextPage && (
+            <div className="relative mt-5 h-5">
+              <LoadingAni>
+                <span className="ml-4 text-sm text-gray-500">
+                  Đang tải dữ liệu...
+                </span>
+              </LoadingAni>
+            </div>
+          )}
+        </>
+      )}
+    </WrapperContent>
   );
 }

@@ -1,24 +1,27 @@
 import React from 'react';
-import { useQuery } from '@tanstack/react-query';
+import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 
 import * as problemService from '~/services/problem.service';
-import { IProCard } from '~/common/types/problem';
-import { mapPro, mapProDe } from '~/utils/map/problem';
+import { IProProPageApi } from '~/common/types/problem';
+import { mapProDe } from '~/utils/map/problem';
 
-interface UseArticlesParams {
+interface UseProParams {
   top_view_only?: boolean;
-  category?: string;
+  page?: number;
   limit?: number;
+  industry?: string;
+  problemname?: string;
+  price_tier?: string;
   [key: string]: any;
 }
 
-export function useProblem(params: UseArticlesParams = {}) {
+export function useProblem(params: UseProParams = {}) {
   return useQuery({
-    queryKey: ['problem'],
-    queryFn: async (): Promise<IProCard[]> => {
+    queryKey: ['problem', params],
+    queryFn: async (): Promise<IProProPageApi> => {
       const res = await problemService.problem(params);
-      return res.items.map(mapPro);
+      return res;
     },
     staleTime: 1000 * 60 * 5,
     retry: 2,
@@ -50,14 +53,25 @@ export function useProblemDetail(id: string) {
   return query;
 }
 
-export function useMyProblem() {
-  return useQuery({
-    queryKey: ['problem'],
-    queryFn: async (): Promise<IProCard[]> => {
-      const res = await problemService.myProblem();
-      return res.items.map(mapPro);
+export function useMyProScroll() {
+  return useInfiniteQuery({
+    queryKey: ['myProblem'],
+    queryFn: problemService.myProblem,
+    initialPageParam: 1,
+    getNextPageParam: (lastPage, pages) => {
+      return lastPage.length ? pages.length + 1 : undefined;
     },
-    staleTime: 1000 * 60 * 5,
-    retry: 2,
   });
 }
+
+export function useFavProScroll() {
+  return useInfiniteQuery({
+    queryKey: ['favProblem'],
+    queryFn: problemService.favProblem,
+    initialPageParam: 1,
+    getNextPageParam: (lastPage, pages) => {
+      return lastPage.length ? pages.length + 1 : undefined;
+    },
+  });
+}
+

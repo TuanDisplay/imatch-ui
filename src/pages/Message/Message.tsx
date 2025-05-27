@@ -1,8 +1,9 @@
 import { Search } from 'lucide-react';
 import { useState } from 'react';
 import Button from '~/components/Button';
-import { useMessageModal } from '~/hooks/useModalStore';
-import { MessageModal } from '~/modals';
+// import { useMessage } from '~/hooks/ApiQuery/useMessageQuery';
+// import { useMessageModal } from '~/hooks/useModalStore';
+// import { MessageModal } from '~/modals';
 
 const messages = [
   {
@@ -19,12 +20,14 @@ const messages = [
 
 export default function Message() {
   const [selectedId, setSelectedId] = useState(1);
-  const { isMessageOpen, setIsMessageModal } = useMessageModal();
+  // const { isMessageOpen, setIsMessageModal } = useMessageModal();
   const selectedMessage = messages.find((msg) => msg.id === selectedId);
+
+  // const {data} = useMessage()
 
   return (
     <>
-      {isMessageOpen && <MessageModal />}
+      {/* {isMessageOpen && <MessageModal />} */}
       <div className="relative flex justify-center">
         <img
           src="/banner/message-banner.jpg"
@@ -76,7 +79,7 @@ export default function Message() {
               <Button
                 className="px-3 py-1.5 font-bold"
                 primary
-                onClick={() => setIsMessageModal(true)}
+                // onClick={() => setIsMessageModal(true)}
               >
                 Phản hồi
               </Button>

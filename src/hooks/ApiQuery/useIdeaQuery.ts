@@ -1,23 +1,26 @@
-import { useQuery } from '@tanstack/react-query';
+import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { IIdeaCard } from '~/common/types/idea';
+import { IIdeaPageApi } from '~/common/types/idea';
 import * as ideaService from '~/services/idea.service';
-import { mapIdea, mapIdeaDe } from '~/utils/map/idea';
+import { mapIdeaDe } from '~/utils/map/idea';
 
-interface UseArticlesParams {
+interface UseIdeasParams {
   top_view_only?: boolean;
-  category?: string;
+  page?: number;
   limit?: number;
+  industry?: string;
+  ideasname?: string;
+  price_tier?: string;
   [key: string]: any;
 }
 
-export function useIdeas(params:  UseArticlesParams = {}) {
+export function useIdeas(params: UseIdeasParams = {}) {
   return useQuery({
     queryKey: ['ideas', params],
-    queryFn: async (): Promise<IIdeaCard[]> => {
+    queryFn: async (): Promise<IIdeaPageApi> => {
       const res = await ideaService.ideas(params);
-      return res.items.map(mapIdea);
+      return res;
     },
     staleTime: 1000 * 60 * 5,
     retry: 2,
@@ -50,14 +53,24 @@ export function useIdeasDetail(id: string) {
   return query;
 }
 
-export function useMyIdeas() {
-  return useQuery({
-    queryKey: ['ideas'],
-    queryFn: async (): Promise<IIdeaCard[]> => {
-      const res = await ideaService.myIdeas();
-      return res.items.map(mapIdea);
+export function useMyIdeasScroll() {
+  return useInfiniteQuery({
+    queryKey: ['myIdeas'],
+    queryFn: ideaService.myIdeas,
+    initialPageParam: 1,
+    getNextPageParam: (lastPage, pages) => {
+      return lastPage.length ? pages.length + 1 : undefined;
     },
-    staleTime: 1000 * 60 * 5,
-    retry: 2,
+  });
+}
+
+export function useFavIdeasScroll() {
+  return useInfiniteQuery({
+    queryKey: ['favIdeas'],
+    queryFn: ideaService.favIdeas,
+    initialPageParam: 1,
+    getNextPageParam: (lastPage, pages) => {
+      return lastPage.length ? pages.length + 1 : undefined;
+    },
   });
 }

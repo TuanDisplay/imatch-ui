@@ -1,27 +1,23 @@
 import { useQuery } from '@tanstack/react-query';
-import { IFavApi } from '~/common/types';
-import * as favService from '~/services/myfavorite.service';
+import * as ideaService from '~/services/idea.service';
+import * as problemService from '~/services/problem.service';
 
-export function useFavList() {
+export function useFavIdList() {
   return useQuery({
-    queryKey: ['favorite-ideas'],
-    queryFn: async (): Promise<IFavApi[]> => {
-      const res = await favService.favList();
-      return res.items;
+    queryKey: ['favoriteId'],
+    queryFn: async () => {
+      try {
+        const [resIdIdea, resIdPro] = await Promise.all([
+          ideaService.favIdIdeas(),
+          problemService.favIdPro(),
+        ]);
+        return [...resIdIdea, ...resIdPro];
+      } catch (err) {
+        console.error('Error fetching favorites:', err);
+        return [];
+      }
     },
     staleTime: 1000 * 60 * 5,
     retry: 2,
   });
 }
-
-// export function useProFav(postType: string) {
-//   return useQuery({
-//     queryKey: ['favorite-pro'],
-//     queryFn: async (): Promise<IFavApi[]> => {
-//       const res = await favService.favProList(postType);
-//       return res.items;
-//     },
-//     staleTime: 1000 * 60 * 5,
-//     retry: 2,
-//   });
-// }

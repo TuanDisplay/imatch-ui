@@ -1,5 +1,7 @@
-import { useLocation, useParams } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import { CalendarDays, Eye, User, Settings } from 'lucide-react';
+import { useQueryClient } from '@tanstack/react-query';
 
 import Button from '~/components/Button';
 import Mail from '~/components/Icons/Mail';
@@ -11,13 +13,11 @@ import { convertStringToHtml } from '~/utils/files';
 import { MessageModal } from '~/modals';
 import { useMessageModal } from '~/hooks/useModalStore';
 import { convertCategoryName, convertCurrencyVN } from '~/utils/files';
-import { useEffect } from 'react';
-import { useQueryClient } from '@tanstack/react-query';
 
 function IdeaDetailContent({ id }: { id: string }) {
   const { data, isLoading } = useIdeasDetail(id);
   const { isMessageOpen, setIsMessageModal } = useMessageModal();
-  const location = useLocation();
+
   const queryClient = useQueryClient();
 
   useEffect(() => {
@@ -37,7 +37,12 @@ function IdeaDetailContent({ id }: { id: string }) {
         <LoadingScreen />
       ) : (
         <div className="bg-white">
-          {isMessageOpen && <MessageModal />}
+          {isMessageOpen && (
+            <MessageModal
+              id={data?.customer_id ? data?.customer_id : ''}
+              receiver={data?.author ? data?.author : ''}
+            />
+          )}
           <div className="container mx-auto">
             <div className="relative isolate overflow-hidden pt-40 pb-25">
               <div className="px-15">
@@ -84,7 +89,7 @@ function IdeaDetailContent({ id }: { id: string }) {
                         >
                           <Mail />
                         </div>
-                        <CopyLink link={location.pathname} />
+                        <CopyLink />
                       </div>
                       <div className="justify-end">
                         <div className="border-b-primary border-b-2 font-semibold">

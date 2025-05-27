@@ -1,27 +1,28 @@
 import { Search } from 'lucide-react';
-import { useEffect, useState } from 'react';
-import { useDebounce } from '~/hooks/useDebounce';
 
 type FilterProps = {
-  dataReal: object[];
-  setDataFilter: any;
   placeholder: string;
+  searchValue: string;
+  setSearchValue: React.Dispatch<React.SetStateAction<string>>;
+  priceRange: string;
+  setPriceRange: React.Dispatch<React.SetStateAction<string>>;
 };
 
 const priceRangeList = [
-  { id: 5, priceRange: 'Tất cả mức giá', value: 'tier0' },
+  { id: 5, priceRange: 'Tất cả mức giá', value: '' },
   { id: 1, priceRange: 'Dưới 1 triệu', value: 'tier1' },
   { id: 2, priceRange: 'Từ 1 - 3 triệu', value: 'tier2' },
   { id: 3, priceRange: 'Từ 3 - 5 triệu', value: 'tier3' },
   { id: 4, priceRange: 'Trên 5 triệu', value: 'tier4' },
 ];
 
-export default function FilterBar({ dataReal, setDataFilter, placeholder }: FilterProps) {
-  const [searchValue, setSearchValue] = useState('');
-  const [priceRange, setPriceRange] = useState('tier0');
-
-  const debouncedSearch = useDebounce(searchValue, 500);
-
+export default function FilterBar({
+  placeholder,
+  searchValue,
+  setSearchValue,
+  priceRange,
+  setPriceRange
+}: FilterProps) {
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setSearchValue(value);
@@ -31,38 +32,6 @@ export default function FilterBar({ dataReal, setDataFilter, placeholder }: Filt
     const value = e.target.value;
     setPriceRange(value);
   };
-
-  useEffect(() => {
-    const filtered = dataReal.filter((item: any) => {
-      const matchesKeyword = item.title
-        .toLowerCase()
-        .includes(debouncedSearch.toLowerCase());
-
-      let matchesPrice = true;
-      switch (priceRange) {
-        case 'tier1':
-          matchesPrice = item.price <= 1000000;
-          break;
-        case 'tier2':
-          matchesPrice = item.price > 1000000 && item.price <= 3000000;
-          break;
-        case 'tier3':
-          matchesPrice = item.price > 3000000 && item.price <= 5000000;
-          break;
-        case 'tier4':
-          matchesPrice = item.price > 5000000;
-          break;
-        case 'tier0':
-        default:
-          matchesPrice = true;
-          break;
-      }
-
-      return matchesKeyword && matchesPrice;
-    });
-
-    setDataFilter(filtered);
-  }, [dataReal, debouncedSearch, priceRange, setDataFilter]);
 
   return (
     <div className="mb-4 flex flex-col items-start gap-4 rounded-xl bg-white p-2 shadow-sm md:flex-row md:items-center">

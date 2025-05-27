@@ -9,6 +9,7 @@ import {
   UploadImageField,
 } from './FormItem';
 import toast from 'react-hot-toast';
+import { useQueryClient } from '@tanstack/react-query';
 
 import * as ideaService from '~/services/idea.service';
 import * as problemService from '~/services/problem.service';
@@ -21,6 +22,9 @@ const methodO = [
 ];
 
 export default function Posting() {
+
+  const queryClient = useQueryClient();
+
   const {
     register,
     handleSubmit,
@@ -37,8 +41,10 @@ export default function Posting() {
     try {
       if (data.methodSelect === 'posting-idea') {
         await ideaService.postIdeas(data);
+        queryClient.invalidateQueries({ queryKey: ['ideas'] });
       }else {
         await problemService.postProblem(data)
+        queryClient.invalidateQueries({ queryKey: ['problem'] });
       }
       reset();
       toast.success('Đăng thành công');

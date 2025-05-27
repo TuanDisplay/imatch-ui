@@ -1,24 +1,35 @@
 import { useMemo, useState } from 'react';
 
 import PaginationBar from '~/components/PaginationBar';
-import { usePagination } from '~/hooks/usePagination';
 import { MajorCat } from '~/common/data';
 import { ProblemItem } from './ProblemItems';
 import { WrapperContent } from '~/components/Content';
 import CatBar from '~/components/CatBar';
 import FilterBar from '~/layouts/components/Filter';
-import { IProDetail } from '~/common/types/problem';
+import { useDebounce } from '~/hooks/useDebounce';
 import { useProblem } from '~/hooks/ApiQuery/useProblemQuery';
+import { mapPro } from '~/utils/map/problem';
 
 export default function Solving() {
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [dataFilter, setDataFilter] = useState<IProDetail[]>([]);
+  const [catValue, setCatValue] = useState<string>('');
+  const [searchValue, setSearchValue] = useState('');
+  const [priceRange, setPriceRange] = useState('');
 
-  const itemsPerPage = 3;
-  const currentItems = usePagination(dataFilter, currentPage, itemsPerPage);
+  const debouncedSearch = useDebounce(searchValue, 500);
 
-  const { data } = useProblem();
+  const { data: allData, isLoading } = useProblem({
+    page: currentPage,
+    industry: catValue,
+    problemname: debouncedSearch,
+    price_tier: priceRange,
+  });
+
   const problemQuery = useProblem();
+
+  const data = useMemo(() => {
+    return allData?.items ? allData?.items.map(mapPro) : [];
+  }, [allData?.items]);
 
   const dataReal = useMemo(() => (Array.isArray(data) ? data : []), [data]);
 
@@ -43,18 +54,27 @@ export default function Solving() {
       </div>
       <div className="container mx-auto py-5">
         <div className="flex gap-6">
-          <CatBar CatItems={MajorCat} data={dataReal} setData={setDataFilter} />
+          <CatBar
+            CatItems={MajorCat}
+            catValue={catValue}
+            setCatValue={setCatValue}
+          />
           <div className="flex flex-1 flex-col px-4">
             <FilterBar
-              dataReal={dataReal}
-              setDataFilter={setDataFilter}
-              placeholder='Tìm kiểm vấn đề...'
-            ></FilterBar>
-            <WrapperContent queryResultObject={problemQuery}>
-              {dataFilter.length === 0 ? (
+              placeholder="Tìm kiểm vấn đề..."
+              searchValue={searchValue}
+              setSearchValue={setSearchValue}
+              priceRange={priceRange}
+              setPriceRange={setPriceRange}
+            />
+            <WrapperContent
+              queryResultObject={problemQuery}
+              isLoading={isLoading}
+            >
+              {dataReal.length === 0 ? (
                 <div className="text-center">Không có dữ liệu</div>
               ) : (
-                currentItems.map((item) => {
+                dataReal.map((item) => {
                   return (
                     <ProblemItem
                       key={item.id}
@@ -72,12 +92,12 @@ export default function Solving() {
               )}
             </WrapperContent>
 
-            {dataFilter.length > 0 && (
+            {dataReal.length > 0 && (
               <PaginationBar
                 currentPage={currentPage}
                 setCurrentPage={setCurrentPage}
-                totalItems={dataFilter.length}
-                itemsPerPage={itemsPerPage}
+                totalItems={allData?.total ? allData?.total : 0}
+                itemsPerPage={allData?.limit ? allData?.limit : 0}
               />
             )}
           </div>

@@ -7,9 +7,11 @@ export interface IIdeaCard {
   desc: string;
   title: string;
   views: number;
+  innerRef?: any;
 }
 
 export interface IIdeaDe extends IIdeaCard {
+  customer_id: string;
   price: number;
   benefitValue: string;
   image: string[];
@@ -31,6 +33,7 @@ export interface IIdeaApi {
 
 export interface IIdeaDeApi extends IIdeaApi {
   customer_email: string;
+  customeruuid: string;
   is_procedure: string;
   image_intellect: string;
   value_benefits: string;
@@ -45,3 +48,10 @@ export interface IIdeaPageApi {
   items: IIdeaApi[];
 }
 
+// Interface Favorite
+export interface IIdeaFavCard extends IIdeaCard {
+  post_id: string;
+}
+export interface IIdeaFavApi extends IIdeaApi {
+  post_uuid: string;
+}

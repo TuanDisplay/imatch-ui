@@ -11,6 +11,11 @@ type TMessageModal = {
   setIsMessageModal: (value: boolean) => void;
 };
 
+type TSolutionModal = {
+  isSolutionOpen: boolean;
+  setIsSolutionModal: (value: boolean) => void;
+};
+
 type TAuthModal = {
   isAuthOpen: boolean;
   isAuthenticated: boolean;
@@ -36,6 +41,13 @@ export const useMessageModal = create<TMessageModal>((set) => ({
   isMessageOpen: false,
   setIsMessageModal(value) {
     set({ isMessageOpen: value });
+  },
+}));
+
+export const useSolutionModal = create<TSolutionModal>((set) => ({
+  isSolutionOpen: false,
+  setIsSolutionModal(value) {
+    set({ isSolutionOpen: value });
   },
 }));
 

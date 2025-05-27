@@ -3,12 +3,14 @@ import Link from '../Icons/Link';
 import toast from 'react-hot-toast';
 import clsx from 'clsx';
 
-export default function CopyLink({ link }: { link: string }) {
+export default function CopyLink() {
   const [copied, setCopied] = useState(false);
+
+  const currentUrl = window.location.href
 
   const handleCopy = async () => {
     try {
-      await navigator.clipboard.writeText(`http://localhost:5173${link}`);
+      await navigator.clipboard.writeText(currentUrl);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
       toast.success('Đã sao chép');

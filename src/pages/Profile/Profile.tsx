@@ -46,12 +46,8 @@ export default function Profile() {
   const onSubmit = async (data: TProfileSchema) => {
     try {
       if (data) {
-        console.log('image: ' + data.avatar);
         const avatar = watch('avatar');
-
-        await userService.updateProfile(
-          { ...data, avatar },
-        );
+        await userService.updateProfile({ ...data, avatar });
         refetch();
         setIsEditing(false);
         toast.success('Lưu thành công');
@@ -108,9 +104,13 @@ export default function Profile() {
               <div className="col-span-1 flex flex-col items-center">
                 <div className="relative h-60 w-48 overflow-hidden rounded-xl shadow-md">
                   <img
-                    src={image || data?.avatar || '/no-user.png'}
+                    src={
+                      image ||
+                      (data?.avatar !== '' && data?.avatar) ||
+                      '/no-user.png'
+                    }
                     alt="avatar"
-                    className={clsx('h-full object-cover', {
+                    className={clsx('h-full w-full object-cover', {
                       'opacity-40': isEditing,
                     })}
                   />
@@ -219,7 +219,7 @@ export default function Profile() {
                       placeholder="Hãy nói về bạn ở đây!"
                     />
                   ) : (
-                    <p className="mt-1 line-clamp-3 text-gray-700">
+                    <p className="mt-1 line-clamp-5 text-gray-700">
                       {data?.bio !== ''
                         ? data?.bio
                         : 'Chưa có thông tin về bạn'}

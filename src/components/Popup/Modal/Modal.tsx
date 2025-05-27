@@ -8,6 +8,7 @@ import {
   useAuthModal,
   useBookingModal,
   useMessageModal,
+  useSolutionModal,
 } from '~/hooks/useModalStore';
 
 interface IModal extends IChildNode {
@@ -18,6 +19,7 @@ export default function Modal({ children, className = '' }: IModal) {
   const { closeAuthModal } = useAuthModal();
   const { setIsBookingModal } = useBookingModal();
   const { setIsMessageModal } = useMessageModal();
+  const { setIsSolutionModal } = useSolutionModal();
 
   const modalRef = useRef<HTMLDivElement>(null);
 
@@ -25,7 +27,13 @@ export default function Modal({ children, className = '' }: IModal) {
     closeAuthModal();
     setIsBookingModal(false);
     setIsMessageModal(false);
-  }, [closeAuthModal, setIsBookingModal, setIsMessageModal]);
+    setIsSolutionModal(false);
+  }, [
+    closeAuthModal,
+    setIsBookingModal,
+    setIsMessageModal,
+    setIsSolutionModal,
+  ]);
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {

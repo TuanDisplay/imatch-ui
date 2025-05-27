@@ -20,7 +20,7 @@ export const useDeleteMuta = () => {
         : problemService.deleteMyPro(id);
     },
     onSuccess: (_, { type }) => {
-      const key = type === 'idea' ? 'ideas' : 'problem';
+      const key = type === 'idea' ? 'myIdeas' : 'myProblem';
       queryClient.invalidateQueries({ queryKey: [key] });
       toast.success('Xoá thành công!');
     },

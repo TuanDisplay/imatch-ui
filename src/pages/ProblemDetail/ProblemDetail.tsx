@@ -11,13 +11,15 @@ import Mail from '~/components/Icons/Mail';
 import Overview from '~/components/Overview';
 import { useProblemDetail } from '~/hooks/ApiQuery/useProblemQuery';
 import LoadingScreen from '~/layouts/components/LoadingScreen';
-import { useMessageModal } from '~/hooks/useModalStore';
+import { useMessageModal, useSolutionModal } from '~/hooks/useModalStore';
 import { MessageModal } from '~/modals';
 import CopyLink from '~/components/CopyLink';
+import SolutionModal from '~/modals/SolutionModal';
 
-export function ProDeContent({ id }: { id: string }) {
+function ProDeContent({ id }: { id: string }) {
   const { data, isLoading } = useProblemDetail(id);
   const { isMessageOpen, setIsMessageModal } = useMessageModal();
+  const { isSolutionOpen, setIsSolutionModal } = useSolutionModal();
   const location = useLocation();
 
   const glancing = [
@@ -33,7 +35,16 @@ export function ProDeContent({ id }: { id: string }) {
         <LoadingScreen />
       ) : (
         <div className="bg-white">
-          {isMessageOpen && <MessageModal />}
+          {isMessageOpen && (
+            <MessageModal
+              id={data?.customer_id ? data?.customer_id : ''}
+              receiver={data?.author ? data?.author : ''}
+            />
+          )}
+
+          {isSolutionOpen && (
+            <SolutionModal id={id} proName={data?.title ? data?.title : ''} />
+          )}
 
           <div className="container mx-auto">
             <div className="relative isolate overflow-hidden pt-40 pb-25">
@@ -70,12 +81,14 @@ export function ProDeContent({ id }: { id: string }) {
                       <Button
                         className="px-4 py-2 text-sm font-bold uppercase"
                         primary
+                        onClick={() => setIsSolutionModal(true)}
                       >
                         Đưa giải pháp
                       </Button>
                       <div className="flex h-fit gap-2">
                         <div
-                          className="rounded-sm bg-gray-500 p-1"
+                          className="cursor-pointer rounded-sm bg-gray-500 p-1"
+                          title="send-mail"
                           onClick={() => setIsMessageModal(true)}
                         >
                           <Mail />

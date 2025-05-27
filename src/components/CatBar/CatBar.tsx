@@ -1,11 +1,9 @@
 import clsx from 'clsx';
-import { useState } from 'react';
-import { ICard } from '~/common/types';
 
 interface ICatBar {
   CatItems: ICatItem[];
-  data: ICard[];
-  setData: any;
+  catValue: string; 
+  setCatValue: React.Dispatch<React.SetStateAction<string>>;
 }
 
 interface ICatItem {
@@ -14,18 +12,18 @@ interface ICatItem {
   value: string;
 }
 
-export default function CatBar({ CatItems, data, setData }: ICatBar) {
-  const [selected, setSelected] = useState('');
+export default function CatBar({
+  CatItems,
+  catValue,
+  setCatValue,
+}: ICatBar) {
 
   const filterHandle = (value: string) => {
-    setSelected(value);
-    const newData = data.filter((item) => item.catValue === value);
-    setData(newData);
+    setCatValue(value);
   };
 
   const filterAllHandle = () => {
-    setSelected('');
-    setData(data);
+    setCatValue('');
   };
 
   return (
@@ -43,7 +41,7 @@ export default function CatBar({ CatItems, data, setData }: ICatBar) {
             className={clsx(
               'cursor-pointer rounded-md border-b border-gray-200 px-4 py-2 text-sm font-medium text-gray-700 transition-colors last:border-b-0 hover:bg-orange-100 hover:text-orange-600',
               {
-                'bg-orange-100 text-orange-600': selected === cat.value,
+                'bg-orange-100 text-orange-600': catValue === cat.value,
               },
             )}
             onClick={() => filterHandle(cat.value)}

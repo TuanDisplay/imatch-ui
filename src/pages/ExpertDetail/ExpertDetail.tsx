@@ -2,21 +2,27 @@ import { useParams } from 'react-router-dom';
 
 import Button from '~/components/Button';
 import Comment from '~/components/Comment';
-import { ExpertCard, CommentCard } from '~/common/data';
+import { CommentCard } from '~/common/data';
 import { BookingModal, MessageModal } from '~/modals';
 import { useBookingModal, useMessageModal } from '~/hooks/useModalStore';
+import NotFound from '../NotFound';
+import { useExpertDetail } from '~/hooks/ApiQuery/useExpertQuery';
 
-export default function ExpertDetail() {
-  const { expertId } = useParams();
+function ExpertDeContent({ id }: { id: string }) {
   const { isBookingOpen, setIsBookingModal } = useBookingModal();
   const { isMessageOpen, setIsMessageModal } = useMessageModal();
 
-  const data = ExpertCard.find((item) => item.id.toString() === expertId);
+  const { data } = useExpertDetail(id);
 
   return (
     <>
       {isBookingOpen && <BookingModal />}
-      {isMessageOpen && <MessageModal />}
+      {isMessageOpen && (
+        <MessageModal
+          id={data?.id ? data?.id : ''}
+          receiver={data?.author ? 'Ths. ' + data?.author : ''}
+        />
+      )}
       <div className="relative flex justify-center">
         <img
           src="/banner/uminh-banner.jpg"
@@ -137,4 +143,11 @@ export default function ExpertDetail() {
       </div>
     </>
   );
+}
+
+export default function ExpertDetail() {
+  const { expertId } = useParams();
+  if (!expertId) return <NotFound />;
+
+  return <ExpertDeContent id={expertId} />;
 }

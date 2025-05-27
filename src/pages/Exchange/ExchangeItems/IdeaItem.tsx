@@ -21,13 +21,14 @@ export default function IdeaItem({
   author,
   views,
   publishDate,
+  innerRef,
 }: IIdeaCard) {
   const location = useLocation();
 
   return (
     <div className="hover:shadow-primary relative mx-auto flex max-w-4xl gap-6 rounded-2xl bg-white p-6 shadow-md transition-shadow duration-300">
       {!location.pathname.includes('/profile') ? (
-        <FavToggle id={id} />
+        <FavToggle id={id} type='idea'/>
       ) : (
         <DelMyProduct id={id} type="idea" />
       )}
@@ -76,6 +77,7 @@ export default function IdeaItem({
           </div>
 
           <Link
+            ref={innerRef}
             to={`/exchange/${id}`}
             className="flex items-center gap-1 font-semibold whitespace-nowrap text-green-600 hover:underline"
           >

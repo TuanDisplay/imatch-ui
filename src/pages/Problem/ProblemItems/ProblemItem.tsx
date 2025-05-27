@@ -26,13 +26,14 @@ export default function ProblemItem({
   price,
   submission,
   publishDate,
+  innerRef,
 }: IProCard) {
   const location = useLocation();
 
   return (
     <div className="hover:shadow-primary relative mx-auto flex max-w-4xl gap-6 rounded-2xl bg-white p-6 shadow-md transition-shadow duration-300">
       {!location.pathname.includes('/profile') ? (
-        <FavToggle id={id} />
+        <FavToggle id={id} type='problem'/>
       ) : (
         <DelMyProduct id={id} type="problem" />
       )}
@@ -77,6 +78,7 @@ export default function ProblemItem({
 
           <Link
             to={`/problem/${id}`}
+            ref={innerRef}
             className="flex items-center gap-1 font-semibold text-green-600 hover:underline"
           >
             Xem Thêm <ArrowRight size={16} />

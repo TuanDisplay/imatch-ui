@@ -1,4 +1,4 @@
-import { IProApi, IProDeApi } from '~/common/types/problem';
+import { IProApi, IProDeApi, IProFavApi } from '~/common/types/problem';
 
 export const mapPro = (raw: IProApi) => {
   return {
@@ -6,7 +6,7 @@ export const mapPro = (raw: IProApi) => {
     author: raw.customer_name,
     title: raw.problemname,
     catValue: raw.industry,
-    imageUrl: raw.image[0],
+    imageUrl: raw.image,
     desc: raw.content_detail,
     publishDate: raw.post_day,
     views: raw.view,
@@ -17,6 +17,7 @@ export const mapPro = (raw: IProApi) => {
 
 export const mapProDe = (raw: IProDeApi) => {
   return {
+    customer_id: raw.customer_uuid,
     author: raw.customer_name,
     title: raw.problemname,
     catValue: raw.industry,
@@ -29,5 +30,21 @@ export const mapProDe = (raw: IProDeApi) => {
     image: raw.image,
     imageIP: raw.image_intellect,
     isIP: raw.is_intellect,
+  };
+};
+
+export const mapProFav = (raw: IProFavApi) => {
+  return {
+    id: raw.uuid,
+    post_id: raw.post_uuid,
+    author: raw.customer_name,
+    title: raw.problemname,
+    catValue: raw.industry,
+    imageUrl: raw.image[0],
+    desc: raw.content_detail,
+    publishDate: raw.post_day,
+    views: raw.view,
+    price: raw.price,
+    submission: raw.solution,
   };
 };

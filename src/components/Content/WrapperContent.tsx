@@ -1,21 +1,19 @@
 import { ReactNode } from 'react';
-import { useIdeas } from '~/hooks/ApiQuery/useIdeaQuery';
-import { useProblem } from '~/hooks/ApiQuery/useProblemQuery';
 import Button from '~/components/Button';
 import LoadingAni from '../Animation/LoadingAni';
 
 interface IWrapperContent {
   children: ReactNode;
-  queryResultObject:
-    | ReturnType<typeof useIdeas>
-    | ReturnType<typeof useProblem>;
+  isLoading: boolean;
+  queryResultObject: any;
 }
 
 export default function WrapperContent({
   children,
   queryResultObject,
+  isLoading,
 }: IWrapperContent) {
-  const { isLoading, refetch, error } = queryResultObject;
+  const { refetch, error } = queryResultObject;
 
   return (
     <div className="relative h-[95vh] w-full overflow-hidden overflow-y-auto py-2">

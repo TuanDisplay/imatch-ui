@@ -16,7 +16,7 @@ export default function DelMyProduct({ id, type }: IDelMyProduct) {
 
   return (
     <div
-      className={clsx('group absolute top-0 right-0 mt-4 mr-4', {
+      className={clsx('group absolute top-0 right-0 mt-4 mr-4 cursor-pointer', {
         'opacity-40': isPending,
       })}
       onClick={handleDel}

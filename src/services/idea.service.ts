@@ -1,5 +1,6 @@
 import { TPostFormSchema } from '~/common/schema';
 import { ideaRequest } from '~/lib/axios';
+import { mapIdea, mapIdeaFav } from '~/utils/map/idea';
 
 export const postIdeas = async (data: TPostFormSchema) => {
   const res = await ideaRequest.post('/ideas', {
@@ -31,12 +32,40 @@ export const ideaDetail = async (id: string) => {
   return res.data;
 };
 
-export const myIdeas = async () => {
-  const res = await ideaRequest.get('/ideas/my-list');
-  return res.data;
+// my idea
+
+export const myIdeas = async ({ pageParam }: { pageParam: number }) => {
+  const res = await ideaRequest.get('/ideas/my-list', {
+    params: { page: pageParam },
+  });
+  return res.data.items.map(mapIdea);
 };
 
 export const deleteMyIdeas = async (id: string) => {
   const res = await ideaRequest.delete(`/ideas/${id}/delete-myidea`);
   return res.data;
+};
+
+// fav idea
+
+export const favIdeas = async ({ pageParam }: { pageParam: number }) => {
+  const res = await ideaRequest.get('/ideas/list-favorite', {
+    params: { page: pageParam },
+  });
+  return res.data.items.map(mapIdeaFav);
+};
+
+export const addFavIdeas = async (id: string) => {
+  await ideaRequest.post('/ideas/add-favorite', {
+    post_uuid: id,
+  });
+};
+
+export const favIdIdeas = async () => {
+  const res = await ideaRequest.get('/ideas/list');
+  return res.data.data;
+};
+
+export const deleteFavIdeas = async (id: string) => {
+  await ideaRequest.delete(`/favorite/${id}/delete`);
 };

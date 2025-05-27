@@ -14,6 +14,9 @@ import { ChevronCircleIcon } from '~/components/Icons/';
 import { useIdeas } from '~/hooks/ApiQuery/useIdeaQuery';
 import { useProblem } from '~/hooks/ApiQuery/useProblemQuery';
 import LoadingScreen from '~/layouts/components/LoadingScreen';
+import { mapIdea } from '~/utils/map/idea';
+import { useMemo } from 'react';
+import { mapPro } from '~/utils/map/problem';
 
 export default function Home() {
   const { data: ideaList, isLoading: ideaLoading } = useIdeas({
@@ -22,6 +25,14 @@ export default function Home() {
   const { data: problemList, isLoading: problemLoading } = useProblem({
     top_view_only: true,
   });
+
+  const ideaData = useMemo(() => {
+    return ideaList?.items ? ideaList?.items.map(mapIdea) : [];
+  }, [ideaList?.items]);
+
+  const proData = useMemo(() => {
+    return problemList?.items ? problemList?.items.map(mapPro) : [];
+  }, [problemList?.items]);
 
   return (
     <div className="wrapper">
@@ -147,7 +158,7 @@ export default function Home() {
               <button className="swiper-button-next-custom absolute top-1/2 right-1 z-10 -translate-y-1/2 text-black">
                 <ChevronCircleIcon type="right" />
               </button>
-              {ideaList?.map((item) => {
+              {ideaData?.map((item) => {
                 return (
                   <SwiperSlide>
                     <CardItem
@@ -203,7 +214,7 @@ export default function Home() {
               <button className="swiper-button-next-custom absolute top-1/2 right-1 z-10 -translate-y-1/2 text-black">
                 <ChevronCircleIcon type="right" />
               </button>
-              {problemList?.map((item) => {
+              {proData?.map((item) => {
                 return (
                   <SwiperSlide>
                     <CardItem

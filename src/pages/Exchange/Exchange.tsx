@@ -1,33 +1,37 @@
 import { useMemo, useState } from 'react';
 
-import { usePagination } from '~/hooks/usePagination';
 import { MajorCat } from '~/common/data';
 import { IdeaItem } from './ExchangeItems';
 import { WrapperContent } from '~/components/Content';
-import { IIdeaDe } from '~/common/types/idea';
 import PaginationBar from '~/components/PaginationBar';
 import CatBar from '~/components/CatBar';
 import FilterBar from '~/layouts/components/Filter';
 import { useIdeas } from '~/hooks/ApiQuery/useIdeaQuery';
+import { mapIdea } from '~/utils/map/idea';
+import { useDebounce } from '~/hooks/useDebounce';
 
 export default function Exchange() {
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [dataFilter, setDataFilter] = useState<IIdeaDe[]>([]);
+  const [catValue, setCatValue] = useState<string>('');
+  const [searchValue, setSearchValue] = useState('');
+  const [priceRange, setPriceRange] = useState('');
 
-  const itemsPerPage = 3;
-  const currentItems = usePagination(dataFilter, currentPage, itemsPerPage);
+  const debouncedSearch = useDebounce(searchValue, 500);
 
-  const { data } = useIdeas();
+  const { data: allData, isLoading } = useIdeas({
+    page: currentPage,
+    industry: catValue,
+    ideasname: debouncedSearch,
+    price_tier: priceRange,
+  });
+
   const ideasQuery = useIdeas();
 
+  const data = useMemo(() => {
+    return allData?.items ? allData?.items.map(mapIdea) : [];
+  }, [allData?.items]);
+
   const dataReal = useMemo(() => (Array.isArray(data) ? data : []), [data]);
-
-  //   const { data: allData } = useIdeas();
-  // const ideasQuery = useIdeas();
-
-  // const data = useMemo(() => {
-  //   return allData?.items.map(mapIdea);
-  // }, [allData?.items]);
 
   return (
     <>
@@ -50,20 +54,29 @@ export default function Exchange() {
       </div>
       <div className="container mx-auto py-5">
         <div className="flex gap-6">
-          <CatBar CatItems={MajorCat} data={dataReal} setData={setDataFilter} />
+          <CatBar
+            CatItems={MajorCat}
+            catValue={catValue}
+            setCatValue={setCatValue}
+          />
           <div className="flex flex-1 flex-col px-4">
             <div className="px-7">
               <FilterBar
-                dataReal={dataReal}
-                setDataFilter={setDataFilter}
                 placeholder="Tìm kiểm ý tưởng..."
+                searchValue={searchValue}
+                setSearchValue={setSearchValue}
+                priceRange={priceRange}
+                setPriceRange={setPriceRange}
               />
             </div>
-            <WrapperContent queryResultObject={ideasQuery}>
-              {dataFilter.length === 0 ? (
+            <WrapperContent
+              queryResultObject={ideasQuery}
+              isLoading={isLoading}
+            >
+              {dataReal.length === 0 ? (
                 <div className="text-center">Không có dữ liệu</div>
               ) : (
-                currentItems.map((item, index) => {
+                dataReal.map((item, index) => {
                   return (
                     <IdeaItem
                       key={index}
@@ -80,12 +93,12 @@ export default function Exchange() {
                 })
               )}
             </WrapperContent>
-            {dataFilter.length > 0 && (
+            {dataReal.length > 0 && (
               <PaginationBar
                 currentPage={currentPage}
                 setCurrentPage={setCurrentPage}
-                totalItems={dataFilter.length}
-                itemsPerPage={itemsPerPage}
+                totalItems={allData?.total ? allData?.total : 0}
+                itemsPerPage={allData?.limit ? allData?.limit : 0}
               />
             )}
           </div>

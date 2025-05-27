@@ -11,6 +11,7 @@ export type TRegisterSchema = z.infer<typeof registerSchema>;
 export type TPostFormSchema = z.infer<typeof postFormSchema>;
 export type TBookingSchema = z.infer<typeof bookingFormSchema>;
 export type TMessageSchema = z.infer<typeof messageFormSchema>;
+export type TSolutionSchema = z.infer<typeof solutionFormSchema>;
 export type TProfileSchema = z.infer<typeof profileSchema>;
 
 export const loginSchema = z.object({
@@ -117,6 +118,11 @@ export const bookingFormSchema = z.object({
 });
 
 export const messageFormSchema = z.object({
+  title: z.string().trim().nonempty('Không được để trống'),
+  content: z.string().trim().nonempty('Không được để trống'),
+});
+
+export const solutionFormSchema = z.object({
   title: z.string().trim().nonempty('Không được để trống'),
   content: z.string().trim().nonempty('Không được để trống'),
 });

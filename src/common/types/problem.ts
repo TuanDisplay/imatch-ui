@@ -7,9 +7,11 @@ export interface IProCard {
   title: string;
   price: number;
   submission?: number;
+  innerRef?: any;
 }
 
 export interface IProDetail extends IProCard {
+  customer_id: string;
   author: string;
   benefitValue: string;
   image: string[];
@@ -19,6 +21,7 @@ export interface IProDetail extends IProCard {
 
 export interface IProApi {
   uuid: string;
+  customer_uuid: string;
   customer_name: string;
   problemname: string;
   industry: string;
@@ -35,4 +38,20 @@ export interface IProDeApi extends IProApi {
   image_intellect: string;
   value_benefits: string;
   is_intellect: number;
+}
+
+export interface IProProPageApi {
+  limit: number;
+  page: number;
+  pages: number;
+  total: number;
+  items: IProApi[];
+}
+
+// Interface Favorite
+export interface IProFavCard extends IProCard {
+  post_id: string;
+}
+export interface IProFavApi extends IProApi {
+  post_uuid: string;
 }

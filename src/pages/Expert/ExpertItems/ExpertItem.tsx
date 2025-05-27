@@ -1,41 +1,21 @@
-import {
-  Eye,
-  ArrowRight,
-  Settings,
-  Star,
-  HeartHandshake,
-  Heart,
-} from 'lucide-react';
-import { useState } from 'react';
+import { Eye, ArrowRight, Settings, Star, HeartHandshake } from 'lucide-react';
+
 import { Link } from 'react-router-dom';
-import {  IExpCard } from '~/common/types/expert';
+import { IExpCard } from '~/common/types/expert';
 import { convertCategoryName } from '~/utils/files';
 
 export default function ExpertItem({
   id,
   imageUrl,
-  catValue,
+  mainMajor,
   desc,
   author,
   views,
   consultCount,
   rate,
 }: IExpCard) {
-  const [isFavorate, setFavorate] = useState<boolean>(false);
-  
-
   return (
     <div className="hover:shadow-primary relative mx-auto flex max-w-4xl cursor-pointer gap-6 rounded-2xl bg-white p-6 shadow-md transition-shadow duration-300">
-      <div
-        className="group absolute top-0 right-0 mt-4 mr-4"
-        onClick={() => setFavorate(!isFavorate)}
-      >
-        {isFavorate ? (
-          <Heart size={18} fill="#ff6e00" stroke="#ff6e00" />
-        ) : (
-          <Heart size={18} className="hover:text-primary" />
-        )}
-      </div>
       <img
         src={imageUrl}
         alt="expert-item"
@@ -70,7 +50,7 @@ export default function ExpertItem({
             </div>
             <div className="flex items-center gap-1">
               <Settings size={16} />
-              <span>{convertCategoryName(catValue)}</span>
+              <span>{convertCategoryName(mainMajor)}</span>
             </div>
           </div>
 

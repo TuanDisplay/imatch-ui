@@ -3,17 +3,17 @@ import { AxiosError } from 'axios';
 import { Controller, useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import ReactQuill from 'react-quill-new';
-import { messageFormSchema, TMessageSchema } from '~/common/schema';
+import { solutionFormSchema, TSolutionSchema } from '~/common/schema';
 import Button from '~/components/Button';
 import { Modal } from '~/components/Popup';
-import * as messageService from '~/services/message.service';
+import * as problemService from '~/services/problem.service';
 
-interface IMessageModal {
+interface ISolutionModal {
   id: string;
-  receiver: string;
+  proName: string;
 }
 
-export default function MessageModal({ receiver, id }: IMessageModal) {
+export default function SolutionModal({ proName, id }: ISolutionModal) {
   const {
     register,
     handleSubmit,
@@ -21,8 +21,8 @@ export default function MessageModal({ receiver, id }: IMessageModal) {
     reset,
     control,
     formState: { errors },
-  } = useForm<TMessageSchema>({
-    resolver: zodResolver(messageFormSchema),
+  } = useForm<TSolutionSchema>({
+    resolver: zodResolver(solutionFormSchema),
     mode: 'onChange',
   });
 
@@ -31,9 +31,9 @@ export default function MessageModal({ receiver, id }: IMessageModal) {
 
   const isMessageDisable = title && content && !errors.title && !errors.content;
 
-  const onSubmit = async (data: TMessageSchema) => {
+  const onSubmit = async (data: TSolutionSchema) => {
     try {
-      await messageService.sendMessage(id, data);
+      await problemService.postSolution(id, data);
       reset();
       toast.success('Gửi tin nhắn thành công');
     } catch (err) {
@@ -49,8 +49,7 @@ export default function MessageModal({ receiver, id }: IMessageModal) {
         className="relative px-6 pt-6 pb-2"
       >
         <h3 className="mb-2 text-base font-semibold text-gray-700">
-          Tới:{' '}
-          <span className="font-bold text-black">{receiver || 'Vô danh'}</span>
+          Vấn đề: <span className="font-bold text-black">{proName}</span>
         </h3>
 
         <input
