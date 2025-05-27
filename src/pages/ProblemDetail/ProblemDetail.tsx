@@ -1,4 +1,4 @@
-import { useLocation, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { CalendarDays, User, Settings, Lightbulb } from 'lucide-react';
 
 import {
@@ -20,7 +20,6 @@ function ProDeContent({ id }: { id: string }) {
   const { data, isLoading } = useProblemDetail(id);
   const { isMessageOpen, setIsMessageModal } = useMessageModal();
   const { isSolutionOpen, setIsSolutionModal } = useSolutionModal();
-  const location = useLocation();
 
   const glancing = [
     { icon: <Lightbulb />, data: data?.views, name: 'Đề xuất' },
@@ -94,7 +93,7 @@ function ProDeContent({ id }: { id: string }) {
                           <Mail />
                         </div>
 
-                        <CopyLink link={location.pathname} />
+                        <CopyLink />
                       </div>
                       <div className="justify-end">
                         <div className="border-b-primary border-b-2 font-semibold">

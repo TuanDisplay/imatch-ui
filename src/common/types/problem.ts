@@ -25,14 +25,25 @@ export interface IProApi {
   customer_name: string;
   problemname: string;
   industry: string;
-  image: string[];
+  image: string;
   content_detail: string;
   price: number;
   post_day: string;
   view: number;
   solution: number;
 }
-export interface IProDeApi extends IProApi {
+export interface IProDeApi {
+  uuid: string;
+  customer_uuid: string;
+  customer_name: string;
+  problemname: string;
+  industry: string;
+  image: string[];
+  content_detail: string;
+  price: number;
+  post_day: string;
+  view: number;
+  solution: number;
   customer_email: string;
   is_procedure: string;
   image_intellect: string;

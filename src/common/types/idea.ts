@@ -24,17 +24,26 @@ export interface IIdeaApi {
   customer_name: string;
   ideasname: string;
   industry: string;
-  image: string[];
+  image: string;
   content_detail: string;
   price: number;
   post_day: string;
   view: number;
 }
 
-export interface IIdeaDeApi extends IIdeaApi {
+export interface IIdeaDeApi {
+  uuid: string;
+  customer_name: string;
+  ideasname: string;
+  industry: string;
+  content_detail: string;
+  price: number;
+  post_day: string;
+  view: number;
   customer_email: string;
   customeruuid: string;
   is_procedure: string;
+  image: string[];
   image_intellect: string;
   value_benefits: string;
   is_intellect: number;
