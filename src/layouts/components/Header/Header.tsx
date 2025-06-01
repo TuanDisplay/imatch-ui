@@ -49,6 +49,8 @@ export default function Header() {
   const location = useLocation();
   const hasPassedBanner = useHasScrolledBeyond(300);
 
+  
+
   const { data, isLoading } = useUProfile();
 
   const logoutHandle = async () => {

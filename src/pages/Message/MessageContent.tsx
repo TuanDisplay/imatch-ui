@@ -22,20 +22,20 @@ export default function MessageContent({ uuid_reveicer }: IMessageContent) {
                 <div className="mb-2 flex items-center gap-3">
                   <img
                     src={
-                      item.image == '' || !item.image
+                      item.receiver_image == '' || !item.receiver_image
                         ? '/no-user.png'
-                        : item.image
+                        : item.receiver_image
                     }
                     className="h-10 w-10 rounded-full object-cover"
                   />
                   <div>
                     <div className="text-sm font-semibold">
-                      {item.sender_uuid == ''
+                      {item.receiver_name == ''
                         ? 'Không xác định'
-                        : item.sender_uuid}
+                        : item.receiver_name}
                     </div>
                     <div className="text-xs text-gray-500">
-                      {item.uuid == '' ? 'Không xác định' : item.uuid}
+                      {item.title == '' ? 'Không xác định' : item.title}
                     </div>
                   </div>
                   <div className="ml-auto text-xs text-gray-400">

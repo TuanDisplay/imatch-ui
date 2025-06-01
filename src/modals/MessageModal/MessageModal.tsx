@@ -61,7 +61,7 @@ export default function MessageModal({
         className="relative px-6 pt-6 pb-2"
       >
         <h3 className="mb-2 text-base font-semibold text-gray-700">
-          Tới:{' '}
+          Tới:
           <span className="font-bold text-black">
             {receiver_name || 'Vô danh'}
           </span>

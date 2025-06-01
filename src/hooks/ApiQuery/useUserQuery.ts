@@ -4,6 +4,8 @@ import * as userService from '~/services/user.service';
 import { mapUProfile } from '~/utils/map/user';
 
 export const useUProfile = () => {
+  const token = localStorage.getItem('accessToken');
+
   return useQuery({
     queryKey: ['user'],
     queryFn: async (): Promise<TProfileSchema> => {
@@ -12,5 +14,6 @@ export const useUProfile = () => {
     },
     staleTime: 1000 * 60 * 5,
     retry: 2,
+    enabled: !!token,
   });
 };

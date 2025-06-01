@@ -22,6 +22,7 @@ function ExpertDeContent({ id }: { id: string }) {
       {isMessageOpen && (
         <MessageModal
           id={data?.id ? data?.id : ''}
+          // sender_name={}
           receiver_name={data?.author ? 'ThS. ' + data?.author : ''}
           receiver_avatar={data?.imageUrl ? data?.imageUrl : ''}
         />
