@@ -1,22 +1,25 @@
 import { ReactNode } from 'react';
 import Button from '~/components/Button';
 import LoadingAni from '../Animation/LoadingAni';
+import clsx from 'clsx';
 
 interface IWrapperContent {
   children: ReactNode;
-  isLoading: boolean;
   queryResultObject: any;
+  className?: string;
+  isLoading: boolean;
 }
 
 export default function WrapperContent({
   children,
   queryResultObject,
   isLoading,
+  className
 }: IWrapperContent) {
   const { refetch, error } = queryResultObject;
 
   return (
-    <div className="relative h-[95vh] w-full overflow-hidden overflow-y-auto py-2">
+    <div className={clsx("relative h-[95vh] w-full overflow-hidden overflow-y-auto py-2", className)}>
       {isLoading ? (
         <div className="absolute top-1/2 w-full translate-y-[-50%] text-center">
           <LoadingAni>

@@ -40,7 +40,8 @@ function IdeaDetailContent({ id }: { id: string }) {
           {isMessageOpen && (
             <MessageModal
               id={data?.customer_id ? data?.customer_id : ''}
-              receiver={data?.author ? data?.author : ''}
+              receiver_name={data?.author ? data?.author : ''}
+              receiver_avatar={data?.imageUrl ? data?.imageUrl : ''}
             />
           )}
           <div className="container mx-auto">

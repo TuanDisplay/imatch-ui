@@ -29,7 +29,7 @@ const privateRoutes = [
   { path: config.routes.exchangeDetail, component: ExchangeDetail },
   { path: config.routes.problemDetail, component: ProblemDetail },
   { path: config.routes.expertDetail, component: ExpertDetail },
-  {path: config.routes.myMessage, component: Message}
+  { path: config.routes.myMessage, component: Message },
 ];
 
 export { publicRoutes, privateRoutes };

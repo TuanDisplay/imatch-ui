@@ -25,6 +25,18 @@ export const convertIsoDate = (isoDate: string) => {
   return formatted;
 };
 
+export const convertIsoDateTime = (isoDateTime: string) => {
+  const date = new Date(isoDateTime);
+  const formatted = date.toLocaleString('vi-VN', {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+  });
+  return formatted;
+};
+
 export const convertCurrencyVN = (price?: number) => {
   const formatted = price?.toLocaleString('vi-VN', {
     style: 'currency',

@@ -17,9 +17,15 @@ import LoadingScreen from '~/layouts/components/LoadingScreen';
 import { mapIdea } from '~/utils/map/idea';
 import { useMemo } from 'react';
 import { mapPro } from '~/utils/map/problem';
+import clsx from 'clsx';
 
 export default function Home() {
-  const { data: ideaList, isLoading: ideaLoading } = useIdeas({
+  const {
+    data: ideaList,
+    isLoading: ideaLoading,
+    error,
+    refetch,
+  } = useIdeas({
     top_view_only: true,
   });
   const { data: problemList, isLoading: problemLoading } = useProblem({
@@ -33,6 +39,28 @@ export default function Home() {
   const proData = useMemo(() => {
     return problemList?.items ? problemList?.items.map(mapPro) : [];
   }, [problemList?.items]);
+
+  const ideaDataLength = useMemo(() => {
+    if (ideaData.length < 1) return undefined;
+    if (ideaData.length > 2) {
+      return 3;
+    } else if (ideaData.length === 1) {
+      return 1;
+    } else if (ideaData.length === 2) {
+      return 2;
+    }
+  }, [ideaData]);
+
+  const proDataLength = useMemo(() => {
+    if (proData.length < 1) return undefined;
+    if (proData.length > 2) {
+      return 3;
+    } else if (proData.length === 1) {
+      return 1;
+    } else if (proData.length === 2) {
+      return 2;
+    }
+  }, [proData]);
 
   return (
     <div className="wrapper">
@@ -136,10 +164,22 @@ export default function Home() {
         </div>
         {ideaLoading ? (
           <LoadingScreen className="!h-[300px]" />
+        ) : error ? (
+          <>
+            <div>Có lỗi xảy ra: {(error as Error).message}</div>
+            <Button className="px-3 py-2" primary onClick={refetch}>
+              Tải lại
+            </Button>
+          </>
         ) : (
-          <div className="flex justify-between px-[70px]">
+          <div
+            className={clsx('flex justify-between px-[70px]', {
+              'px-[450px]': ideaData.length === 1,
+              'px-[250px]': ideaData.length === 2,
+            })}
+          >
             <Swiper
-              slidesPerView={3}
+              slidesPerView={ideaDataLength}
               spaceBetween={40}
               loop={true}
               pagination={{
@@ -193,9 +233,14 @@ export default function Home() {
         {problemLoading ? (
           <LoadingScreen className="!h-[300px]" />
         ) : (
-          <div className="flex justify-between px-[70px]">
+          <div
+            className={clsx('flex justify-between px-[70px]', {
+              'px-[450px]': proData.length === 1,
+              'px-[250px]': proData.length === 2,
+            })}
+          >
             <Swiper
-              slidesPerView={3}
+              slidesPerView={proDataLength}
               spaceBetween={40}
               loop={true}
               pagination={{

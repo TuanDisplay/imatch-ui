@@ -10,17 +10,24 @@ import * as messageService from '~/services/message.service';
 
 interface IMessageModal {
   id: string;
-  receiver: string;
+  receiver_avatar: string;
+  receiver_name: string;
 }
 
-export default function MessageModal({ receiver, id }: IMessageModal) {
+export default function MessageModal({
+  id,
+  receiver_name,
+  receiver_avatar,
+}: IMessageModal) {
+  // const [isSending, setIsSending] = useState<boolean>(false)
+
   const {
     register,
     handleSubmit,
     watch,
     reset,
     control,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<TMessageSchema>({
     resolver: zodResolver(messageFormSchema),
     mode: 'onChange',
@@ -33,7 +40,12 @@ export default function MessageModal({ receiver, id }: IMessageModal) {
 
   const onSubmit = async (data: TMessageSchema) => {
     try {
-      await messageService.sendMessage(id, data);
+      await messageService.sendMessage(
+        id,
+        receiver_name,
+        receiver_avatar,
+        data,
+      );
       reset();
       toast.success('Gửi tin nhắn thành công');
     } catch (err) {
@@ -50,7 +62,9 @@ export default function MessageModal({ receiver, id }: IMessageModal) {
       >
         <h3 className="mb-2 text-base font-semibold text-gray-700">
           Tới:{' '}
-          <span className="font-bold text-black">{receiver || 'Vô danh'}</span>
+          <span className="font-bold text-black">
+            {receiver_name || 'Vô danh'}
+          </span>
         </h3>
 
         <input
@@ -77,9 +91,9 @@ export default function MessageModal({ receiver, id }: IMessageModal) {
           <Button
             type="submit"
             className="rounded-lg bg-orange-500 px-6 py-2 text-sm font-semibold text-white transition hover:bg-orange-600"
-            disable={!isMessageDisable}
+            disable={isSubmitting || !isMessageDisable}
           >
-            Gửi
+            {isSubmitting ? 'Đang gửi...' : 'Gửi'}
           </Button>
         </div>
 

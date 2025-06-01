@@ -1,9 +1,21 @@
 import { TMessageSchema } from '~/common/schema';
 import messageRequest from '~/lib/axios/messageRequest';
 
-export const sendMessage = async (id: string, data: TMessageSchema) => {
+export const messages = async () => {
+  const res = await messageRequest.get('/messages');
+  return res.data;
+};
+
+export const sendMessage = async (
+  id: string,
+  receiver_name: string,
+  receiver_avatar: string,
+  data: TMessageSchema,
+) => {
   await messageRequest.post('/messages', {
     receiver_uuid: id,
+    receiver_name: receiver_name,
+    receiver_image: receiver_avatar,
     title: data.title,
     content: data.content,
   });
