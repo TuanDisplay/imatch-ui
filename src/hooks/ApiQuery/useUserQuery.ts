@@ -7,8 +7,8 @@ export const useUProfile = () => {
   return useQuery({
     queryKey: ['user'],
     queryFn: async (): Promise<TProfileSchema> => {
-      const data = userService.profile();
-      return mapUProfile(await data);
+      const data = await userService.profile();
+      return mapUProfile(data);
     },
     staleTime: 1000 * 60 * 5,
     retry: 2,

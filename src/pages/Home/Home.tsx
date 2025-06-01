@@ -181,7 +181,7 @@ export default function Home() {
             <Swiper
               slidesPerView={ideaDataLength}
               spaceBetween={40}
-              loop={true}
+              loop={ideaData.length > 3}
               pagination={{
                 clickable: true,
               }}
@@ -242,7 +242,7 @@ export default function Home() {
             <Swiper
               slidesPerView={proDataLength}
               spaceBetween={40}
-              loop={true}
+              loop={proData.length >= 3}
               pagination={{
                 clickable: true,
               }}

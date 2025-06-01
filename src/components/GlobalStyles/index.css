@@ -42,43 +42,38 @@ input[type='number']::-webkit-outer-spin-button {
 /* Fonts emmbeded */
 @font-face {
   font-family: VNPro;
-  src: url('fonts/BeVietnamPro-Thin.ttf');
+  src: url('fonts/BeVietnamPro-Thin.woff2');
   font-weight: 100;
 }
 
-@font-face {
-  font-family: VNPro;
-  src: url('fonts/BeVietnamPro-ExtraLight.ttf');
-  font-weight: 200;
-}
 
 @font-face {
   font-family: VNPro;
-  src: url('fonts/BeVietnamPro-Light.ttf');
+  src: url('fonts/BeVietnamPro-Light.woff2');
   font-weight: 300;
 }
 
 @font-face {
   font-family: VNPro;
-  src: url('fonts/BeVietnamPro-Regular.ttf');
+  src: url('fonts/BeVietnamPro-Regular.woff2');
   font-weight: 400;
 }
 
 @font-face {
   font-family: VNPro;
-  src: url('fonts/BeVietnamPro-Bold.ttf');
+  src: url('fonts/BeVietnamPro-Bold.woff2');
   font-weight: 700;
 }
 
 @font-face {
   font-family: Montserrat;
-  src: url('fonts/Montserrat-Regular.ttf');
+  src: url('fonts/Montserrat-Regular.woff2');
   font-weight: 400;
 }
 
 @font-face {
   font-family: Montserrat;
-  src: url('fonts/Montserrat-Bold.ttf');
+  src: url('fonts/Montserrat-Bold.woff2');
   font-weight: 700;
 }
 
