@@ -15,11 +15,13 @@ import { useMessageModal, useSolutionModal } from '~/hooks/useModalStore';
 import { MessageModal } from '~/modals';
 import CopyLink from '~/components/CopyLink';
 import SolutionModal from '~/modals/SolutionModal';
+import Solution from './Solution';
 
 function ProDeContent({ id }: { id: string }) {
-  const { data, isLoading } = useProblemDetail(id);
   const { isMessageOpen, setIsMessageModal } = useMessageModal();
   const { isSolutionOpen, setIsSolutionModal } = useSolutionModal();
+
+  const { data, isLoading } = useProblemDetail(id);
 
   const glancing = [
     { icon: <Lightbulb />, data: data?.views, name: 'Đề xuất' },
@@ -170,6 +172,7 @@ function ProDeContent({ id }: { id: string }) {
               </div>
             </div>
           </div>
+          <Solution problem_id={id} />
         </div>
       )}
     </>

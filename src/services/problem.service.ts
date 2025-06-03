@@ -77,7 +77,9 @@ export const postSolution = async (id: string, data: TMessageSchema) => {
   });
 };
 
-export const solutions = async (id: string) => {
-  const res = await problemRequest.post(`/solution/${id}`);
+export const solutions = async (problem_id: string, params: any) => {
+  const res = await problemRequest.get(`/problem/solution/${problem_id}`, {
+    params: { params },
+  });
   return res.data;
 };

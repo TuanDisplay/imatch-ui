@@ -18,14 +18,12 @@ export default function Exchange() {
 
   const debouncedSearch = useDebounce(searchValue, 500);
 
-  const { data: allData, isLoading } = useIdeas({
+  const { data: allData, isLoading, error, refetch } = useIdeas({
     page: currentPage,
     industry: catValue,
     ideasname: debouncedSearch,
     price_tier: priceRange,
   });
-
-  const ideasQuery = useIdeas();
 
   const data = useMemo(() => {
     return allData?.items ? allData?.items.map(mapIdea) : [];
@@ -70,7 +68,8 @@ export default function Exchange() {
               />
             </div>
             <WrapperContent
-              queryResultObject={ideasQuery}
+              error={error}
+              refetch={refetch}
               isLoading={isLoading}
             >
               {dataReal.length === 0 ? (

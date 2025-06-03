@@ -9,10 +9,15 @@ import { ProblemItem } from '~/pages/Problem/ProblemItems';
 
 export default function ProFav() {
   const { ref, inView } = useInView();
-  const { data, isLoading, hasNextPage, isFetchingNextPage, fetchNextPage } =
-    useFavProScroll();
-
-  const favProQuery = useFavProScroll();
+  const {
+    data,
+    isLoading,
+    error,
+    refetch,
+    hasNextPage,
+    isFetchingNextPage,
+    fetchNextPage,
+  } = useFavProScroll();
 
   useEffect(() => {
     if (inView && hasNextPage && !isFetchingNextPage) {
@@ -21,7 +26,7 @@ export default function ProFav() {
   }, [inView, hasNextPage, isFetchingNextPage, fetchNextPage]);
 
   return (
-    <WrapperContent queryResultObject={favProQuery} isLoading={isLoading}>
+    <WrapperContent error={error} refetch={refetch} isLoading={isLoading}>
       {data?.pages.every((page) => Array.isArray(page) && page.length === 0) ? (
         <div className="text-center">Không có dữ liệu</div>
       ) : (

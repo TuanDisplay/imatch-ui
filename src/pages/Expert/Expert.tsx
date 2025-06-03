@@ -11,12 +11,10 @@ export default function Expert() {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [catValue, setCatValue] = useState<string>('');
 
-  const { data: allData, isLoading } = useExpert({
+  const { data: allData, isLoading, error, refetch } = useExpert({
     page: currentPage,
     industry: catValue,
   });
-
-  const expertQuery = useExpert();
 
   const data = useMemo(() => {
     return allData?.items ? allData?.items.map(mapExpert) : [];
@@ -50,7 +48,8 @@ export default function Expert() {
           />
           <div className="flex flex-1 flex-col px-4">
             <WrapperContent
-              queryResultObject={expertQuery}
+              error={error}
+              refetch={refetch}
               isLoading={isLoading}
             >
               {data.length === 0 ? (

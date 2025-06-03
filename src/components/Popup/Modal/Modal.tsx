@@ -8,6 +8,8 @@ import {
   useAuthModal,
   useBookingModal,
   useMessageModal,
+  usePaymentModal,
+  usePremiumModal,
   useSolutionModal,
 } from '~/hooks/useModalStore';
 
@@ -20,6 +22,8 @@ export default function Modal({ children, className = '' }: IModal) {
   const { setIsBookingModal } = useBookingModal();
   const { setIsMessageModal } = useMessageModal();
   const { setIsSolutionModal } = useSolutionModal();
+  const { setIsPremiumModal } = usePremiumModal();
+  const { setIsPaymentModal } = usePaymentModal();
 
   const modalRef = useRef<HTMLDivElement>(null);
 
@@ -28,11 +32,15 @@ export default function Modal({ children, className = '' }: IModal) {
     setIsBookingModal(false);
     setIsMessageModal(false);
     setIsSolutionModal(false);
+    setIsPremiumModal(false);
+    setIsPaymentModal(false);
   }, [
     closeAuthModal,
     setIsBookingModal,
     setIsMessageModal,
     setIsSolutionModal,
+    setIsPremiumModal,
+    setIsPaymentModal,
   ]);
 
   useEffect(() => {

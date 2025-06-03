@@ -16,6 +16,19 @@ type TSolutionModal = {
   setIsSolutionModal: (value: boolean) => void;
 };
 
+type TPremiumModal = {
+  isPremiumOpen: boolean;
+  isGoPremium: boolean;
+
+  setIsPremiumModal: (value: boolean) => void;
+  setGoPremium: (value: boolean) => void;
+};
+
+type TPaymentModal = {
+  isPaymentOpen: boolean;
+  setIsPaymentModal: (value: boolean) => void;
+};
+
 type TAuthModal = {
   isAuthOpen: boolean;
   isAuthenticated: boolean;
@@ -51,6 +64,45 @@ export const useSolutionModal = create<TSolutionModal>((set) => ({
   },
 }));
 
+// export const usePremiumModal = create<TPremiumModal>((set) => ({
+//   isPremiumOpen: false,
+//   isGoPremium: false,
+
+//   setIsPremiumModal(value) {
+//     set({ isPremiumOpen: value });
+//   },
+//   setGoPremium(value) {
+//     set({ isGoPremium: value });
+//   },
+// }));
+
+export const usePaymentModal = create<TPaymentModal>((set) => ({
+  isPaymentOpen: false,
+  setIsPaymentModal(value) {
+    set({ isPaymentOpen: value });
+  },
+}));
+
+export const usePremiumModal = create<TPremiumModal>()(
+  persist(
+    (set) => ({
+      isPremiumOpen: false,
+      isGoPremium: false,
+
+      setIsPremiumModal(value) {
+        set({ isPremiumOpen: value });
+      },
+      setGoPremium(value) {
+        set({ isGoPremium: value });
+      },
+    }),
+    {
+      name: 'premium-storage', 
+      partialize: (state) => ({ isGoPremium: state.isGoPremium }),
+    },
+  ),
+);
+
 export const useAuthModal = create<TAuthModal>()(
   persist(
     (set) => ({
@@ -62,8 +114,8 @@ export const useAuthModal = create<TAuthModal>()(
       closeAuthModal: () => set({ isAuthOpen: false }),
     }),
     {
-      name: 'auth-storage', // 👈 key trong localStorage
-      partialize: (state) => ({ isAuthenticated: state.isAuthenticated }), // chỉ lưu cái cần
+      name: 'auth-storage',
+      partialize: (state) => ({ isAuthenticated: state.isAuthenticated }),
     },
   ),
 );

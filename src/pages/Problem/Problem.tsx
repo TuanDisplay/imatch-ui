@@ -18,14 +18,17 @@ export default function Solving() {
 
   const debouncedSearch = useDebounce(searchValue, 500);
 
-  const { data: allData, isLoading } = useProblem({
+  const {
+    data: allData,
+    isLoading,
+    error,
+    refetch,
+  } = useProblem({
     page: currentPage,
     industry: catValue,
     problemname: debouncedSearch,
     price_tier: priceRange,
   });
-
-  const problemQuery = useProblem();
 
   const data = useMemo(() => {
     return allData?.items ? allData?.items.map(mapPro) : [];
@@ -68,7 +71,8 @@ export default function Solving() {
               setPriceRange={setPriceRange}
             />
             <WrapperContent
-              queryResultObject={problemQuery}
+              error={error}
+              refetch={refetch}
               isLoading={isLoading}
             >
               {dataReal.length === 0 ? (

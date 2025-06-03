@@ -5,21 +5,26 @@ import clsx from 'clsx';
 
 interface IWrapperContent {
   children: ReactNode;
-  queryResultObject: any;
   className?: string;
+  error: Error | null;
+  refetch: () => void;
   isLoading: boolean;
 }
 
 export default function WrapperContent({
   children,
-  queryResultObject,
+  className,
+  error,
+  refetch,
   isLoading,
-  className
 }: IWrapperContent) {
-  const { refetch, error } = queryResultObject;
-
   return (
-    <div className={clsx("relative h-[95vh] w-full overflow-hidden overflow-y-auto py-2", className)}>
+    <div
+      className={clsx(
+        'relative h-[95vh] w-full overflow-hidden overflow-y-auto py-2',
+        className,
+      )}
+    >
       {isLoading ? (
         <div className="absolute top-1/2 w-full translate-y-[-50%] text-center">
           <LoadingAni>

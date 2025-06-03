@@ -7,11 +7,15 @@ interface IMessageContent {
 }
 
 export default function MessageContent({ uuid_reveicer }: IMessageContent) {
-  const { data: dataDe, isLoading } = useMessageDe(uuid_reveicer);
-  const messageQuery = useMessageDe(uuid_reveicer);
+  const {
+    data: dataDe,
+    isLoading,
+    error,
+    refetch,
+  } = useMessageDe(uuid_reveicer);
 
   return (
-    <WrapperContent queryResultObject={messageQuery} isLoading={isLoading}>
+    <WrapperContent error={error} refetch={refetch} isLoading={isLoading}>
       {dataDe?.length === 0 ? (
         <div className="text-center">Không có dữ liệu</div>
       ) : (

@@ -51,7 +51,7 @@ export interface IProDeApi {
   is_intellect: number;
 }
 
-export interface IProProPageApi {
+export interface IProPageApi {
   limit: number;
   page: number;
   pages: number;
@@ -65,4 +65,22 @@ export interface IProFavCard extends IProCard {
 }
 export interface IProFavApi extends IProApi {
   post_uuid: string;
+}
+
+// Interface Solution
+
+export interface ISolutionPageApi {
+  limit: number;
+  page: number;
+  pages: number;
+  total: number;
+  items: ISolutionApi[];
+}
+
+export interface ISolutionApi {
+  uuid: string,
+  customer_name: string
+  title_solution: string,
+  content: string,
+  created_at: string,
 }

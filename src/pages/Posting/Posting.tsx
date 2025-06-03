@@ -9,12 +9,12 @@ import {
   UploadImageField,
 } from './FormItem';
 import toast from 'react-hot-toast';
-import { useQueryClient } from '@tanstack/react-query';
 
 import * as ideaService from '~/services/idea.service';
 import * as problemService from '~/services/problem.service';
 import { MajorCat } from '~/common/data';
 import { TPostFormSchema, postFormSchema } from '~/common/schema';
+import { useNavigate } from 'react-router-dom';
 
 const methodO = [
   { value: 'posting-idea', name: 'Mua - Bán ý tưởng' },
@@ -22,9 +22,6 @@ const methodO = [
 ];
 
 export default function Posting() {
-
-  const queryClient = useQueryClient();
-
   const {
     register,
     handleSubmit,
@@ -37,16 +34,17 @@ export default function Posting() {
     mode: 'onChange',
   });
 
+  const navigate = useNavigate();
+
   const onSubmit = async (data: TPostFormSchema) => {
     try {
       if (data.methodSelect === 'posting-idea') {
         await ideaService.postIdeas(data);
-        queryClient.invalidateQueries({ queryKey: ['ideas'] });
-      }else {
-        await problemService.postProblem(data)
-        queryClient.invalidateQueries({ queryKey: ['problem'] });
+      } else {
+        await problemService.postProblem(data);
       }
       reset();
+      navigate('/');
       toast.success('Đăng thành công');
     } catch (err) {
       toast.error('Lỗi đăng');

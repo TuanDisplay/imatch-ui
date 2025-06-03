@@ -1,4 +1,4 @@
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Menu } from '~/components/Popup';
 import toast from 'react-hot-toast';
 import { AxiosError } from 'axios';
@@ -21,10 +21,11 @@ import {
 import clsx from 'clsx';
 
 import Button from '~/components/Button';
-import { useAuthModal } from '~/hooks/useModalStore';
+import { useAuthModal, usePremiumModal } from '~/hooks/useModalStore';
 import { useHasScrolledBeyond } from '~/hooks/useHasScrolledBeyond';
 import * as authService from '~/services/auth.service';
 import { useUProfile } from '~/hooks/ApiQuery/useUserQuery';
+import { useEffect } from 'react';
 
 const links = [
   {
@@ -46,10 +47,11 @@ const links = [
 
 export default function Header() {
   const { openAuthModal, isAuthenticated, setIsAuthenticated } = useAuthModal();
-  const location = useLocation();
-  const hasPassedBanner = useHasScrolledBeyond(300);
+  const { isGoPremium, setIsPremiumModal, setGoPremium } = usePremiumModal();
 
-  
+  const location = useLocation();
+  const navigate = useNavigate();
+  const hasPassedBanner = useHasScrolledBeyond(300);
 
   const { data, isLoading } = useUProfile();
 
@@ -57,13 +59,21 @@ export default function Header() {
     try {
       await authService.logout();
       localStorage.removeItem('accessToken');
+      setGoPremium(false);
       setIsAuthenticated(false);
+      navigate('/');
       toast.success('Đăng xuất thành công! 🎉');
     } catch (err) {
       const error = err as AxiosError<{ message: string; codeStatus: number }>;
       toast.error(error.response?.data.message || 'Có lỗi xảy ra');
     }
   };
+
+  useEffect(() => {
+    if (data && data.start_day) {
+      setGoPremium(true);
+    }
+  }, [data, setGoPremium]);
 
   return (
     <header
@@ -77,10 +87,26 @@ export default function Header() {
         },
       )}
     >
-      <div className="ml-20 flex items-center justify-between px-10 py-2">
-        <Link to="/">
-          <img src="/logo_rm.png" alt="logo" className="h-10" />
-        </Link>
+      <div className="flex items-center justify-between px-10 py-2">
+        <div className="ml-8 flex items-center gap-2">
+          <Link to="/">
+            <img src="/logo_rm.png" alt="logo" className="h-10" />
+          </Link>
+          {isAuthenticated &&
+            (isGoPremium ? (
+              <div className="text-primary h-fit rounded-sm bg-amber-200 px-1 py-0.5 text-[10px] font-bold">
+                Premium👑
+              </div>
+            ) : (
+              <Button
+                className="h-fit rounded-sm px-1 py-0.5 text-[10px]"
+                premium
+                onClick={() => setIsPremiumModal(true)}
+              >
+                Free
+              </Button>
+            ))}
+        </div>
         <nav className="flex h-fit gap-15 font-bold uppercase">
           <Menu links={links}>
             <div className="uppercase"> Sàn ý tưởng</div>

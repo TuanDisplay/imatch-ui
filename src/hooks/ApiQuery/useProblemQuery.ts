@@ -3,7 +3,7 @@ import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 
 import * as problemService from '~/services/problem.service';
-import { IProProPageApi } from '~/common/types/problem';
+import { IProPageApi, ISolutionPageApi } from '~/common/types/problem';
 import { mapProDe } from '~/utils/map/problem';
 
 interface UseProParams {
@@ -19,7 +19,7 @@ interface UseProParams {
 export function useProblem(params: UseProParams = {}) {
   return useQuery({
     queryKey: ['problem', params],
-    queryFn: async (): Promise<IProProPageApi> => {
+    queryFn: async (): Promise<IProPageApi> => {
       const res = await problemService.problem(params);
       return res;
     },
@@ -75,3 +75,15 @@ export function useFavProScroll() {
   });
 }
 
+// Solutions
+export function useSolution(problem_id: string, params: UseProParams = {}) {
+  return useQuery({
+    queryKey: ['solution', params, problem_id],
+    queryFn: async (): Promise<ISolutionPageApi> => {
+      const res = await problemService.solutions(problem_id, params);
+      return res;
+    },
+    staleTime: 1000 * 60 * 5,
+    retry: 2,
+  });
+}

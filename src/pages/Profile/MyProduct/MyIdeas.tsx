@@ -9,9 +9,15 @@ import { IdeaItem } from '~/pages/Exchange/ExchangeItems';
 
 export default function MyIdeas() {
   const { ref, inView } = useInView();
-  const { data, isLoading, isFetchingNextPage, fetchNextPage, hasNextPage } =
-    useMyIdeasScroll();
-  const myIdeaQuery = useMyIdeasScroll();
+  const {
+    data,
+    isLoading,
+    error,
+    refetch,
+    isFetchingNextPage,
+    fetchNextPage,
+    hasNextPage,
+  } = useMyIdeasScroll();
 
   useEffect(() => {
     if (inView && hasNextPage && !isFetchingNextPage) {
@@ -21,7 +27,7 @@ export default function MyIdeas() {
 
   return (
     <div>
-      <WrapperContent queryResultObject={myIdeaQuery} isLoading={isLoading}>
+      <WrapperContent error={error} refetch={refetch} isLoading={isLoading}>
         {data?.pages.every(
           (page) => Array.isArray(page) && page.length === 0,
         ) ? (

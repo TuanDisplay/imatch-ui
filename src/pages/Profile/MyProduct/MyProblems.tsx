@@ -8,9 +8,15 @@ import { ProblemItem } from '~/pages/Problem/ProblemItems';
 
 export default function MyProblems() {
   const { ref, inView } = useInView();
-  const { data, isLoading, isFetchingNextPage, fetchNextPage, hasNextPage } =
-    useMyProScroll();
-  const myProQuery = useMyProScroll();
+  const {
+    data,
+    isLoading,
+    error,
+    refetch,
+    isFetchingNextPage,
+    fetchNextPage,
+    hasNextPage,
+  } = useMyProScroll();
 
   useEffect(() => {
     if (inView && hasNextPage && !isFetchingNextPage) {
@@ -19,7 +25,7 @@ export default function MyProblems() {
   }, [inView, hasNextPage, isFetchingNextPage, fetchNextPage]);
 
   return (
-    <WrapperContent queryResultObject={myProQuery} isLoading={isLoading}>
+    <WrapperContent error={error} refetch={refetch} isLoading={isLoading}>
       {data?.pages.every((page) => Array.isArray(page) && page.length === 0) ? (
         <div className="text-center">Không có dữ liệu</div>
       ) : (

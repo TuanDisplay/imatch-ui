@@ -1,6 +1,6 @@
-import { IChildNode } from '~/common/types';
+import { ReactNode } from 'react';
 
-export default function LoadingAni({ children }: IChildNode) {
+export default function LoadingAni({ children }: {children?: ReactNode}) {
   return (
     <div className="absolute top-1/2 w-full translate-y-[-50%] text-center">
       <div className="flex items-center justify-center">

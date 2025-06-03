@@ -8,10 +8,15 @@ import { IdeaItem } from '~/pages/Exchange/ExchangeItems';
 
 export default function IdeaFav() {
   const { ref, inView } = useInView();
-  const { data, isLoading, hasNextPage, isFetchingNextPage, fetchNextPage } =
-    useFavIdeasScroll();
-
-  const favIdeaQuery = useFavIdeasScroll();
+  const {
+    data,
+    isLoading,
+    error,
+    refetch,
+    hasNextPage,
+    isFetchingNextPage,
+    fetchNextPage,
+  } = useFavIdeasScroll();
 
   useEffect(() => {
     if (inView && hasNextPage && !isFetchingNextPage) {
@@ -20,7 +25,7 @@ export default function IdeaFav() {
   }, [inView, hasNextPage, isFetchingNextPage, fetchNextPage]);
 
   return (
-    <WrapperContent queryResultObject={favIdeaQuery} isLoading={isLoading}>
+    <WrapperContent error={error} refetch={refetch} isLoading={isLoading}>
       {data?.pages.every((page) => Array.isArray(page) && page.length === 0) ? (
         <div className="text-center">Không có dữ liệu</div>
       ) : (

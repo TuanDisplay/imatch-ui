@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { TProfileSchema } from '~/common/schema';
+import { IUser } from '~/common/types/user';
 import * as userService from '~/services/user.service';
 import { mapUProfile } from '~/utils/map/user';
 
@@ -8,7 +8,7 @@ export const useUProfile = () => {
 
   return useQuery({
     queryKey: ['user'],
-    queryFn: async (): Promise<TProfileSchema> => {
+    queryFn: async (): Promise<IUser> => {
       const data = await userService.profile();
       return mapUProfile(data);
     },

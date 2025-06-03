@@ -8,6 +8,9 @@ interface ButtonProps {
   type?: string;
   primary?: boolean;
   outline?: boolean;
+  premium?: boolean;
+  accept?: boolean;
+  reject?: boolean;
   disable?: boolean;
   leftIcon?: ReactNode;
   rightIcon?: ReactNode;
@@ -22,6 +25,9 @@ export default function Button({
   type,
   primary,
   outline,
+  premium,
+  accept,
+  reject,
   disable = false,
   leftIcon,
   rightIcon,
@@ -57,7 +63,10 @@ export default function Button({
         {
           'bg-primary rounded-lg text-white hover:bg-orange-600 hover:shadow-2xl':
             primary,
-          'text-skyBlue-700 underline outline-0': outline,
+          'text-skyBlue-700 underline outline-0 hover:shadow-2xl': outline,
+          'bg-skyBlue-500 text-white hover:bg-blue-500': premium,
+          'bg-green-500 text-white hover:bg-green-400 hover:shadow-2xl': accept,
+          'bg-red-600 text-white hover:bg-red-500 hover:shadow-2xl': reject,
           '!cursor-not-allowed opacity-30': disable,
         },
         className,
