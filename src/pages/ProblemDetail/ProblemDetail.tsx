@@ -16,15 +16,17 @@ import { MessageModal } from '~/modals';
 import CopyLink from '~/components/CopyLink';
 import SolutionModal from '~/modals/SolutionModal';
 import Solution from './Solution';
+import { useUProfile } from '~/hooks/ApiQuery/useUserQuery';
 
 function ProDeContent({ id }: { id: string }) {
   const { isMessageOpen, setIsMessageModal } = useMessageModal();
   const { isSolutionOpen, setIsSolutionModal } = useSolutionModal();
 
   const { data, isLoading } = useProblemDetail(id);
+  const { data: profileData } = useUProfile();
 
   const glancing = [
-    { icon: <Lightbulb />, data: data?.views, name: 'Đề xuất' },
+    { icon: <Lightbulb />, data: data?.submission, name: 'Đề xuất' },
     { icon: <User />, data: data?.author },
     { icon: <CalendarDays />, data: '18/05/2025' },
     { icon: <Settings />, data: convertCategoryName(data?.catValue) },
@@ -40,7 +42,6 @@ function ProDeContent({ id }: { id: string }) {
             <MessageModal
               id={data?.customer_id ? data?.customer_id : ''}
               receiver_name={data?.author ? data?.author : ''}
-              receiver_avatar={data?.imageUrl ? data?.imageUrl : ''}
             />
           )}
 
@@ -172,7 +173,10 @@ function ProDeContent({ id }: { id: string }) {
               </div>
             </div>
           </div>
-          <Solution problem_id={id} />
+
+          {profileData?.id === data?.customer_id && (
+            <Solution problem_id={id} />
+          )}
         </div>
       )}
     </>

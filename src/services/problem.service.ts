@@ -83,3 +83,10 @@ export const solutions = async (problem_id: string, params: any) => {
   });
   return res.data;
 };
+
+export const mySolutions = async ({ pageParam }: { pageParam: number }) => {
+  const res = await problemRequest.get(`/solution`, {
+    params: { page: pageParam },
+  });
+  return res.data.items;
+};

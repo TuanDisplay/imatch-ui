@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from 'axios';
 
 const messageRequest = axios.create({
   baseURL: import.meta.env.VITE_BASE_URL_MESSAGE,
@@ -26,6 +26,5 @@ export const put = async (path: string, data = {}, options = {}) => {
   const response = await messageRequest.put(path, data, options);
   return response.data;
 };
-
 
 export default messageRequest;

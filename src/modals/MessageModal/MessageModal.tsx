@@ -10,17 +10,10 @@ import * as messageService from '~/services/message.service';
 
 interface IMessageModal {
   id: string;
-  receiver_avatar: string;
   receiver_name: string;
 }
 
-export default function MessageModal({
-  id,
-  receiver_name,
-  receiver_avatar,
-}: IMessageModal) {
-  // const [isSending, setIsSending] = useState<boolean>(false)
-
+export default function MessageModal({ id, receiver_name }: IMessageModal) {
   const {
     register,
     handleSubmit,
@@ -40,12 +33,7 @@ export default function MessageModal({
 
   const onSubmit = async (data: TMessageSchema) => {
     try {
-      await messageService.sendMessage(
-        id,
-        receiver_name,
-        receiver_avatar,
-        data,
-      );
+      await messageService.sendMessage(id, data);
       reset();
       toast.success('Gửi tin nhắn thành công');
     } catch (err) {

@@ -19,7 +19,7 @@ export const useMessageDe = (id: string) => {
     queryKey: ['messageDe', id],
     queryFn: async (): Promise<IUMesDeApi[]> => {
       const res = await messageService.oldMessage(id);
-      return res;
+      return res.messages;
     },
   });
 };

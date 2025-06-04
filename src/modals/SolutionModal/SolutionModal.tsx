@@ -1,4 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useQueryClient } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 import { Controller, useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
@@ -14,6 +15,8 @@ interface ISolutionModal {
 }
 
 export default function SolutionModal({ proName, id }: ISolutionModal) {
+  const queryClient = useQueryClient();
+
   const {
     register,
     handleSubmit,
@@ -35,6 +38,7 @@ export default function SolutionModal({ proName, id }: ISolutionModal) {
     try {
       await problemService.postSolution(id, data);
       reset();
+      queryClient.invalidateQueries({ queryKey: ['solutions'] });
       toast.success('Gửi tin nhắn thành công');
     } catch (err) {
       const error = err as AxiosError<{ message: string }>;

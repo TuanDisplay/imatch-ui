@@ -78,12 +78,27 @@ export function useFavProScroll() {
 // Solutions
 export function useSolution(problem_id: string, params: UseProParams = {}) {
   return useQuery({
-    queryKey: ['solution', params, problem_id],
+    queryKey: ['solutions', params, problem_id],
     queryFn: async (): Promise<ISolutionPageApi> => {
       const res = await problemService.solutions(problem_id, params);
       return res;
     },
     staleTime: 1000 * 60 * 5,
     retry: 2,
+  });
+}
+
+export function useMySolutionScroll() {
+  return useInfiniteQuery({
+    queryKey: ['mySolution'],
+    queryFn: problemService.mySolutions,
+    initialPageParam: 1,
+    getNextPageParam: (lastPage, pages) => {
+      if (lastPage !== null) {
+        return lastPage.length ? pages.length + 1 : undefined;
+      } else {
+        return undefined;
+      }
+    },
   });
 }

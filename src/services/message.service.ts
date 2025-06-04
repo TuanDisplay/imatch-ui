@@ -8,14 +8,10 @@ export const messages = async () => {
 
 export const sendMessage = async (
   id: string,
-  receiver_name: string,
-  receiver_avatar: string,
   data: TMessageSchema,
 ) => {
   await messageRequest.post('/messages', {
     receiver_uuid: id,
-    receiver_name: receiver_name,
-    receiver_image: receiver_avatar,
     title: data.title,
     content: data.content,
   });

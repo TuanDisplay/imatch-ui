@@ -78,9 +78,17 @@ export interface ISolutionPageApi {
 }
 
 export interface ISolutionApi {
-  uuid: string,
-  customer_name: string
-  title_solution: string,
-  content: string,
-  created_at: string,
+  uuid: string;
+  customer_name: string;
+  title_solution: string;
+  content: string;
+  created_at: string;
+}
+
+export interface IMySolutionApi extends ISolutionApi {
+  problem_uuid: string;
+  customer_email: string;
+  customer_uuid: string;
+  is_delete: number;
+  innerRef?: any;
 }

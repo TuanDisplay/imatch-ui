@@ -24,6 +24,7 @@ export default function MyProblems() {
     }
   }, [inView, hasNextPage, isFetchingNextPage, fetchNextPage]);
 
+
   return (
     <WrapperContent error={error} refetch={refetch} isLoading={isLoading}>
       {data?.pages.every((page) => Array.isArray(page) && page.length === 0) ? (
