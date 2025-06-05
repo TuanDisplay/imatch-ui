@@ -1,4 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useQueryClient } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 import { Controller, useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
@@ -22,6 +23,8 @@ export default function MessageModal({
 }: IMessageModal) {
   const { setIsMessageModal } = useMessageModal();
 
+  const queryClient = useQueryClient();
+
   const {
     register,
     handleSubmit,
@@ -37,12 +40,14 @@ export default function MessageModal({
   const title = watch('title');
   const content = watch('content');
 
-  const isMessageDisable = title && content && !errors.title && !errors.content;
+  const isMessageDisable =
+    title && content !== '<p><br></p>' && !errors.title && !errors.content;
 
   const onSubmit = async (data: TMessageSchema) => {
     try {
       await messageService.sendMessage(id, user_type, data);
       reset();
+      queryClient.invalidateQueries({ queryKey: ['messageDe'] });
       setIsMessageModal(false);
       toast.success('Gửi tin nhắn thành công');
     } catch (err) {

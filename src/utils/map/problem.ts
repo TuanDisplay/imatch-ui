@@ -30,6 +30,7 @@ export const mapProDe = (raw: IProDeApi) => {
     image: raw.image,
     imageIP: raw.image_intellect,
     isIP: raw.is_intellect,
+    publishDate: raw.post_day,
   };
 };
 

@@ -6,35 +6,36 @@ export const goPremium = async () => {
 };
 
 export const webHookPremium = async (
-  uuid_payment: string,
+  payment_uuid: string,
   status: 'success' | 'failed',
   amount: number,
 ) => {
   const res = await paymentRequest.post('/api/payment/webhookupdate', {
-    uuid: uuid_payment,
+    uuid: payment_uuid,
     status: status,
     amount: amount,
   });
   return res.data;
 };
 
-export const paymentUser = async (uuid_product: string, amount: number) => {
-  const res = await paymentRequest.post('/customer/payment', {
-    uuid: uuid_product,
-    amount: amount,
+export const paymentBuyIdea = async (idea_id: string) => {
+  const res = await paymentRequest.post('/customer/buyideas', {
+    idea_uuid: idea_id,
   });
   return res.data;
 };
 
-export const webHookUser = async (
-  uuid_payment: string,
+export const webHookIdeas = async (
+  payment_uuid: string,
   status: 'success' | 'failed',
+  ideas_uuid: string,
   amount: number,
 ) => {
-  const res = await paymentRequest.post('/api/payment/webhook', {
-    uuid: uuid_payment,
+  const res = await paymentRequest.post('/api/payment/webhookideas', {
+    uuid: payment_uuid,
     status: status,
-    amount: amount,
+    produce_uuid: ideas_uuid,
+    amount: amount
   });
   return res.data;
 };

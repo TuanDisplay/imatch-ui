@@ -4,6 +4,7 @@ import { CalendarDays, User, Settings, Lightbulb } from 'lucide-react';
 import {
   convertCategoryName,
   convertCurrencyVN,
+  convertIsoDate,
   convertStringToHtml,
 } from '~/utils/files';
 import Button from '~/components/Button';
@@ -17,6 +18,7 @@ import CopyLink from '~/components/CopyLink';
 import SolutionModal from '~/modals/SolutionModal';
 import Solution from './Solution';
 import { useUProfile } from '~/hooks/ApiQuery/useUserQuery';
+import { useMemo } from 'react';
 
 function ProDeContent({ id }: { id: string }) {
   const { isMessageOpen, setIsMessageModal } = useMessageModal();
@@ -25,12 +27,18 @@ function ProDeContent({ id }: { id: string }) {
   const { data, isLoading } = useProblemDetail(id);
   const { data: profileData } = useUProfile();
 
-  const glancing = [
-    { icon: <Lightbulb />, data: data?.submission, name: 'Đề xuất' },
-    { icon: <User />, data: data?.author },
-    { icon: <CalendarDays />, data: '18/05/2025' },
-    { icon: <Settings />, data: convertCategoryName(data?.catValue) },
-  ];
+  const glancing = useMemo(() => {
+    const ideaInfo = [
+      { icon: <Lightbulb />, data: data?.submission, name: 'Đề xuất' },
+      { icon: <User />, data: data?.author },
+      {
+        icon: <CalendarDays />,
+        data: convertIsoDate(data?.publishDate ? data?.publishDate : ''),
+      },
+      { icon: <Settings />, data: convertCategoryName(data?.catValue) },
+    ];
+    return ideaInfo;
+  }, [data]);
 
   return (
     <>

@@ -24,9 +24,14 @@ type TPremiumModal = {
   setGoPremium: (value: boolean) => void;
 };
 
-type TPaymentModal = {
-  isPaymentOpen: boolean;
-  setIsPaymentModal: (value: boolean) => void;
+type TPayPremiumModal = {
+  isPayPremiumOpen: boolean;
+  setIsPayPremiumModal: (value: boolean) => void;
+};
+
+type TPayProductModal = {
+  isPayProductOpen: boolean;
+  setIsPayProductModal: (value: boolean) => void;
 };
 
 type TAuthModal = {
@@ -64,22 +69,17 @@ export const useSolutionModal = create<TSolutionModal>((set) => ({
   },
 }));
 
-// export const usePremiumModal = create<TPremiumModal>((set) => ({
-//   isPremiumOpen: false,
-//   isGoPremium: false,
+export const usePayPremiumModal = create<TPayPremiumModal>((set) => ({
+  isPayPremiumOpen: false,
+  setIsPayPremiumModal(value) {
+    set({ isPayPremiumOpen: value });
+  },
+}));
 
-//   setIsPremiumModal(value) {
-//     set({ isPremiumOpen: value });
-//   },
-//   setGoPremium(value) {
-//     set({ isGoPremium: value });
-//   },
-// }));
-
-export const usePaymentModal = create<TPaymentModal>((set) => ({
-  isPaymentOpen: false,
-  setIsPaymentModal(value) {
-    set({ isPaymentOpen: value });
+export const usePayProductModal = create<TPayProductModal>((set) => ({
+  isPayProductOpen: false,
+  setIsPayProductModal(value) {
+    set({ isPayProductOpen: value });
   },
 }));
 
@@ -97,7 +97,7 @@ export const usePremiumModal = create<TPremiumModal>()(
       },
     }),
     {
-      name: 'premium-storage', 
+      name: 'premium-storage',
       partialize: (state) => ({ isGoPremium: state.isGoPremium }),
     },
   ),

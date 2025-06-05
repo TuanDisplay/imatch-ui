@@ -9,11 +9,14 @@ import { TLoginSchema, loginSchema } from '~/common/schema';
 import { Modal } from '~/components/Popup';
 import { useAuthModal } from '~/hooks/useModalStore';
 import Button from '~/components/Button';
+import { useQueryClient } from '@tanstack/react-query';
 
 const classInput = 'w-full rounded-lg bg-white p-1.5 text-sm';
 
 export default function LoginForm({ setState }: TSetState) {
   const { closeAuthModal, setIsAuthenticated } = useAuthModal();
+
+  const queryClient = useQueryClient();
 
   const {
     register,
@@ -35,9 +38,11 @@ export default function LoginForm({ setState }: TSetState) {
     try {
       const token = await authService.login(data);
       localStorage.setItem('accessToken', token);
-      toast.success('Đăng nhập thành công! 🎉');
+      queryClient.invalidateQueries({ queryKey: ['user'] });
       closeAuthModal();
       setIsAuthenticated(true);
+
+      toast.success('Đăng nhập thành công! 🎉');
     } catch (err) {
       const error = err as AxiosError<{ message: string }>;
       toast.error(error.response?.data.message || 'Có lỗi xảy ra');

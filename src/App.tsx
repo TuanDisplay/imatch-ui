@@ -6,23 +6,27 @@ import { AuthModal } from '~/modals';
 
 import { premiumRoutes, privateRoutes, publicRoutes } from '~/routes';
 import PrivateRoute from '~/utils/PrivateRoute';
-import { useAuthModal, usePaymentModal, usePremiumModal } from '~/hooks/useModalStore';
+import {
+  useAuthModal,
+  usePayPremiumModal,
+  usePremiumModal,
+} from '~/hooks/useModalStore';
 import NotFound from '~/pages/NotFound';
 import PremiumModal from './modals/PremiumModal';
 import PremiumRoutes from './utils/PremiumRoutes';
-import PaymentModal from './modals/PaymentModal';
+import PayPremiumModal from './modals/PayPremiumModal';
 
 function App() {
   const { isAuthOpen } = useAuthModal();
   const { isPremiumOpen } = usePremiumModal();
-  const { isPaymentOpen } = usePaymentModal();
+  const { isPayPremiumOpen } = usePayPremiumModal();
 
   return (
     <>
       <Toaster position="bottom-center" toastOptions={{ duration: 3000 }} />
       {isAuthOpen && <AuthModal />}
       {isPremiumOpen && <PremiumModal />}
-      {isPaymentOpen && <PaymentModal />}
+      {isPayPremiumOpen && <PayPremiumModal />}
       <BrowserRouter>
         <Routes>
           <Route path="*" element={<NotFound />} />

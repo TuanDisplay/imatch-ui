@@ -1,19 +1,12 @@
-import { useQuery } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
-import { IPaymentUser } from '~/common/types/user';
 import LoadingAni from '~/components/Animation/LoadingAni';
 import Button from '~/components/Button';
 import { Modal } from '~/components/Popup';
+import { usePayPremium } from '~/hooks/ApiQuery/usePaymentQuery';
 import * as paymentService from '~/services/payment.service';
 
-const PaymentModal = () => {
-  const { data, isLoading } = useQuery({
-    queryKey: ['payment'],
-    queryFn: async (): Promise<IPaymentUser> => {
-      const res = await paymentService.goPremium();
-      return res;
-    },
-  });
+const PayPremiumModal = () => {
+  const { data, isLoading } = usePayPremium();
 
   const handleSubmit = async () => {
     try {
@@ -23,6 +16,7 @@ const PaymentModal = () => {
           'success',
           100000,
         );
+        
         if (res.message) {
           toast.success(res.message);
         } else {
@@ -74,4 +68,4 @@ const PaymentModal = () => {
   );
 };
 
-export default PaymentModal;
+export default PayPremiumModal;

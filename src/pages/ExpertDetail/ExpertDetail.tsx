@@ -1,8 +1,7 @@
 import { useParams } from 'react-router-dom';
 
 import Button from '~/components/Button';
-import Comment from '~/components/Comment';
-import { CommentCard } from '~/common/data';
+import Comment from './Comment';
 import { BookingModal, MessageModal } from '~/modals';
 import { useBookingModal, useMessageModal } from '~/hooks/useModalStore';
 import NotFound from '../NotFound';
@@ -30,7 +29,6 @@ function ExpertDeContent({ id }: { id: string }) {
         <LoadingScreen />
       ) : (
         <>
-          {' '}
           <div className="relative flex justify-center">
             <img
               src="/banner/uminh-banner.jpg"
@@ -134,22 +132,7 @@ function ExpertDeContent({ id }: { id: string }) {
                 </div>
               </div>
             </div>
-            <div className="mx-8 mt-10">
-              <div className="text-xl font-bold">Đánh giá và bình luận</div>
-              <div className="mt-5">
-                {CommentCard.map((item) => {
-                  return (
-                    <Comment
-                      key={item.id}
-                      imageUrl={item.imageUrl}
-                      author={item.author}
-                      publishDate={item.publishDate}
-                      desc={item.desc}
-                    />
-                  );
-                })}
-              </div>
-            </div>
+            <Comment expert_id={id} />
           </div>
         </>
       )}

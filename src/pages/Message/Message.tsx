@@ -15,6 +15,7 @@ export default function Message() {
     avatar: '',
     name: '',
     email: '',
+    user_type: 'customer',
   });
   const { isMessageOpen, setIsMessageModal } = useMessageModal();
 
@@ -33,7 +34,7 @@ export default function Message() {
         <MessageModal
           id={selectedUser.uuid}
           receiver_name={selectedUser.name}
-          user_type="customer"
+          user_type={selectedUser.user_type}
         />
       )}
       <div className="relative flex justify-center">

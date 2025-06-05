@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 import { CalendarDays, Eye, User, Settings } from 'lucide-react';
 import { useQueryClient } from '@tanstack/react-query';
@@ -8,28 +8,39 @@ import Mail from '~/components/Icons/Mail';
 import Overview from '~/components/Overview';
 import LoadingScreen from '~/layouts/components/LoadingScreen';
 import CopyLink from '~/components/CopyLink';
+import PayProductModal from '~/modals/PayProductModal';
 import { useIdeasDetail } from '~/hooks/ApiQuery/useIdeaQuery';
-import { convertStringToHtml } from '~/utils/files';
+import { convertIsoDate, convertStringToHtml } from '~/utils/files';
 import { MessageModal } from '~/modals';
-import { useMessageModal } from '~/hooks/useModalStore';
+import { useMessageModal, usePayProductModal } from '~/hooks/useModalStore';
 import { convertCategoryName, convertCurrencyVN } from '~/utils/files';
+import { usePayIdeas } from '~/hooks/ApiQuery/usePaymentQuery';
 
 function IdeaDetailContent({ id }: { id: string }) {
   const { data, isLoading } = useIdeasDetail(id);
   const { isMessageOpen, setIsMessageModal } = useMessageModal();
+  const { isPayProductOpen, setIsPayProductModal } = usePayProductModal();
 
   const queryClient = useQueryClient();
+
+  const { data: payProData, isLoading: payProLoading } = usePayIdeas(id)
 
   useEffect(() => {
     queryClient.invalidateQueries({ queryKey: ['ideas'] });
   }, [queryClient]);
 
-  const glancing = [
-    { icon: <Eye />, data: data?.views, name: 'Lượt xem' },
-    { icon: <User />, data: data?.author },
-    { icon: <CalendarDays />, data: '16/05/2025' },
-    { icon: <Settings />, data: convertCategoryName(data?.catValue) },
-  ];
+  const glancing = useMemo(() => {
+    const ideaInfo = [
+      { icon: <Eye />, data: data?.views, name: 'Lượt xem' },
+      { icon: <User />, data: data?.author },
+      {
+        icon: <CalendarDays />,
+        data: convertIsoDate(data?.publishDate ? data?.publishDate : ''),
+      },
+      { icon: <Settings />, data: convertCategoryName(data?.catValue) },
+    ];
+    return ideaInfo;
+  }, [data]);
 
   return (
     <>
@@ -42,6 +53,13 @@ function IdeaDetailContent({ id }: { id: string }) {
               id={data?.customer_id ? data?.customer_id : ''}
               receiver_name={data?.author ? data?.author : ''}
               user_type="customer"
+            />
+          )}
+          {isPayProductOpen && (
+            <PayProductModal
+              data={payProData}
+              isLoading={payProLoading}
+              product_id={id}
             />
           )}
           <div className="container mx-auto">
@@ -79,6 +97,7 @@ function IdeaDetailContent({ id }: { id: string }) {
                       <Button
                         className="px-4 py-2 text-sm font-bold uppercase"
                         primary
+                        onClick={() => setIsPayProductModal(true)}
                       >
                         Mua ý tưởng
                       </Button>

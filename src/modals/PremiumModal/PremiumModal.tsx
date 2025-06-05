@@ -1,13 +1,13 @@
 import Button from '~/components/Button';
 import { Modal } from '~/components/Popup';
-import { usePaymentModal, usePremiumModal } from '~/hooks/useModalStore';
+import { usePayPremiumModal, usePremiumModal } from '~/hooks/useModalStore';
 
 const PremiumModal = () => {
-  const { setIsPaymentModal } = usePaymentModal();
+  const { setIsPayPremiumModal } = usePayPremiumModal();
   const { setIsPremiumModal } = usePremiumModal();
 
   const handlePremium = () => {
-    setIsPaymentModal(true);
+    setIsPayPremiumModal(true);
     setIsPremiumModal(false);
   };
 

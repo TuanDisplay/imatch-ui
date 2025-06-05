@@ -2,6 +2,7 @@ export interface IUMesApi {
   avatar: string;
   name: string;
   email: string;
+  user_type: 'customer' | 'expert';
   uuid: string;
 }
 
