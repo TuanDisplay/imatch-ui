@@ -23,6 +23,7 @@ function ExpertDeContent({ id }: { id: string }) {
         <MessageModal
           id={data?.id ? data?.id : ''}
           receiver_name={data?.author ? 'ThS. ' + data?.author : ''}
+          user_type="expert"
         />
       )}
       {isLoading ? (

@@ -41,6 +41,7 @@ function IdeaDetailContent({ id }: { id: string }) {
             <MessageModal
               id={data?.customer_id ? data?.customer_id : ''}
               receiver_name={data?.author ? data?.author : ''}
+              user_type="customer"
             />
           )}
           <div className="container mx-auto">

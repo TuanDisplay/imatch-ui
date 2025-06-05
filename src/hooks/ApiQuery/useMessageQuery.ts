@@ -8,7 +8,7 @@ export const useMessage = () => {
     queryKey: ['message'],
     queryFn: async (): Promise<IUMesApi[]> => {
       const res = await messageService.messages();
-      return res.partners;
+      return res.partners || [];
     },
     enabled: !!token,
   });

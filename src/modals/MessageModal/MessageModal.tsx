@@ -6,14 +6,22 @@ import ReactQuill from 'react-quill-new';
 import { messageFormSchema, TMessageSchema } from '~/common/schema';
 import Button from '~/components/Button';
 import { Modal } from '~/components/Popup';
+import { useMessageModal } from '~/hooks/useModalStore';
 import * as messageService from '~/services/message.service';
 
 interface IMessageModal {
   id: string;
+  user_type: 'customer' | 'expert';
   receiver_name: string;
 }
 
-export default function MessageModal({ id, receiver_name }: IMessageModal) {
+export default function MessageModal({
+  id,
+  user_type = 'customer',
+  receiver_name,
+}: IMessageModal) {
+  const { setIsMessageModal } = useMessageModal();
+
   const {
     register,
     handleSubmit,
@@ -33,8 +41,9 @@ export default function MessageModal({ id, receiver_name }: IMessageModal) {
 
   const onSubmit = async (data: TMessageSchema) => {
     try {
-      await messageService.sendMessage(id, data);
+      await messageService.sendMessage(id, user_type, data);
       reset();
+      setIsMessageModal(false);
       toast.success('Gửi tin nhắn thành công');
     } catch (err) {
       const error = err as AxiosError<{ message: string }>;

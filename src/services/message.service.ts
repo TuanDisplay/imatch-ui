@@ -8,10 +8,12 @@ export const messages = async () => {
 
 export const sendMessage = async (
   id: string,
+  user_type: string,
   data: TMessageSchema,
 ) => {
   await messageRequest.post('/messages', {
     receiver_uuid: id,
+    user_type: user_type,
     title: data.title,
     content: data.content,
   });
