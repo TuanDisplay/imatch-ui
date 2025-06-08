@@ -12,13 +12,13 @@ import * as messageService from '~/services/message.service';
 
 interface IMessageModal {
   id: string;
-  user_type: 'customer' | 'expert';
+  receiver_type: 'customer' | 'expert';
   receiver_name: string;
 }
 
 export default function MessageModal({
   id,
-  user_type = 'customer',
+  receiver_type = 'customer',
   receiver_name,
 }: IMessageModal) {
   const { setIsMessageModal } = useMessageModal();
@@ -45,7 +45,7 @@ export default function MessageModal({
 
   const onSubmit = async (data: TMessageSchema) => {
     try {
-      await messageService.sendMessage(id, user_type, data);
+      await messageService.sendMessage(id, receiver_type, data);
       reset();
       queryClient.invalidateQueries({ queryKey: ['messageDe'] });
       setIsMessageModal(false);

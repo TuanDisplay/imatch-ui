@@ -15,6 +15,7 @@ import { MessageModal } from '~/modals';
 import { useMessageModal, usePayProductModal } from '~/hooks/useModalStore';
 import { convertCategoryName, convertCurrencyVN } from '~/utils/files';
 import { usePayIdeas } from '~/hooks/ApiQuery/usePaymentQuery';
+import { useUProfile } from '~/hooks/ApiQuery/useUserQuery';
 
 function IdeaDetailContent({ id }: { id: string }) {
   const { data, isLoading } = useIdeasDetail(id);
@@ -23,7 +24,8 @@ function IdeaDetailContent({ id }: { id: string }) {
 
   const queryClient = useQueryClient();
 
-  const { data: payProData, isLoading: payProLoading } = usePayIdeas(id)
+  const { data: payProData, isLoading: payProLoading } = usePayIdeas(id);
+  const { data: profileData } = useUProfile();
 
   useEffect(() => {
     queryClient.invalidateQueries({ queryKey: ['ideas'] });
@@ -52,7 +54,7 @@ function IdeaDetailContent({ id }: { id: string }) {
             <MessageModal
               id={data?.customer_id ? data?.customer_id : ''}
               receiver_name={data?.author ? data?.author : ''}
-              user_type="customer"
+              receiver_type="customer"
             />
           )}
           {isPayProductOpen && (
@@ -98,6 +100,7 @@ function IdeaDetailContent({ id }: { id: string }) {
                         className="px-4 py-2 text-sm font-bold uppercase"
                         primary
                         onClick={() => setIsPayProductModal(true)}
+                        disable={data?.customer_id === profileData?.id}
                       >
                         Mua ý tưởng
                       </Button>

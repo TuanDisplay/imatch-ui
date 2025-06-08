@@ -12,7 +12,7 @@ export interface IUMesDeApi {
   sender_uuid: string;
   sender_name: string;
   receiver_uuid: string;
-  user_type: 'customer' | 'expert';
+  receiver_type: 'customer' | 'expert';
   title: string;
   created_at: string;
   is_delete: number;

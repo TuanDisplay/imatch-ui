@@ -50,7 +50,7 @@ function ProDeContent({ id }: { id: string }) {
             <MessageModal
               id={data?.customer_id ? data?.customer_id : ''}
               receiver_name={data?.author ? data?.author : ''}
-              user_type="customer"
+              receiver_type="customer"
             />
           )}
 
@@ -94,6 +94,7 @@ function ProDeContent({ id }: { id: string }) {
                         className="px-4 py-2 text-sm font-bold uppercase"
                         primary
                         onClick={() => setIsSolutionModal(true)}
+                        disable={profileData?.id === data?.customer_id}
                       >
                         Đưa giải pháp
                       </Button>

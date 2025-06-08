@@ -34,7 +34,7 @@ export default function Message() {
         <MessageModal
           id={selectedUser.uuid}
           receiver_name={selectedUser.name}
-          user_type={selectedUser.user_type}
+          receiver_type={selectedUser.user_type}
         />
       )}
       <div className="relative flex justify-center">
