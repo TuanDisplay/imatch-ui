@@ -41,7 +41,7 @@ export const mapProFav = (raw: IProFavApi) => {
     author: raw.customer_name,
     title: raw.problemname,
     catValue: raw.industry,
-    imageUrl: raw.image[0],
+    imageUrl: raw.image,
     desc: raw.content_detail,
     publishDate: raw.post_day,
     views: raw.view,

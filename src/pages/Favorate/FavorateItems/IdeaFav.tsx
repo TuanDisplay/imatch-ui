@@ -32,7 +32,7 @@ export default function IdeaFav() {
         <>
           {data?.pages.map((page: IIdeaFavCard[]) => {
             return page?.map((item: IIdeaFavCard, index) => {
-              const isLast = page.length === index + 1;
+              const isLast = page.length === index + 1 && page.length > 2;
               return (
                 <IdeaItem
                   key={item.id}

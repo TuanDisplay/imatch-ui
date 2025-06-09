@@ -36,7 +36,7 @@ export default function MyIdeas() {
           <>
             {data?.pages.map((page: IIdeaCard[]) => {
               return page?.map((item: IIdeaCard, index) => {
-                const isLast = page.length === index + 1;
+                const isLast = page.length === index + 1 && page.length > 2;
                 return (
                   <IdeaItem
                     key={item.id}

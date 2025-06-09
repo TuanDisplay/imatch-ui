@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
 
 import LoadingAni from '~/components/Animation/LoadingAni';
-import { IProCard } from '~/common/types/problem';
+import { IProFavCard } from '~/common/types/problem';
 import { WrapperContent } from '~/components/Content';
 import { useFavProScroll } from '~/hooks/ApiQuery/useProblemQuery';
 import { ProblemItem } from '~/pages/Problem/ProblemItems';
@@ -31,13 +31,13 @@ export default function ProFav() {
         <div className="text-center">Không có dữ liệu</div>
       ) : (
         <>
-          {data?.pages.map((page: IProCard[]) => {
-            return page?.map((item: IProCard, index) => {
-              const isLast = page.length === index + 1;
+          {data?.pages.map((page: IProFavCard[]) => {
+            return page?.map((item: IProFavCard, index) => {
+              const isLast = page.length === index + 1 && page.length > 2;
               return (
                 <ProblemItem
                   key={item.id}
-                  id={item.id}
+                  id={item.post_id}
                   imageUrl={item.imageUrl}
                   catValue={item.catValue}
                   title={item.title}

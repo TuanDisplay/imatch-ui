@@ -13,6 +13,7 @@ export interface IExpDe extends IExpCard {
   email: string;
   achievements: string[];
   majors: string[];
+  total_rating: number;
 }
 
 export interface IExpApi {
@@ -24,12 +25,14 @@ export interface IExpApi {
   view: number;
   consultation: number;
   rating: number;
+  avg_rating: number;
 }
 
 export interface IExpDeApi extends IExpApi {
   password: string;
   email: string;
   achievement: string[];
+  total_rating: number;
 }
 
 export interface IExpPageApi {

@@ -34,6 +34,11 @@ type TPayProductModal = {
   setIsPayProductModal: (value: boolean) => void;
 };
 
+type TReviewModal = {
+  isReviewOpen: boolean;
+  setIsReviewModal: (value: boolean) => void;
+};
+
 type TAuthModal = {
   isAuthOpen: boolean;
   isAuthenticated: boolean;
@@ -80,6 +85,13 @@ export const usePayProductModal = create<TPayProductModal>((set) => ({
   isPayProductOpen: false,
   setIsPayProductModal(value) {
     set({ isPayProductOpen: value });
+  },
+}));
+
+export const useReviewModal = create<TReviewModal>((set) => ({
+  isReviewOpen: false,
+  setIsReviewModal(value) {
+    set({ isReviewOpen: value });
   },
 }));
 

@@ -5,7 +5,7 @@ import clsx from 'clsx';
 interface ButtonProps {
   to?: string;
   href?: string;
-  type?: string;
+  type?: 'submit' | 'button';
   primary?: boolean;
   outline?: boolean;
   premium?: boolean;

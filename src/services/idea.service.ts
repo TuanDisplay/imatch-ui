@@ -69,3 +69,12 @@ export const favIdIdeas = async () => {
 export const deleteFavIdeas = async (id: string) => {
   await ideaRequest.delete(`/favorite/${id}/delete`);
 };
+
+// buy ideas
+
+export const buyIdeas = async ({ pageParam }: { pageParam: number }) => {
+  const res = await ideaRequest.get('/ideas/buy-idea', {
+    params: { page: pageParam },
+  });
+  return res.data.items?.map(mapIdea);
+};

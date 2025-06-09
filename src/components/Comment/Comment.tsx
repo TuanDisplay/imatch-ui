@@ -1,5 +1,4 @@
 import { Star } from 'lucide-react';
-
 import { ICard } from '~/common/types';
 
 export default function Comment({
@@ -12,7 +11,7 @@ export default function Comment({
     <div className="space-y-3 border-b-[1px] py-5 last:border-none">
       <div className="flex items-center gap-5">
         <img
-          src={`/${imageUrl}`}
+          src={imageUrl}
           alt="avatar"
           className="h-8 w-8 rounded-full bg-cover"
         />

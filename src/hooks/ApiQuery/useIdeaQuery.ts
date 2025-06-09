@@ -74,3 +74,14 @@ export function useFavIdeasScroll() {
     },
   });
 }
+
+export function useBuyIdeasScroll() {
+  return useInfiniteQuery({
+    queryKey: ['buyIdeas'],
+    queryFn: ideaService.buyIdeas,
+    initialPageParam: 1,
+    getNextPageParam: (lastPage, pages) => {
+      return Array.isArray(lastPage) ? pages.length + 1 : undefined;
+    },
+  });
+}

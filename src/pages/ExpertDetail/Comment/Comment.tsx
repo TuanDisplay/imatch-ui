@@ -1,10 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
-import { Star } from 'lucide-react';
+import { MessageSquareText, Star } from 'lucide-react';
 import { useMemo, useState } from 'react';
 import type { IExpReviewItem, IExpReviewPage } from '~/common/types/rating';
 import PaginationBar from '~/components/PaginationBar';
+import { useReviewModal } from '~/hooks/useModalStore';
 import LoadingScreen from '~/layouts/components/LoadingScreen';
 import * as ratingService from '~/services/rating.service';
+import { convertIsoDate } from '~/utils/files';
 
 const RatingStars = ({ rating }: { rating: number }) => {
   return (
@@ -23,6 +25,7 @@ const RatingStars = ({ rating }: { rating: number }) => {
 
 export default function Comment({ expert_id }: { expert_id: string }) {
   const [currentPage, setCurrentPage] = useState<number>(1);
+  const { setIsReviewModal } = useReviewModal();
 
   const { data, isLoading } = useQuery({
     queryKey: ['expReview', expert_id],
@@ -38,7 +41,16 @@ export default function Comment({ expert_id }: { expert_id: string }) {
 
   return (
     <div className="mx-8 mt-10">
-      <div className="text-xl font-bold">Đánh giá và bình luận</div>
+      <div className="flex gap-2">
+        <div className="text-xl font-bold">Đánh giá và bình luận</div>
+        <i title="Đánh giá">
+          <MessageSquareText
+            size={16}
+            className="text-primary cursor-pointer duration-300 hover:text-orange-300"
+            onClick={() => setIsReviewModal(true)}
+          />
+        </i>
+      </div>
       <div className="mt-5">
         {isLoading ? (
           <LoadingScreen className="!h-[40vh]" />
@@ -67,7 +79,9 @@ export default function Comment({ expert_id }: { expert_id: string }) {
                     </div>
                     <div className="flex items-center gap-5">
                       <RatingStars rating={item.rating} />
-                      <span className="mt-0.5 text-sm">{'20/05/2003'}</span>
+                      <span className="mt-0.5 text-sm">
+                        {convertIsoDate(item.created_at)}
+                      </span>
                     </div>
                     <p>{item.comment}</p>
                   </div>
@@ -77,12 +91,14 @@ export default function Comment({ expert_id }: { expert_id: string }) {
           </>
         )}
       </div>
-      <PaginationBar
-        currentPage={currentPage}
-        itemsPerPage={data?.limit ? data?.limit : 0}
-        totalItems={data?.total ? data.total : 0}
-        setCurrentPage={setCurrentPage}
-      />
+      {reviewData.length > 0 && (
+        <PaginationBar
+          currentPage={currentPage}
+          itemsPerPage={data?.limit ? data?.limit : 0}
+          totalItems={data?.total ? data.total : 0}
+          setCurrentPage={setCurrentPage}
+        />
+      )}
     </div>
   );
 }

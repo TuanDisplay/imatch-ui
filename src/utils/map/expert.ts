@@ -8,7 +8,7 @@ export const mapExpert = (raw: IExpApi) => {
     imageUrl: raw.image,
     mainMajor: raw.industry,
     consultCount: raw.consultation,
-    rate: raw.rating,
+    rate: raw.avg_rating,
     views: raw.view,
   };
 };
@@ -22,9 +22,10 @@ export const mapExpertDe = (raw: IExpDeApi) => {
     majors: raw.industry,
     mainMajor: raw.industry[0],
     consultCount: raw.consultation,
-    rate: raw.rating,
+    rate: raw.avg_rating,
     views: raw.view,
     achievements: raw.achievement,
     email: raw.email,
+    total_rating: raw.total_rating,
   };
 };

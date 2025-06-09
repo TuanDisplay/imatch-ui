@@ -3,15 +3,21 @@ import { useParams } from 'react-router-dom';
 import Button from '~/components/Button';
 import Comment from './Comment';
 import { BookingModal, MessageModal } from '~/modals';
-import { useBookingModal, useMessageModal } from '~/hooks/useModalStore';
+import {
+  useBookingModal,
+  useMessageModal,
+  useReviewModal,
+} from '~/hooks/useModalStore';
 import NotFound from '../NotFound';
 import { useExpertDetail } from '~/hooks/ApiQuery/useExpertQuery';
 import { convertCategoryName } from '~/utils/files';
 import LoadingScreen from '~/layouts/components/LoadingScreen';
+import ReviewModal from '~/modals/ReviewModal';
 
 function ExpertDeContent({ id }: { id: string }) {
   const { isBookingOpen, setIsBookingModal } = useBookingModal();
   const { isMessageOpen, setIsMessageModal } = useMessageModal();
+  const { isReviewOpen } = useReviewModal();
 
   const { data, isLoading } = useExpertDetail(id);
 
@@ -25,6 +31,7 @@ function ExpertDeContent({ id }: { id: string }) {
           receiver_type="expert"
         />
       )}
+      {isReviewOpen && <ReviewModal expert_id={id} />}
       {isLoading ? (
         <LoadingScreen />
       ) : (
@@ -55,7 +62,10 @@ function ExpertDeContent({ id }: { id: string }) {
                   className="h-60 w-48 rounded-xl object-cover shadow-md"
                 />
                 <div className="mt-4 text-gray-500">
-                  <p>{data?.rate}/5.0 ⭐ </p>
+                  <p>
+                    {data?.rate && Math.round(data?.rate * 10) / 10}/5.0 ⭐
+                    {data?.total_rating}
+                  </p>
                   <p>{data?.consultCount} lượt tư vấn</p>
                   <p>{data?.views} lượt xem</p>
                 </div>

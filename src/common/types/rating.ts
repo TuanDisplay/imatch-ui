@@ -11,6 +11,7 @@ export interface IExpReviewItem {
   customer_uuid: string;
   customer_name: string;
   customerAvartar: string;
+  created_at: string;
   rating: number;
   comment: string;
 }

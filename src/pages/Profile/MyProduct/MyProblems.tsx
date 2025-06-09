@@ -33,7 +33,7 @@ export default function MyProblems() {
         <>
           {data?.pages.map((page: IProCard[]) => {
             return page?.map((item: IProCard, index) => {
-              const isLast = page.length === index + 1;
+              const isLast = page.length === index + 1 && page.length > 2;
               return (
                 <ProblemItem
                   key={item.id}

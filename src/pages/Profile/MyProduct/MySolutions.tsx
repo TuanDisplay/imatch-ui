@@ -40,7 +40,7 @@ export default function MySolutions() {
         <>
           {data?.pages.map((page: IMySolutionApi[]) => {
             return page?.map((item: IMySolutionApi, index) => {
-              const isLast = page.length === index + 1;
+              const isLast = page.length === index + 1 && page.length > 2;
               return (
                 <Overview key={item.uuid} title={item.title_solution} icon="📰">
                   <div

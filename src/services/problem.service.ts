@@ -1,6 +1,6 @@
 import { TMessageSchema, TPostFormSchema } from '~/common/schema';
 import { problemRequest } from '~/lib/axios';
-import { mapPro } from '~/utils/map/problem';
+import { mapPro, mapProFav } from '~/utils/map/problem';
 
 export const postProblem = async (data: TPostFormSchema) => {
   const res = await problemRequest.post('/problem', {
@@ -49,7 +49,7 @@ export const favProblem = async ({ pageParam }: { pageParam: number }) => {
   const res = await problemRequest.get('/problem/list-favorite', {
     params: { page: pageParam },
   });
-  return res.data.items.map(mapPro);
+  return res.data.items.map(mapProFav);
 };
 
 export const addFavPro = async (id: string) => {
