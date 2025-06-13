@@ -130,7 +130,11 @@ export default function Header() {
             </Button>
             <div className="h-10 w-10 overflow-hidden rounded-full border-2 border-amber-300">
               <Link to="/profile">
-                <img src="/no-user.png" alt="no-user" className="bg-cover" />
+                <img
+                  src="/no-user.png"
+                  alt="no-user"
+                  className="h-full w-full object-cover"
+                />
               </Link>
             </div>
           </div>
@@ -202,7 +206,7 @@ export default function Header() {
                       : (data?.avatar !== '' && data?.avatar) || '/no-user.png'
                   }
                   alt="avatar"
-                  className="object-cover hover:opacity-50"
+                  className="h-full w-full object-cover hover:opacity-50"
                 />
               </Link>
             </div>

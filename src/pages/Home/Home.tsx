@@ -75,13 +75,25 @@ export default function Home() {
         pagination={{ clickable: true }}
       >
         <SwiperSlide>
-          <img src="/banner/banner1.jpg" alt="banner1" className="bg-cover" />
+          <img
+            src="/banner/home-banner5.jpg"
+            alt="banner1"
+            className="bg-cover"
+          />
         </SwiperSlide>
         <SwiperSlide>
-          <img src="/banner/banner2.jpg" alt="banner1" className="bg-cover" />
+          <img
+            src="/banner/home-banner2.jpg"
+            alt="banner2"
+            className="bg-cover"
+          />
         </SwiperSlide>
         <SwiperSlide>
-          <img src="/banner/banner3.jpg" alt="banner3" className="bg-cover" />
+          <img
+            src="/banner/home-banner4.jpg"
+            alt="banner3"
+            className="bg-cover"
+          />
         </SwiperSlide>
       </Swiper>
       <div className="relative bg-[#F6F6F6] py-10 max-md:py-5">
