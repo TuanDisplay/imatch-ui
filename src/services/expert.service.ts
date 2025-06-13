@@ -2,7 +2,7 @@ import { customerRequest, expertRequest } from '~/lib/axios';
 
 export const expert = async (params: any) => {
   const res = await expertRequest.get('/expert', {
-    params: { params },
+    params: params ,
   });
   return res.data;
 };

@@ -10,7 +10,7 @@ interface UseIdeasParams {
   page?: number;
   limit?: number;
   industry?: string;
-  ideasname?: string;
+  expertname?: string;
   price_tier?: string;
   [key: string]: any;
 }

@@ -1,94 +1,78 @@
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-
-import Button from '~/components/Button';
-import { bookingFormSchema, TBookingSchema } from '~/common/schema';
+import { useState } from 'react';
 import { Modal } from '~/components/Popup';
+import Button from '~/components/Button';
+import { useBookingModal } from '~/hooks/useModalStore';
+import clsx from 'clsx';
 
-export default function BookingModal() {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<TBookingSchema>({ resolver: zodResolver(bookingFormSchema) });
+const timeSlots = [
+  { start: '08:00', end: '09:00' },
+  { start: '09:00', end: '10:00' },
+  { start: '10:00', end: '11:00' },
+  { start: '14:00', end: '15:00' },
+  { start: '15:00', end: '16:00' },
+];
 
-  const onSubmit = (data: TBookingSchema) => {
-    const bookingInfo = {
-      fname: data.fname,
-      date: data.date,
-      time: data.time,
-      // iso: new Date(`${data.date}T${data.time}`).toISOString(),
-    };
-    const JBooking = JSON.stringify(bookingInfo);
-    localStorage.setItem(data.fname, JBooking);
+const BookingModal = () => {
+  const { setIsBookingModal } = useBookingModal();
+  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (selectedIndex === null) return;
+
+    const selectedSlot = timeSlots[selectedIndex];
+    console.log('Slot đã chọn:', selectedSlot);
+
+    // Gửi data, gọi API... tùy bạn
+    setIsBookingModal(false);
   };
 
   return (
-    <Modal className="min-h-[100px] max-w-sm bg-white">
-      <div className="max-w-md space-y-4 px-8 py-6">
-        <h2 className="text-center text-2xl font-bold text-gray-800">
-          Đặt Lịch
-        </h2>
-
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-          <div>
-            <label
-              htmlFor="fname"
-              className="mb-1 block text-sm font-medium text-gray-700"
+    <Modal className="w-full max-w-md rounded-xl bg-white px-5 py-4 shadow-lg">
+      <h2 className="my-4 text-xl font-semibold">Chọn thời gian đặt lịch</h2>
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <div>
+          <label className="mb-1 block text-sm font-medium text-gray-700">
+            Chọn ngày
+          </label>
+          <input
+            type="date"
+            // value={selectedDate}
+            // onChange={(e) => {
+            //   setSelectedDate(e.target.value);
+            //   setSelectedIndex(null); // reset slot
+            // }}
+            className="w-full rounded-md border border-gray-300 p-2 focus:ring-2 focus:ring-blue-400 focus:outline-none"
+          />
+        </div>
+        <div className="grid grid-cols-2 gap-3">
+          {timeSlots.map((slot, index) => (
+            <button
+              key={index}
+              type="button"
+              onClick={() => setSelectedIndex(index)}
+              className={clsx(
+                'cursor-pointer rounded-lg border p-3 text-sm font-medium transition',
+                selectedIndex === index
+                  ? 'border-blue-500 bg-blue-100 text-blue-700'
+                  : 'border-gray-300 hover:border-blue-300',
+              )}
             >
-              Họ Và Tên
-            </label>
-            <input
-              id="fname"
-              {...register('fname')}
-              type="text"
-              className="w-full rounded-xl border px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
-              placeholder="Nhập họ tên"
-            />
-            {errors.fname && (
-              <p className="text-sm text-red-500">{errors.fname.message}</p>
-            )}
-          </div>
-
-          <div>
-            <label
-              htmlFor="bookingDate"
-              className="mb-1 block text-sm font-medium text-gray-700"
-            >
-              Chọn ngày hẹn
-            </label>
-            <input
-              type="date"
-              {...register('date')}
-              className="w-full rounded-xl border px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
-            />
-            {errors.date && (
-              <p className="text-sm text-red-500">{errors.date.message}</p>
-            )}
-          </div>
-
-          <div>
-            <label
-              htmlFor="bookingTime"
-              className="mb-1 block text-sm font-medium text-gray-700"
-            >
-              Chọn thời gian
-            </label>
-            <input
-              id="bookingTime"
-              {...register('time')}
-              type="time"
-              className="w-full rounded-xl border px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
-            />
-            {errors.time && (
-              <p className="text-sm text-red-500">{errors.time.message}</p>
-            )}
-          </div>
-          <Button className="w-full py-2 font-semibold" primary>
-            Xác nhận
-          </Button>
-        </form>
-      </div>
+              {slot.start} - {slot.end}
+            </button>
+          ))}
+        </div>
+        <Button
+          type="submit"
+          className="w-full py-2"
+          primary
+          disable={selectedIndex === null}
+        >
+          Xác nhận đặt lịch
+        </Button>
+      </form>
     </Modal>
   );
-}
+};
+
+export default BookingModal;

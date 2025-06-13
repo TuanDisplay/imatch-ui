@@ -65,7 +65,7 @@ function ExpertDeContent({ id }: { id: string }) {
                   <p>
                     {data?.rate &&
                       (Math.round(data?.rate * 10) / 10).toFixed(1)}
-                    /5.0 ⭐{data?.total_rating}
+                    /5.0 ⭐({data?.total_rating})
                   </p>
                   <p>{data?.consultCount} lượt tư vấn</p>
                   <p>{data?.views} lượt xem</p>

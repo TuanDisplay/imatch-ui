@@ -39,3 +39,10 @@ export const webHookIdeas = async (
   });
   return res.data;
 };
+
+export const paymentBuySol = async(solution_id: string) => {
+    const res = await paymentRequest.post('/customer/buyideas', {
+    idea_uuid: solution_id,
+  });
+  return res.data;
+}

@@ -61,7 +61,7 @@ export default function Expert() {
                       key={item.id}
                       id={item.id}
                       imageUrl={item.imageUrl}
-                      mainMajor={'technology'}
+                      mainMajor={item.mainMajor[0]}
                       author={item.author}
                       desc={item.desc}
                       views={item.views}
