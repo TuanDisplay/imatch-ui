@@ -17,6 +17,8 @@ export interface IIdeaDe extends IIdeaCard {
   image: string[];
   imageIP: string;
   isIP: number;
+  isActive: number;
+  isDelete: number;
 }
 
 export interface IIdeaApi {
@@ -47,6 +49,8 @@ export interface IIdeaDeApi {
   image_intellect: string;
   value_benefits: string;
   is_intellect: number;
+  is_active: number;
+  is_delete: number;
 }
 
 export interface IIdeaPageApi {

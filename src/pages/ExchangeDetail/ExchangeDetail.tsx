@@ -16,15 +16,16 @@ import { useMessageModal, usePayProductModal } from '~/hooks/useModalStore';
 import { convertCategoryName, convertCurrencyVN } from '~/utils/files';
 import { usePayIdeas } from '~/hooks/ApiQuery/usePaymentQuery';
 import { useUProfile } from '~/hooks/ApiQuery/useUserQuery';
+import { ProductStatus } from '~/components/Status';
 
 function IdeaDetailContent({ id }: { id: string }) {
-  const { data, isLoading } = useIdeasDetail(id);
   const { isMessageOpen, setIsMessageModal } = useMessageModal();
   const { isPayProductOpen, setIsPayProductModal } = usePayProductModal();
 
   const queryClient = useQueryClient();
 
-  const { data: payProData, isLoading: payProLoading } = usePayIdeas(id);
+  const { data, isLoading } = useIdeasDetail(id);
+  const { data: payIdeasData, isLoading: payIdeasLoading } = usePayIdeas(id);
   const { data: profileData } = useUProfile();
 
   useEffect(() => {
@@ -59,9 +60,10 @@ function IdeaDetailContent({ id }: { id: string }) {
           )}
           {isPayProductOpen && (
             <PayProductModal
-              data={payProData}
-              isLoading={payProLoading}
+              data={payIdeasData}
+              isLoading={payIdeasLoading}
               product_id={id}
+              type="ideas"
             />
           )}
           <div className="container mx-auto">
@@ -92,8 +94,16 @@ function IdeaDetailContent({ id }: { id: string }) {
                         })}
                       </div>
                     </div>
-                    <div className="mt-6 mb-6 text-sm font-bold uppercase">
-                      Ý tưởng có tương tác cao
+                    <div className="flex justify-between">
+                      <div className="mt-6 mb-6 text-sm font-bold uppercase">
+                        Ý tưởng có tương tác cao
+                      </div>
+                      {data?.customer_id === profileData?.id && (
+                        <ProductStatus
+                          isActive={data?.isActive}
+                          isDelete={data?.isDelete}
+                        />
+                      )}
                     </div>
                     <div className="flex items-center justify-between">
                       <Button

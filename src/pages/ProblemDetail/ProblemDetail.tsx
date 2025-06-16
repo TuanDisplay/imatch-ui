@@ -14,18 +14,26 @@ import { useProblemDetail } from '~/hooks/ApiQuery/useProblemQuery';
 import LoadingScreen from '~/layouts/components/LoadingScreen';
 import { useMessageModal, useSolutionModal } from '~/hooks/useModalStore';
 import { MessageModal } from '~/modals';
+import { useEffect, useMemo } from 'react';
+import { useQueryClient } from '@tanstack/react-query';
 import CopyLink from '~/components/CopyLink';
 import SolutionModal from '~/modals/SolutionModal';
 import Solution from './Solution';
 import { useUProfile } from '~/hooks/ApiQuery/useUserQuery';
-import { useMemo } from 'react';
+import { ProductStatus } from '~/components/Status';
 
 function ProDeContent({ id }: { id: string }) {
   const { isMessageOpen, setIsMessageModal } = useMessageModal();
   const { isSolutionOpen, setIsSolutionModal } = useSolutionModal();
+  
+  const queryClient = useQueryClient();
 
   const { data, isLoading } = useProblemDetail(id);
   const { data: profileData } = useUProfile();
+
+    useEffect(() => {
+      queryClient.invalidateQueries({ queryKey: ['problem'] });
+    }, [queryClient]);
 
   const glancing = useMemo(() => {
     const ideaInfo = [
@@ -86,8 +94,16 @@ function ProDeContent({ id }: { id: string }) {
                         })}
                       </div>
                     </div>
-                    <div className="mt-6 mb-6 text-sm font-bold uppercase">
-                      Vấn đề có tương tác cao
+                    <div className="flex justify-between">
+                      <div className="mt-6 mb-6 text-sm font-bold uppercase">
+                        Vấn đề có tương tác cao
+                      </div>
+                      {data?.customer_id === profileData?.id && (
+                        <ProductStatus
+                          isActive={data?.isActive}
+                          isDelete={data?.isDelete}
+                        />
+                      )}
                     </div>
                     <div className="flex items-center justify-between">
                       <Button

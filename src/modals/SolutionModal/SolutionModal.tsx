@@ -7,6 +7,7 @@ import ReactQuill from 'react-quill-new';
 import { solutionFormSchema, TSolutionSchema } from '~/common/schema';
 import Button from '~/components/Button';
 import { Modal } from '~/components/Popup';
+import { useSolutionModal } from '~/hooks/useModalStore';
 import * as problemService from '~/services/problem.service';
 
 interface ISolutionModal {
@@ -15,6 +16,7 @@ interface ISolutionModal {
 }
 
 export default function SolutionModal({ proName, id }: ISolutionModal) {
+  const { setIsSolutionModal } = useSolutionModal();
   const queryClient = useQueryClient();
 
   const {
@@ -39,6 +41,7 @@ export default function SolutionModal({ proName, id }: ISolutionModal) {
       await problemService.postSolution(id, data);
       reset();
       queryClient.invalidateQueries({ queryKey: ['solutions'] });
+      setIsSolutionModal(false);
       toast.success('Gửi tin nhắn thành công');
     } catch (err) {
       const error = err as AxiosError<{ message: string }>;

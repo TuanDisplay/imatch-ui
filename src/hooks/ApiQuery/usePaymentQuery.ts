@@ -21,3 +21,13 @@ export const usePayIdeas = (id: string) => {
     },
   });
 };
+
+export const usePayProblem = (id: string) => {
+  return useQuery({
+    queryKey: ['payPro'],
+    queryFn: async (): Promise<IPaymentUser> => {
+      const res = await paymentService.paymentBuySol(id);
+      return res;
+    },
+  });
+};

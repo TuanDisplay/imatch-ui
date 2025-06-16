@@ -17,6 +17,8 @@ export interface IProDetail extends IProCard {
   image: string[];
   imageIP: string;
   isIP: number;
+  isActive: number;
+  isDelete: number;
 }
 
 export interface IProApi {
@@ -49,6 +51,8 @@ export interface IProDeApi {
   image_intellect: string;
   value_benefits: string;
   is_intellect: number;
+  is_active: number;
+  is_delete: number;
 }
 
 export interface IProPageApi {

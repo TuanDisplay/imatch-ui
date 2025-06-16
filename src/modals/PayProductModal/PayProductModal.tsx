@@ -1,3 +1,4 @@
+import { AxiosError } from 'axios';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { IPaymentUser } from '~/common/types/user';
@@ -11,31 +12,45 @@ interface PayProdProps {
   data: IPaymentUser | undefined;
   isLoading: boolean;
   product_id: string;
+  solution_id?: string;
+  type: 'ideas' | 'problems';
 }
 
-const PayProductModal = ({ data, isLoading, product_id }: PayProdProps) => {
+const PayProductModal = ({
+  data,
+  isLoading,
+  product_id,
+  solution_id,
+  type,
+}: PayProdProps) => {
   const { setIsPayProductModal } = usePayProductModal();
   const navigate = useNavigate();
 
   const handleSubmit = async () => {
     try {
       if (data) {
-        const res = await paymentService.webHookIdeas(
-          data?.payment_uuid,
-          'success',
-          product_id,
-          200000,
-        );
-        if (res.message) {
-          setIsPayProductModal(false);
-          navigate(-1);
-          toast.success(res.message);
+        if (type === 'ideas') {
+          await paymentService.webHookIdeas(
+            data?.payment_uuid,
+            'success',
+            product_id,
+            200000,
+          );
         } else {
-          toast.error(res.error);
+          await paymentService.webHookProblem(
+            data.payment_uuid,
+            'success',
+            product_id,
+            solution_id ? solution_id : '',
+          );
         }
+        setIsPayProductModal(false);
+        navigate(-1);
+        toast.success('Thanh toán thành công');
       }
     } catch (err) {
-      console.error(err);
+      const error = err as AxiosError<{ message: string }>;
+      toast.error(error.response?.data.message || 'Lỗi thanh toán');
     }
   };
 

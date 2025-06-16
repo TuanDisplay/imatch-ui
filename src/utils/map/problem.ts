@@ -31,6 +31,8 @@ export const mapProDe = (raw: IProDeApi) => {
     imageIP: raw.image_intellect,
     isIP: raw.is_intellect,
     publishDate: raw.post_day,
+    isActive: raw.is_active,
+    isDelete: raw.is_delete,
   };
 };
 
