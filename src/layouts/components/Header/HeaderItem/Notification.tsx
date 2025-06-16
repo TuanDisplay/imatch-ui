@@ -66,56 +66,56 @@ export default function Notification() {
       </div>
 
       <div className="max-h-60 overflow-y-auto">
-        {data?.reverse().map((message) => {
-          const notiFind = notiNameArr.find(
-            (item) => item.type === message.Type,
-          );
-          return (
-            <MenuItem key={message.Uuid}>
-              {
-                <div
-                  className={clsx(
-                    'cursor-pointer space-y-0.5 px-4 py-2 text-sm text-gray-700 hover:bg-gray-200',
-                  )}
-                >
-                  <div className="flex items-center justify-between">
-                    <div
-                      className={clsx('', {
-                        'text-green-600':
-                          message.Type === 'accept_idea' ||
-                          message.Type === 'accept_problem',
-                        'text-red-500':
-                          message.Type === 'reject_idea' ||
-                          message.Type === 'reject_problem',
-                        'text-orange-500':
-                          message.Type === 'idea_post' ||
-                          message.Type === 'problem_post',
-                        'text-blue-500':
-                          message.Type === 'buy_idea' ||
-                          message.Type === 'buy_problem',
-                      })}
-                    >
-                      {notiFind?.beforeName}
-                    </div>
-                    <div className="flex items-center gap-2 text-xs opacity-70">
-                      <Circle size={8} fill="#ff6e00" stroke="none" />
-                      <span>{convertIsoDMonth(message.CreatedAt)}</span>
-                    </div>
-                  </div>
+        {data === null || data?.length === 0 ? (
+          <div className="my-2 text-center text-sm">Chưa có thông báo</div>
+        ) : (
+          data?.map((message) => {
+            const notiFind = notiNameArr.find(
+              (item) => item.type === message.Type,
+            );
+            return (
+              <MenuItem key={message.Uuid}>
+                {
                   <div
-                    title={message.Name}
-                    className="line-clamp-1 opacity-80"
-                  >{`${message.Name}`}</div>
-                </div>
-              }
-            </MenuItem>
-          );
-        })}
+                    className={clsx(
+                      'cursor-pointer space-y-0.5 px-4 py-2 text-sm text-gray-700 hover:bg-gray-200',
+                    )}
+                  >
+                    <div className="flex items-center justify-between">
+                      <div
+                        className={clsx('', {
+                          'text-green-600':
+                            message.Type === 'accept_idea' ||
+                            message.Type === 'accept_problem',
+                          'text-red-500':
+                            message.Type === 'reject_idea' ||
+                            message.Type === 'reject_problem',
+                          'text-orange-500':
+                            message.Type === 'idea_post' ||
+                            message.Type === 'problem_post',
+                          'text-blue-500':
+                            message.Type === 'buy_idea' ||
+                            message.Type === 'buy_problem',
+                        })}
+                      >
+                        {notiFind?.beforeName}
+                      </div>
+                      <div className="flex items-center gap-2 text-xs opacity-70">
+                        <Circle size={8} fill="#ff6e00" stroke="none" />
+                        <span>{convertIsoDMonth(message.CreatedAt)}</span>
+                      </div>
+                    </div>
+                    <div
+                      title={message.Name}
+                      className="line-clamp-1 opacity-80"
+                    >{`${message.Name}`}</div>
+                  </div>
+                }
+              </MenuItem>
+            );
+          })
+        )}
       </div>
-
-      {/* <div className="cursor-pointer px-4 py-3 text-center text-sm text-blue-600 hover:underline">
-        Xem tất cả
-      </div> */}
     </MenuItems>
   );
 }
