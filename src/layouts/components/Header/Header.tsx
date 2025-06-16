@@ -2,12 +2,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Menu } from '~/components/Popup';
 import toast from 'react-hot-toast';
 import { AxiosError } from 'axios';
-import {
-  Menu as Wrapper,
-  MenuButton,
-  MenuItem,
-  MenuItems,
-} from '@headlessui/react';
+import { Menu as Wrapper, MenuButton } from '@headlessui/react';
 
 import {
   CircleFadingArrowUp,
@@ -26,6 +21,7 @@ import { useHasScrolledBeyond } from '~/hooks/useHasScrolledBeyond';
 import * as authService from '~/services/auth.service';
 import { useUProfile } from '~/hooks/ApiQuery/useUserQuery';
 import { useEffect } from 'react';
+import Notification from './HeaderItem/Notification';
 
 const links = [
   {
@@ -70,7 +66,7 @@ export default function Header() {
   };
 
   useEffect(() => {
-    if (data && data.start_day) {
+    if (data && data.start_day && data.end_day) {
       setGoPremium(true);
     }
   }, [data, setGoPremium]);
@@ -157,44 +153,7 @@ export default function Header() {
               >
                 <Bell className="text-black" />
               </MenuButton>
-
-              <MenuItems
-                anchor="bottom"
-                className="absolute right-0 z-50 mt-2 w-75 origin-top-right divide-y divide-gray-100 rounded-xl bg-white shadow-lg ring-1 ring-black/10 focus:outline-none"
-              >
-                <div className="px-4 py-3">
-                  <p className="text-primary text-sm font-semibold uppercase">
-                    Thông báo
-                  </p>
-                </div>
-
-                <div className="max-h-60 overflow-y-auto">
-                  {[
-                    'Bạn có một tin nhắn mới.',
-                    'Ý tưởng của bạn vừa được phê duyệt!',
-                    'Bạn nhận được 3 lượt thích mới.',
-                    'Hệ thống sẽ bảo trì lúc 12:00 đêm nay.',
-                  ].map((message, idx) => (
-                    <MenuItem key={idx}>
-                      {({ active }) => (
-                        <div
-                          className={`cursor-pointer px-4 py-2 text-sm ${
-                            active
-                              ? 'text-primary bg-gray-100'
-                              : 'text-gray-700'
-                          }`}
-                        >
-                          {message}
-                        </div>
-                      )}
-                    </MenuItem>
-                  ))}
-                </div>
-
-                <div className="cursor-pointer px-4 py-3 text-center text-sm text-blue-600 hover:underline">
-                  Xem tất cả
-                </div>
-              </MenuItems>
+              <Notification />
             </Wrapper>
 
             <div className="h-10 w-10 overflow-hidden rounded-full border-2 border-amber-300">

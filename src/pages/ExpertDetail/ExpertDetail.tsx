@@ -23,7 +23,7 @@ function ExpertDeContent({ id }: { id: string }) {
 
   return (
     <>
-      {isBookingOpen && <BookingModal />}
+      {isBookingOpen && <BookingModal id={id} />}
       {isMessageOpen && (
         <MessageModal
           id={data?.id ? data?.id : ''}

@@ -24,15 +24,15 @@ const publicRoutes = [
 
 const privateRoutes = [
   { path: config.routes.profile, component: Profile },
-  { path: config.routes.posting, component: Posting },
   { path: config.routes.myFavorate, component: Favorate },
   { path: config.routes.myMessage, component: Message },
+  { path: config.routes.expertDetail, component: ExpertDetail },
 ];
 
 const premiumRoutes = [
+  { path: config.routes.posting, component: Posting },
   { path: config.routes.exchangeDetail, component: ExchangeDetail },
   { path: config.routes.problemDetail, component: ProblemDetail },
-  { path: config.routes.expertDetail, component: ExpertDetail },
 ];
 
 export { publicRoutes, privateRoutes, premiumRoutes };

@@ -91,7 +91,7 @@ export default function LoginForm({ setState }: TSetState) {
             type="submit"
             className="mt-3 w-full p-1 font-bold"
             primary
-            disable={!isSignInDisabled}
+            disable={!isSignInDisabled || isSubmitting}
           >
             {isSubmitting ? 'Đang xử lý...' : 'Đăng nhập'}
           </Button>
