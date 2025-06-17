@@ -1,5 +1,5 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Menu } from '~/components/Popup';
+import { NavMenu, NotiMenu } from '~/components/Popup/Menu';
 import toast from 'react-hot-toast';
 import { AxiosError } from 'axios';
 import { Menu as Wrapper, MenuButton } from '@headlessui/react';
@@ -21,7 +21,6 @@ import { useHasScrolledBeyond } from '~/hooks/useHasScrolledBeyond';
 import * as authService from '~/services/auth.service';
 import { useUProfile } from '~/hooks/ApiQuery/useUserQuery';
 import { useEffect } from 'react';
-import Notification from './HeaderItem/Notification';
 
 const links = [
   {
@@ -104,9 +103,9 @@ export default function Header() {
             ))}
         </div>
         <nav className="flex h-fit gap-15 font-bold uppercase">
-          <Menu links={links}>
+          <NavMenu links={links}>
             <div className="uppercase"> Sàn ý tưởng</div>
-          </Menu>
+          </NavMenu>
           <Link to="/expert" className="hover:text-primary duration-300">
             Tư vấn
           </Link>
@@ -153,7 +152,7 @@ export default function Header() {
               >
                 <Bell className="text-black" />
               </MenuButton>
-              <Notification />
+              <NotiMenu />
             </Wrapper>
 
             <div className="h-10 w-10 overflow-hidden rounded-full border-2 border-amber-300">

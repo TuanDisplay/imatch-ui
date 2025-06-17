@@ -38,7 +38,7 @@ export default function ExpertItem({
           <div className="flex items-center gap-3">
             <div className="flex items-center gap-1">
               <Star size={16} />
-              <span>{rate} đánh giá</span>
+              <span>{rate.toFixed(1)} đánh giá</span>
             </div>
             <div className="flex items-center gap-1">
               <HeartHandshake size={16} />

@@ -46,6 +46,10 @@ export const deleteMyIdeas = async (id: string) => {
   return res.data;
 };
 
+export const myIdeasEdit = async (idea_id: string) => {
+  await ideaRequest.put(`/ideas/${idea_id}/update-myidea`);
+};
+
 // fav idea
 
 export const favIdeas = async ({ pageParam }: { pageParam: number }) => {

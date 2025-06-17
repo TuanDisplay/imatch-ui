@@ -21,7 +21,7 @@ interface MenuItems {
   icon: ReactNode;
 }
 
-export default function Menu({ children, links }: MenuProps) {
+export default function NavMenu({ children, links }: MenuProps) {
   return (
     <Wrapper as="div">
       {({ open }) => {

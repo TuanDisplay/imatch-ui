@@ -76,21 +76,21 @@ export default function Home() {
       >
         <SwiperSlide>
           <img
-            src="/banner/home-banner5.jpg"
+            src="/banner/home-banner5.webp"
             alt="banner1"
             className="bg-cover"
           />
         </SwiperSlide>
         <SwiperSlide>
           <img
-            src="/banner/home-banner2.jpg"
+            src="/banner/home-banner2.webp"
             alt="banner2"
             className="bg-cover"
           />
         </SwiperSlide>
         <SwiperSlide>
           <img
-            src="/banner/home-banner4.jpg"
+            src="/banner/home-banner4.webp"
             alt="banner3"
             className="bg-cover"
           />
@@ -118,7 +118,7 @@ export default function Home() {
                 </SwiperSlide>
                 <SwiperSlide>
                   <SlideItem
-                    imageUrl="/AvtHuy.png"
+                    imageUrl="/AvtHuy.webp"
                     name="Ths. Anh Huy"
                     major="Chuyên gia phần mềm"
                   />

@@ -4,6 +4,7 @@ import config from '~/config';
 import Home from '~/pages/Home';
 import Profile from '~/pages/Profile';
 import Posting from '~/pages/Posting';
+import PostingEdit from '~/pages/PostingEdit';
 import Exchange from '~/pages/Exchange';
 import Problem from '~/pages/Problem';
 import Expert from '~/pages/Expert';
@@ -31,6 +32,7 @@ const privateRoutes = [
 
 const premiumRoutes = [
   { path: config.routes.posting, component: Posting },
+  { path: config.routes.postingEdit, component: PostingEdit },
   { path: config.routes.exchangeDetail, component: ExchangeDetail },
   { path: config.routes.problemDetail, component: ProblemDetail },
 ];

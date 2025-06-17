@@ -16,7 +16,7 @@ const notiNameArr = [
     type: 'accept_idea',
   },
   {
-    beforeName: 'Ý tưởng không được duyệt ❌',
+    beforeName: 'Ý tưởng bị từ chối ❌',
     type: 'reject_idea',
   },
   {
@@ -32,7 +32,7 @@ const notiNameArr = [
     type: 'accept_problem',
   },
   {
-    beforeName: 'Vấn đề không được duyệt ❌',
+    beforeName: 'Vấn đề bị từ chối ❌',
     type: 'reject_problem',
   },
   {

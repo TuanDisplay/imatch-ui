@@ -14,14 +14,15 @@ import * as ideaService from '~/services/idea.service';
 import * as problemService from '~/services/problem.service';
 import { MajorCat } from '~/common/data';
 import { TPostFormSchema, postFormSchema } from '~/common/schema';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import NotFound from '~/pages/NotFound';
 
 const methodO = [
   { value: 'posting-idea', name: 'Mua - Bán ý tưởng' },
   { value: 'solving-problem', name: 'Đặt vấn đề' },
 ];
 
-export default function Posting() {
+function PostingEditBody({ id }: { id: string }) {
   const {
     register,
     handleSubmit,
@@ -61,7 +62,7 @@ export default function Posting() {
         />
         <div className="absolute top-1/2 translate-y-[-50%] max-md:hidden">
           <h2 className="bg-primary p-2 text-4xl font-bold text-white uppercase">
-            ĐĂNG Ý TƯỞNG
+            CHỈNH SỬA Ý TƯỞNG
           </h2>
         </div>
       </div>
@@ -188,4 +189,10 @@ export default function Posting() {
       </div>
     </div>
   );
+}
+
+export default function PostingEdit() {
+  const { postId } = useParams();
+  if (!postId) return <NotFound />;
+  return <PostingEditBody id={postId} />;
 }

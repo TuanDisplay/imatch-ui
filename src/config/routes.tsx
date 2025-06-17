@@ -2,6 +2,7 @@ const routes = {
   home: '/',
   profile: '/profile',
   posting: '/posting',
+  postingEdit: '/posting-edit/:postId',
   exchange: '/exchange',
   problem: '/problem',
   expert: '/expert',

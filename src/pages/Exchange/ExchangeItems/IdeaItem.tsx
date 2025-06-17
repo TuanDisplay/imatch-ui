@@ -2,7 +2,7 @@ import { CalendarDays, Eye, User, ArrowRight, Settings } from 'lucide-react';
 
 import { Link, useLocation } from 'react-router-dom';
 import { IIdeaCard } from '~/common/types/idea';
-import DelMyProduct from '~/components/DelMyProduct';
+import { DelMyProduct, EditMyProduct } from '~/components/ManaMyProduct';
 import FavToggle from '~/components/FavToggle';
 
 import {
@@ -28,9 +28,12 @@ export default function IdeaItem({
   return (
     <div className="hover:shadow-primary relative mx-auto flex max-w-4xl gap-6 rounded-2xl bg-white p-6 shadow-md transition-shadow duration-300">
       {!location.pathname.includes('/profile') ? (
-        <FavToggle id={id} type='idea'/>
+        <FavToggle id={id} type="idea" />
       ) : (
-        <DelMyProduct id={id} type="idea" />
+        <div className="flex items-center gap-2">
+          <EditMyProduct />
+          <DelMyProduct id={id} type="idea" />
+        </div>
       )}
       <img
         src={imageUrl}

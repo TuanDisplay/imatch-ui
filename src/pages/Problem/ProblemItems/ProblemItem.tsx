@@ -8,7 +8,7 @@ import {
 import { Link, useLocation } from 'react-router-dom';
 
 import { IProCard } from '~/common/types/problem';
-import DelMyProduct from '~/components/DelMyProduct';
+import { DelMyProduct } from '~/components/ManaMyProduct';
 import FavToggle from '~/components/FavToggle';
 import {
   convertCategoryName,
@@ -33,7 +33,7 @@ export default function ProblemItem({
   return (
     <div className="hover:shadow-primary relative mx-auto flex max-w-4xl gap-6 rounded-2xl bg-white p-6 shadow-md transition-shadow duration-300">
       {!location.pathname.includes('/profile') ? (
-        <FavToggle id={id} type='problem'/>
+        <FavToggle id={id} type="problem" />
       ) : (
         <DelMyProduct id={id} type="problem" />
       )}
