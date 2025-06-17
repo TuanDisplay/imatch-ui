@@ -36,6 +36,7 @@ function PostingEditBody({ id }: { id: string }) {
   });
 
   const navigate = useNavigate();
+  console.log(id);
 
   const onSubmit = async (data: TPostFormSchema) => {
     try {
