@@ -6,19 +6,28 @@ export interface IProCard {
   publishDate: string;
   title: string;
   price: number;
-  submission?: number;
+  submission: number;
+  isActive?: number;
+  isDelete?: number;
   innerRef?: any;
 }
 
-export interface IProDetail extends IProCard {
+export interface IProDetail {
   customer_id: string;
   author: string;
   benefitValue: string;
   image: string[];
   imageIP: string;
   isIP: number;
-  isActive: number;
-  isDelete: number;
+  imageUrl: string;
+  catValue: string;
+  desc: string;
+  publishDate: string;
+  title: string;
+  price: number;
+  submission: number;
+  isActive?: number;
+  isDelete?: number;
 }
 
 export interface IProApi {
@@ -33,6 +42,8 @@ export interface IProApi {
   post_day: string;
   view: number;
   solution: number;
+  is_active: number;
+  is_delete: number;
 }
 export interface IProDeApi {
   uuid: string;

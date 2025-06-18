@@ -11,6 +11,8 @@ export const mapIdea = (raw: IIdeaApi) => {
     publishDate: raw.post_day,
     views: raw.view,
     price: raw.price,
+    isActive: raw.IsActive,
+    isDelete: raw.IsDelete,
   };
 };
 
@@ -27,6 +29,23 @@ export const mapIdeaDe = (raw: IIdeaDeApi) => {
     price: raw.price,
     image: raw.image,
     imageIP: raw.image_intellect,
+    isIP: raw.is_intellect,
+    publishDate: raw.post_day,
+    isActive: raw.is_active,
+    isDelete: raw.is_delete,
+  };
+};
+
+export const mapIdeaDeEdit = (raw: IIdeaDeApi) => {
+  return {
+    customer_id: raw.customeruuid,
+    author: raw.customer_name,
+    title: raw.ideasname,
+    catValue: raw.industry,
+    desc: raw.content_detail,
+    benefitValue: raw.value_benefits,
+    views: raw.view,
+    price: raw.price,
     isIP: raw.is_intellect,
     publishDate: raw.post_day,
     isActive: raw.is_active,

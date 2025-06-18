@@ -45,6 +45,8 @@ export default function MyProblems() {
                   price={item.price}
                   submission={item.submission}
                   publishDate={item.publishDate}
+                  isActive={item.isActive}
+                  isDelete={item.isDelete}
                   innerRef={isLast ? ref : null}
                 />
               );

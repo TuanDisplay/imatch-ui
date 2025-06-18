@@ -3,7 +3,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { IIdeaPageApi } from '~/common/types/idea';
 import * as ideaService from '~/services/idea.service';
-import { mapIdeaDe } from '~/utils/map/idea';
+import { mapIdeaDe, mapIdeaDeEdit } from '~/utils/map/idea';
 
 interface UseIdeasParams {
   top_view_only?: boolean;
@@ -51,6 +51,19 @@ export function useIdeasDetail(id: string) {
   }, [query.isError, query.error, navigate]);
 
   return query;
+}
+
+export function useIdeaDeEdit(id: string) {
+  return useQuery({
+    queryKey: ['ideaDeEdit', id],
+    queryFn: async () => {
+      const res = await ideaService.getIdeaDeEdit(id);
+      const data = mapIdeaDeEdit(res.data);
+      return data;
+    },
+    staleTime: 1000 * 60 * 5,
+    retry: 2,
+  });
 }
 
 export function useMyIdeasScroll() {

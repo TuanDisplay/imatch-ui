@@ -46,8 +46,26 @@ export const deleteMyIdeas = async (id: string) => {
   return res.data;
 };
 
-export const myIdeasEdit = async (idea_id: string) => {
-  await ideaRequest.put(`/ideas/${idea_id}/update-myidea`);
+export const myIdeasEdit = async (idea_id: string, data: TPostFormSchema) => {
+  await ideaRequest.put(`/ideas/${idea_id}/update-myidea`, {
+    ideasname: data.title,
+    industry: data.majorSelect,
+    content_detail: data.descTxtEdit,
+    value_benefits: data.valueTxtEdit,
+    price: data.price,
+    is_intellect: Number(data.ipRadio),
+    image_intellect: data.ipImgUpload,
+    image: [
+      data.relatedImgUpload,
+      data.relatedImgUpload2,
+      data.relatedImgUpload3,
+    ],
+  });
+};
+
+export const getIdeaDeEdit = async (idea_id: string) => {
+  const res = await ideaRequest.get(`/ideas/${idea_id}/my-detail-for-update`);
+  return res.data;
 };
 
 // fav idea

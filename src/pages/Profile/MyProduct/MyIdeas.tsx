@@ -48,6 +48,8 @@ export default function MyIdeas() {
                     desc={item.desc}
                     views={item.views}
                     publishDate={item.publishDate}
+                    isActive={item.isActive}
+                    isDelete={item.isDelete}
                     innerRef={isLast ? ref : null}
                   />
                 );

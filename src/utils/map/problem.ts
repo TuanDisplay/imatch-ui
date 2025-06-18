@@ -12,6 +12,8 @@ export const mapPro = (raw: IProApi) => {
     views: raw.view,
     price: raw.price,
     submission: raw.solution,
+    isActive: raw.is_active,
+    isDelete: raw.is_delete,
   };
 };
 
@@ -29,6 +31,23 @@ export const mapProDe = (raw: IProDeApi) => {
     price: raw.price,
     image: raw.image,
     imageIP: raw.image_intellect,
+    isIP: raw.is_intellect,
+    publishDate: raw.post_day,
+    isActive: raw.is_active,
+    isDelete: raw.is_delete,
+  };
+};
+
+export const mapProDeEdit = (raw: IProDeApi) => {
+  return {
+    customer_id: raw.customer_uuid,
+    author: raw.customer_name,
+    title: raw.problemname,
+    catValue: raw.industry,
+    desc: raw.content_detail,
+    benefitValue: raw.value_benefits,
+    views: raw.view,
+    price: raw.price,
     isIP: raw.is_intellect,
     publishDate: raw.post_day,
     isActive: raw.is_active,

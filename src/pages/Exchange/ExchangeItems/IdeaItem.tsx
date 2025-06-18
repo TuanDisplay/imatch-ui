@@ -21,6 +21,8 @@ export default function IdeaItem({
   author,
   views,
   publishDate,
+  isActive,
+  isDelete,
   innerRef,
 }: IIdeaCard) {
   const location = useLocation();
@@ -31,7 +33,9 @@ export default function IdeaItem({
         <FavToggle id={id} type="idea" />
       ) : (
         <div className="flex items-center gap-2">
-          <EditMyProduct />
+          {isActive === 0 && isDelete === 0 && (
+            <EditMyProduct id={id} typeLink="idea-edit" />
+          )}
           <DelMyProduct id={id} type="idea" />
         </div>
       )}

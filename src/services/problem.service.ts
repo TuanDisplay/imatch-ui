@@ -44,6 +44,33 @@ export const deleteMyPro = async (id: string) => {
   return res.data;
 };
 
+export const myProblemEdit = async (
+  problem_id: string,
+  data: TPostFormSchema,
+) => {
+  await problemRequest.put(`/problem/${problem_id}/update-myproblem`, {
+    problemname: data.title,
+    industry: data.majorSelect,
+    content_detail: data.descTxtEdit,
+    value_benefits: data.valueTxtEdit,
+    price: data.price,
+    is_intellect: Number(data.ipRadio),
+    image_intellect: data.ipImgUpload,
+    image: [
+      data.relatedImgUpload,
+      data.relatedImgUpload2,
+      data.relatedImgUpload3,
+    ],
+  });
+};
+
+export const getProDeEdit = async (problem_id: string) => {
+  const res = await problemRequest.get(
+    `/problem/${problem_id}/my-detail-for-update`,
+  );
+  return res.data;
+};
+
 //fav problem
 export const favProblem = async ({ pageParam }: { pageParam: number }) => {
   const res = await problemRequest.get('/problem/list-favorite', {

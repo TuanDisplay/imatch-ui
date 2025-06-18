@@ -8,7 +8,7 @@ import {
 import { Link, useLocation } from 'react-router-dom';
 
 import { IProCard } from '~/common/types/problem';
-import { DelMyProduct } from '~/components/ManaMyProduct';
+import { DelMyProduct, EditMyProduct } from '~/components/ManaMyProduct';
 import FavToggle from '~/components/FavToggle';
 import {
   convertCategoryName,
@@ -26,6 +26,8 @@ export default function ProblemItem({
   price,
   submission,
   publishDate,
+  isActive,
+  isDelete,
   innerRef,
 }: IProCard) {
   const location = useLocation();
@@ -35,7 +37,10 @@ export default function ProblemItem({
       {!location.pathname.includes('/profile') ? (
         <FavToggle id={id} type="problem" />
       ) : (
-        <DelMyProduct id={id} type="problem" />
+        <div className="flex items-center gap-2">
+          {isActive === 0 && isDelete === 0 && <EditMyProduct id={id} typeLink='problem-edit'/>}
+          <DelMyProduct id={id} type="problem" />
+        </div>
       )}
       <img
         src={imageUrl}

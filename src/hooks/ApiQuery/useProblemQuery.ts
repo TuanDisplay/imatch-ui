@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 import * as problemService from '~/services/problem.service';
 import { IProPageApi, ISolutionPageApi } from '~/common/types/problem';
-import { mapProDe } from '~/utils/map/problem';
+import { mapProDe, mapProDeEdit } from '~/utils/map/problem';
 
 interface UseProParams {
   top_view_only?: boolean;
@@ -51,6 +51,19 @@ export function useProblemDetail(id: string) {
   }, [query.isError, query.error, navigate]);
 
   return query;
+}
+
+export function useProDeEdit(id: string) {
+  return useQuery({
+    queryKey: ['ideaDeEdit', id],
+    queryFn: async () => {
+      const res = await problemService.getProDeEdit(id);
+      const data = mapProDeEdit(res.data);
+      return data;
+    },
+    staleTime: 1000 * 60 * 5,
+    retry: 2,
+  });
 }
 
 export function useMyProScroll() {

@@ -7,18 +7,27 @@ export interface IIdeaCard {
   desc: string;
   title: string;
   views: number;
+  isActive?: number;
+  isDelete?: number;
   innerRef?: any;
 }
 
-export interface IIdeaDe extends IIdeaCard {
+export interface IIdeaDe {
   customer_id: string;
   price: number;
   benefitValue: string;
   image: string[];
   imageIP: string;
   isIP: number;
-  isActive: number;
-  isDelete: number;
+  imageUrl: string;
+  catValue: string;
+  publishDate: string;
+  author: string;
+  desc: string;
+  title: string;
+  views: number;
+  isActive?: number;
+  isDelete?: number;
 }
 
 export interface IIdeaApi {
@@ -31,6 +40,8 @@ export interface IIdeaApi {
   price: number;
   post_day: string;
   view: number;
+  IsActive: number;
+  IsDelete: number;
 }
 
 export interface IIdeaDeApi {
