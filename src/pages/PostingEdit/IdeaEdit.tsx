@@ -9,6 +9,8 @@ import {
   UploadImageField,
 } from '~/components/FormItem';
 import toast from 'react-hot-toast';
+import { useEffect } from 'react';
+import { AxiosError } from 'axios';
 
 import * as ideaService from '~/services/idea.service';
 import { MajorCat } from '~/common/data';
@@ -17,7 +19,6 @@ import { useNavigate, useParams } from 'react-router-dom';
 import NotFound from '~/pages/NotFound';
 import { useIdeaDeEdit } from '~/hooks/ApiQuery/useIdeaQuery';
 import LoadingScreen from '~/layouts/components/LoadingScreen';
-import { useEffect } from 'react';
 
 function PostingEditBody({ id }: { id: string }) {
   const { data, isLoading } = useIdeaDeEdit(id);
@@ -63,8 +64,8 @@ function PostingEditBody({ id }: { id: string }) {
       navigate('/');
       toast.success('Chỉnh sửa ý tưởng thành công');
     } catch (err) {
-      toast.error('Lỗi đăng');
-      console.log(err);
+      const error = err as AxiosError<{ message: string }>;
+      toast.error(error.response?.data.message || 'Có lỗi xảy ra');
     }
   };
   return (
