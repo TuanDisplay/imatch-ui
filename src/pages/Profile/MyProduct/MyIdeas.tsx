@@ -43,7 +43,7 @@ export default function MyIdeas() {
                     id={item.id}
                     imageUrl={item.imageUrl}
                     catValue={item.catValue}
-                    author={item.author}
+                    price={item.price}
                     title={item.title}
                     desc={item.desc}
                     views={item.views}
