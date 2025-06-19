@@ -84,7 +84,7 @@ export default function Exchange() {
                       catValue={item.catValue}
                       title={item.title}
                       desc={item.desc}
-                      author={item.author}
+                      price={item.price}
                       views={item.views}
                       publishDate={item.publishDate}
                     />

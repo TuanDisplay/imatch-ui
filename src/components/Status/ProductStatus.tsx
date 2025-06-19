@@ -13,10 +13,10 @@ export default function ProductStatus({
         <Status pending>Đang kiểm duyệt</Status>
       )}
       {isActive === 1 && isDelete === 0 && (
-        <Status accept>Phê duyệt ý tưởng</Status>
+        <Status accept>Phê duyệt sản phẩm</Status>
       )}
       {isActive === 1 && isDelete === 1 && (
-        <Status accept>Từ chối ý tưởng</Status>
+        <Status accept>Từ chối sản phẩm</Status>
       )}
     </>
   );

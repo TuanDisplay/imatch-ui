@@ -1,4 +1,10 @@
-import { CalendarDays, Eye, User, ArrowRight, Settings } from 'lucide-react';
+import {
+  CalendarDays,
+  Eye,
+  ArrowRight,
+  Settings,
+  CircleDollarSign,
+} from 'lucide-react';
 
 import { Link, useLocation } from 'react-router-dom';
 import { IIdeaCard } from '~/common/types/idea';
@@ -7,9 +13,9 @@ import FavToggle from '~/components/FavToggle';
 
 import {
   convertCategoryName,
+  convertCurrencyVN,
   convertHtmlToText,
   convertIsoDate,
-  convertPartName,
 } from '~/utils/files';
 
 export default function IdeaItem({
@@ -18,7 +24,7 @@ export default function IdeaItem({
   catValue,
   title,
   desc,
-  author,
+  price,
   views,
   publishDate,
   isActive,
@@ -66,10 +72,8 @@ export default function IdeaItem({
               </span>
             </div>
             <div className="flex items-center gap-1">
-              <User size={16} />
-              <span title={author} className="line-clamp-1">
-                {convertPartName(author)}
-              </span>
+              <CircleDollarSign size={16} />
+              <span className="line-clamp-1">{convertCurrencyVN(price)}</span>
             </div>
             <div className="flex items-center gap-1">
               <Eye size={16} />

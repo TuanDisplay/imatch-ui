@@ -3,7 +3,8 @@ export interface IIdeaCard {
   imageUrl: string;
   catValue: string;
   publishDate: string;
-  author: string;
+  author?: string;
+  price: number;
   desc: string;
   title: string;
   views: number;

@@ -3,25 +3,29 @@ import toast from 'react-hot-toast';
 import LoadingAni from '~/components/Animation/LoadingAni';
 import Button from '~/components/Button';
 import { Modal } from '~/components/Popup';
-import { usePayPremium } from '~/hooks/ApiQuery/usePaymentQuery';
-import { useAuthModal, usePremiumModal } from '~/hooks/useModalStore';
+import {
+  useAuthModal,
+  usePayPremiumModal,
+  usePremiumModal,
+} from '~/hooks/useModalStore';
 import * as paymentService from '~/services/payment.service';
 import * as authService from '~/services/auth.service';
-import { useNavigate } from 'react-router-dom';
+import { usePayPremium } from '~/hooks/ApiQuery/usePaymentQuery';
 
 const PayPremiumModal = () => {
   const { data, isLoading } = usePayPremium();
   const { setIsAuthenticated } = useAuthModal();
   const { setGoPremium } = usePremiumModal();
-  const navigate = useNavigate();
+  const { setIsPayPremiumModal } = usePayPremiumModal();
 
   const logoutHandle = async () => {
     try {
       await authService.logout();
       localStorage.removeItem('accessToken');
       setGoPremium(false);
+      setIsPayPremiumModal(false);
       setIsAuthenticated(false);
-      navigate('/');
+
       toast.success('Đăng xuất thành công! 🎉');
     } catch (err) {
       const error = err as AxiosError<{ message: string; codeStatus: number }>;
